@@ -1,0 +1,1695 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Use PY in Calculus}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{use-py-in-calculus}{%
+\section{Use PY in Calculus}\label{use-py-in-calculus}}
+
+\hypertarget{what-is-function}{%
+\subsection{What is Function}\label{what-is-function}}
+
+我們可以將函數（functions）看作一台機器，當我們向這台機器輸入「x」時，它將輸出「f(x)」
+
+這台機器所能接受的所有輸入的集合被稱為定義域（domian），其所有可能的輸出的集合被稱為值域（range）。函數的定義域和值域都十分重要，當我們知道一個函數的定義域，就不會將不合適的\texttt{x}扔給這個函數；知道了定義域就可以判斷一個值是否可能是這個函數所輸出的。
+
+\hypertarget{ux591aux9805ux5f0fpolynomials}{%
+\subsubsection{多項式（polynomials）：}\label{ux591aux9805ux5f0fpolynomials}}
+
+\(f(x) = x^3 - 5^2 +9\) 因為這是個三次函數，當 \(x\rightarrow \infty\)
+時，\(f(x) \rightarrow -\infty\)，當 \(x\rightarrow \infty\)
+時，\(f(x) \rightarrow \infty\)
+因此，這個函數的定義域和值域都屬於實數集\(R\)。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3} \PY{o}{\PYZhy{}} \PY{l+m+mi}{5}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{9}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{f}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5 -3
+
+    \end{Verbatim}
+
+    通常，我們會繪製函數圖像來幫助我們來理解函數的變化
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{num} \PY{o}{=} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)} 
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} [<matplotlib.lines.Line2D at 0x6f6a6270>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux6307ux6578ux51fdux6578exponential-functions}{%
+\subsubsection{指數函數（Exponential
+Functions）}\label{ux6307ux6578ux51fdux6578exponential-functions}}
+
+\(exp(x) = e^x\) domain is \(（-\infty,\infty)\),range is
+\((0,\infty)\)。在 py 中，我們可以利用歐拉常數 \(e\) 定義指數函數：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{e}\PY{o}{*}\PY{o}{*}\PY{n}{x}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exp(2) = e\PYZca{}2 = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+exp(2) = e\^{}2 =  7.3890560989306495
+
+    \end{Verbatim}
+
+    或者可以使用 \texttt{numpy} 自帶的指數函數：\texttt{np.e**x}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{eexp}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{e}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exp(2) = e\PYZca{}2 = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{eexp}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+exp(2) = e\^{}2 =  7.3890560989306495
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} [<matplotlib.lines.Line2D at 0x1137944a8>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    當然，數學課就會講的更加深入\(e^x\)的定義式應該長成這樣：\(\begin{align*}\sum_{k=0}^{\infty}\frac{x^k}{k!}\end{align*}\)
+至於為什麼他會長成這樣，會在後面提及。
+這個式子應該怎麼在\texttt{python}中實現呢?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{k}{def} \PY{n+nf}{eeexp}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{sum} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{sum} \PY{o}{+}\PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{k}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+             \PY{k}{return} \PY{n+nb}{sum}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{exp(2) = e\PYZca{}2 = }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{eeexp}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+exp(2) = e\^{}2 =  7.389056098930649
+
+    \end{Verbatim}
+
+    \hypertarget{ux5c0dux6578ux51fdux6578logarithmic-function}{%
+\subsubsection{對數函數（Logarithmic
+Function）}\label{ux5c0dux6578ux51fdux6578logarithmic-function}}
+
+\(log_e(x) = ln(x)\) \emph{高中教的 \(ln(x)\)
+在大學和以後的生活中經常會被寫成 \(log(x)\)}
+對數函數其實就是指數函數的反函數，即，定義域為\((0,\infty)\)，值域為\((-\infty,\infty)\)。
+\texttt{numpy} 為我們提供了以\(2，e，10\) 為底數的對數函數：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{,}\PY{n}{endpoint} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{y1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log2}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{y2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{y3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{y2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{y3}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} [<matplotlib.lines.Line2D at 0x1138561d0>,
+          <matplotlib.lines.Line2D at 0x1138567f0>,
+          <matplotlib.lines.Line2D at 0x113856ba8>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux4e09ux89d2ux51fdux6578trigonometric-functions}{%
+\subsubsection{三角函數（Trigonometric
+functions）}\label{ux4e09ux89d2ux51fdux6578trigonometric-functions}}
+
+三角函數是常見的關於角的函數，三角函數在研究三角形和園等集合形狀的性質時，有很重要的作用，也是研究週期性現象的基礎工具；常見的三角函數有：正弦（sin），餘弦（cos）和正切（tan），當然，以後還會用到如餘切，正割，餘割等。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{)}  
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}  
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}  
+         \PY{n}{c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tan}\PY{p}{(}\PY{n}{x}\PY{p}{)}  
+         \PY{c+c1}{\PYZsh{} d = np.log(x)  }
+           
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}  
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{a}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}sin(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}  
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}cos(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}  
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{c}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}tan(x)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}  
+         \PY{c+c1}{\PYZsh{} plt.plot(x,d,label=\PYZsq{}\PYZdl{}log(x)\PYZdl{}\PYZsq{},color=\PYZsq{}grey\PYZsq{},linewidth=0.5)  }
+           
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time(s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Volt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PyPlot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}  
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}  
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}  
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux8907ux5408ux51fdux6578composition}{%
+\subsection{複合函數（composition）}\label{ux8907ux5408ux51fdux6578composition}}
+
+函數 \(f\) 和 \(g\) 複合，\(f \circ g = f(g(x))\)，可以理解為先把\(x\)
+輸入給 \(g\) 函數，獲得 \(g(x)\) 後在輸入函數 \(f\)
+中，最後得出：\(f(g(x))\) * 幾個函數符合後仍然為一個函數 *
+任何函數都可以看成若干個函數的複合形式 * \(f\circ g(x)\) 的定義域與
+\(g(x)\) 相同，但是值域不一定與 \(f(x)\) 相同
+
+例：\(f(x) = x^2, g(x) = x^2 + x, h(x) = x^4 +2x^2\cdot x + x^2\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         \PY{k}{def} \PY{n+nf}{g}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{x}
+         \PY{k}{def} \PY{n+nf}{h}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{f}\PY{p}{(}\PY{n}{g}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f(1) equals}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{f}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g(1) equals}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{g}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{h(1) equals}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{h}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{h}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+f(1) equals 1 g(1) equals 2 h(1) equals 4
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} <matplotlib.collections.PathCollection at 0x114391208>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_16_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux9006ux51fdux6578inverse-function}{%
+\subsubsection{逆函數（Inverse
+Function）}\label{ux9006ux51fdux6578inverse-function}}
+
+給定一個函數\(f\)，其逆函數 \(f^{-1}\) 是一個與 \(f\) 進行複合後
+\(f\circ f^{-1}(x) = x\) 的特殊函數 函數與其反函數圖像一定是關於
+\(y = x\) 對稱的
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{k}{def} \PY{n+nf}{w}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         \PY{k}{def} \PY{n+nf}{inv}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{w}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{inv}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} [<matplotlib.lines.Line2D at 0x1138ce630>,
+          <matplotlib.lines.Line2D at 0x1138cea90>,
+          <matplotlib.lines.Line2D at 0x1138eb7f0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux9ad8ux968eux51fdux6578higher-order-function}{%
+\subsubsection{高階函數（Higher Order
+Function）}\label{ux9ad8ux968eux51fdux6578higher-order-function}}
+
+我们可以不局限于将数值作为函数的输入和输出，函数本身也可以作为输入和输出，
+
+在給出例子之前，插一段話： 這裡介紹一下在
+\texttt{python}中十分重要的一個表達式：\texttt{lambda}，\texttt{lambda}本身就是一行函數，他們在其他語言中被稱為匿名函數，如果你不想在程序中對一個函數使用兩次，你也許會想到用
+\texttt{lambda} 表達式，他們和普通函數完全一樣。 原型： \texttt{lambda}
+參數：操作（參數）
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{add} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{:} \PY{n}{x}\PY{o}{+}\PY{n}{y}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{add}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+8
+
+    \end{Verbatim}
+
+    這裡，我們給出 高階函數 的例子：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{k}{def} \PY{n+nf}{horizontal\PYZus{}shift}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{H}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{H}\PY{p}{)}
+\end{Verbatim}
+
+
+    上面定義的函數 \texttt{horizontal\_shift(f,H)}。接受的輸入是一個函數
+\(f\) 和一個實數 \(H\)，然後輸出一個新的函數，新函數是將 \(f\)
+沿著水平方向平移了距離 \(H\) 以後得到的。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{shifted\PYZus{}g} \PY{o}{=} \PY{n}{horizontal\PYZus{}shift}\PY{p}{(}\PY{n}{g}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{g}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{shifted\PYZus{}g}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} [<matplotlib.lines.Line2D at 0x113737278>,
+          <matplotlib.lines.Line2D at 0x113737da0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    以高階函數的觀點去看，函數的複合就等於將兩個函數作為輸入給複合函數，然後由其產生一個新的函數作為輸出。所以複合函數又有了新的定義：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k}{def}  \PY{n+nf}{composite}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{g}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{f}\PY{p}{(}\PY{n}{g}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{h3} \PY{o}{=} \PY{n}{composite}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{g}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n+nb}{sum} \PY{p}{(}\PY{n}{h}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{==} \PY{n}{h3}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)} \PY{o}{==} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+
+    \end{Verbatim}
+
+    \hypertarget{ux6b50ux62c9ux516cux5f0feulers-formula}{%
+\subsection{歐拉公式（Euler's
+Formula）}\label{ux6b50ux62c9ux516cux5f0feulers-formula}}
+
+在前面給出了指數函數的多項式形式：\(e^x = 1 + \frac{x}{1!} + \frac{x^2}{2!} + \dots = \sum_{k = 0}^{\infty}\frac{x^k}{k!}\)
+接下來，我們不僅不去解釋上面的式子是怎麼來的，而且還要喪心病狂地扔給讀者：
+三角函數：
+\(\begin{align*} &sin(x) = \frac{x}{1!}-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}\dots = \sum_{k=0}^{\infty}(-1)^k\frac{x^{(2k+1)}}{(2k+1)!} \\ &cos(x) = \frac{x^0}{0!}-\frac{x^2}{2!}+\frac{x^4}{4!}-\dots =\sum_{k=0}^{\infty}(-1)^k\frac{x^{2k}}{2k!}\end{align*}\)
+在中學，我們曾經學過虛數 \texttt{i} （Imaginary
+Number）的概念，這裡我們對其來源和意義暫不討論，只是簡單回顧一下其基本的運算規則：
+\(i^0 = 1, i^1 = i, i^2 = -1 \dots\) 將 \(ix\)
+帶入指數函數的公式中，得：
+\(\begin{align*}e^{ix} &= \frac{(ix)^0}{0!} + \frac{(ix)^1}{1!} + \frac{(ix)^2}{2!} + \dots \\ &= \frac{i^0 x^0}{0!} + \frac{i^1 x^1}{1!} + \frac{i^2 x^2}{2!} + \dots \\ &= 1\frac{x^0}{0!} + i\frac{x^i}{1!} -1\frac{x^2}{2!} -i\frac{x^3}{3!} \dots \\ &=(\frac{x^0}{0!}-\frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots ) + i(\frac{x^1}{1!} -\frac{x^3}{3!} + \frac{x^5}{5!}-\frac{x^7}{7!} + \dots \\&cos(x) + isin(x)\end{align*}\)
+此時，我們便可以獲得著名的歐拉公式：\(e^{ix} = cos(x) + isin(x)\)
+令，\(x = \pi\)時，\(\Rightarrow e^{i\pi} + 1 = 0\)
+歐拉公式在三角函數、圓周率、虛數以及自然指數之間建立的橋樑，在很多領域都扮演著重要的角色。
+如果你對偶啦公式的正確性感到疑惑，不妨在\texttt{Python}中驗證一下：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{k+kn}{import} \PY{n+nn}{math} 
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}  
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{pi} 
+         \PY{c+c1}{\PYZsh{} the imaginary number in Numpy is \PYZsq{}j\PYZsq{};}
+         \PY{n}{lhs} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{e}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{x}\PY{p}{)}
+         \PY{n}{rhs} \PY{o}{=} \PY{n}{b} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{0}\PY{o}{+}\PY{l+m+mi}{1}\PY{n}{j}\PY{p}{)}\PY{o}{*}\PY{n}{a}
+         \PY{k}{if}\PY{p}{(}\PY{n}{lhs} \PY{o}{==} \PY{n}{rhs}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{bool}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{k}{else}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{bool}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+
+    \end{Verbatim}
+
+    這裡給大家介紹一個很好的 \texttt{Python}
+庫：\texttt{sympy}，如名所示，它是符號數學的 \texttt{Python}
+庫，它的目標是稱為一個全功能的計算機代數系統，同時保證代碼簡潔、易於理解和拓展；
+所以，我們也可以通過 \texttt{sympy} 來展開 \(e^x\) 來看看它的結果是什麼🙂
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{k+kn}{import} \PY{n+nn}{sympy}
+         \PY{n}{z} \PY{o}{=}\PY{n}{sympy}\PY{o}{.}\PY{n}{Symbol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{real} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{sympy}\PY{o}{.}\PY{n}{expand}\PY{p}{(}\PY{n}{sympy}\PY{o}{.}\PY{n}{E}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{sympy}\PY{o}{.}\PY{n}{I}\PY{o}{*}\PY{n}{z}\PY{p}{)}\PY{p}{,}\PY{n+nb}{complex} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} I*sin(z) + cos(z)
+\end{Verbatim}
+            
+    將函數寫成多項式形式有很多的好處，多項式的微分和積分都相對容易。這是就很容易證明這個公式了：
+\(\frac{d}{dx}e^x = e^x \frac{d}{dx}sin(x) = cos(x)\frac{d}{dx}cos(x) = -sin(x)\)
+
+    喔，對了，這一章怎麼能沒有圖呢？收尾之前來一發吧： 我也不知道这是啥 🤨
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}  
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}  
+         \PY{k+kn}{import} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d}  
+           
+         \PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{mgrid}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{20}\PY{n}{j}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{20}\PY{n}{j}\PY{p}{]}  
+         \PY{n}{z}\PY{o}{=}\PY{n}{x}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}  
+           
+         \PY{n}{ax}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,}\PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot\PYZus{}surface}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{z}\PY{p}{,}\PY{n}{rstride}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{cstride}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{coolwarm}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}zlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}    
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux6cf0ux52d2ux7d1aux6578}{%
+\subsubsection{泰勒級數}\label{ux6cf0ux52d2ux7d1aux6578}}
+
+\hypertarget{ux6cf0ux52d2ux7d1aux6578taylor-series}{%
+\paragraph{泰勒級數（Taylor
+Series）}\label{ux6cf0ux52d2ux7d1aux6578taylor-series}}
+
+在前幾章的預熱之後，讀者可能有這樣的疑問，是否任何函數都可以寫成友善的多項式形式呢？
+到目前為止，我們介紹的\(e^x\), \(sin(x)\), \(cos(x)\)
+都可以用多項式進行表達。其實，這些多項式實際上就是這些函數在 \(x=0\)
+處展開的泰勒級數。 下面我們給出函數 \(f(x)\) 在\(x=0\)
+處展開的泰勒級數的定義：
+\(\begin{align*}f(x) = f(0) + \frac{f'(0)}{1!}x + \frac{f''(0)}{2!}x^2 + \frac{f'''(0)}{3!}x^3 + \dots = \sum^{\infty}{k = 0} \frac{f^{(k)}(0)}{k!}x^k \end{align*}\)
+其中：\(f^{(k)}(0)\) 表示函數 \(f\) 在 \(k\) 次導函數在 \(x=0\) 的取值。
+我們知道 \(e^x\) 無論計算多少次導數結果出來都是 \(e^x\)
+即，\(exp(x) = exp'(x)=exp''(x)=exp'''(x)=exp'''(x) = \dots\)
+因而，根據上面的定義展開：
+\(\begin{align*}exp(x) &= exp(0) + \frac{exp'(0)}{1!}+\frac{exp''(0)}{2!}x^2 +\frac{exp'''(0)}{3!}x^3 + \dots \\ &=1 + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots \\&=\sum_{k=0}^{\infty}\frac{x^k}{k!}\end{align*}\)
+\#\#\#\# 多項式近似（Polynomial Approximation）
+泰勒級數，可以把非常複雜的函數變成無限項的和的形式。通常，我們可以只計算泰勒級數的前幾項和，就可以獲得原函數的局部近似了。在做這樣的多項式近似時，我們所計算的項越多，則近似的結果越精確。
+下面，開始使用 \texttt{python} 做演示
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{k+kn}{import} \PY{n+nn}{sympy} \PY{k}{as} \PY{n+nn}{sy}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{functions} \PY{k}{import} \PY{n}{sin}\PY{p}{,}\PY{n}{cos}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ggplot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Define the variable and the function to approximate}
+         \PY{n}{x} \PY{o}{=} \PY{n}{sy}\PY{o}{.}\PY{n}{Symbol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{f} \PY{o}{=} \PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Factorial function}
+         \PY{k}{def} \PY{n+nf}{factorial}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{n} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{n}\PY{o}{*}\PY{n}{factorial}\PY{p}{(}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Taylor approximation at x0 of the function \PYZsq{}function\PYZsq{}}
+         \PY{k}{def} \PY{n+nf}{taylor}\PY{p}{(}\PY{n}{function}\PY{p}{,}\PY{n}{x0}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{p} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{while} \PY{n}{i} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{n}\PY{p}{:}
+                 \PY{n}{p} \PY{o}{=} \PY{n}{p} \PY{o}{+} \PY{p}{(}\PY{n}{function}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{i}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{x0}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{factorial}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{x0}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+                 \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{p}
+         \PY{c+c1}{\PYZsh{} Plot results}
+         \PY{k}{def} \PY{n+nf}{plot}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x\PYZus{}lims} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+             \PY{n}{x1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{x\PYZus{}lims}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{x\PYZus{}lims}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{800}\PY{p}{)}
+             \PY{n}{y1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} Approximate up until 10 starting from 1 and using steps of 2}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{func} \PY{o}{=} \PY{n}{taylor}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{j}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taylor expansion at n=}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{,}\PY{n}{func}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{x1}\PY{p}{:}
+                     \PY{n}{y1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{func}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{y1}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{order }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{y1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} Plot the function to approximate (sine, in this case)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x1}\PY{p}{)}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sin of x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{x\PYZus{}lims}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taylor series approximation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Taylor expansion at n=1 x
+Taylor expansion at n=3 -x**3/6 + x
+Taylor expansion at n=5 x**5/120 - x**3/6 + x
+Taylor expansion at n=7 -x**7/5040 + x**5/120 - x**3/6 + x
+Taylor expansion at n=9 x**9/362880 - x**7/5040 + x**5/120 - x**3/6 + x
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux5c55ux958bux9edeexpansion-point}{%
+\subparagraph{展開點（Expansion
+Point）}\label{ux5c55ux958bux9edeexpansion-point}}
+
+上述的式子，都是在 \(x=0\) 進行的，我們會發現多項式近似只在 \(x=0\)
+處較為準確。但，這不代表，我們可以在別的點進行多項式近似，如\(x=a\) ：
+\$f(x) = f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!}(x-a)\^{}2 +
+\dots \$
+
+    \hypertarget{ux6975ux9650}{%
+\subsection{極限}\label{ux6975ux9650}}
+
+\hypertarget{ux6975ux9650limits}{%
+\subsubsection{極限（Limits）}\label{ux6975ux9650limits}}
+
+函數的極限，描述的是輸入值在接近一個特定值時函數的表現。 定義：
+我們如果要稱函數 \(f(x)\) 在 \(x = a\) 處的極限為
+\(L\)，即：\(lim_{x\rightarrow a} f(x) = L\)，則需要： 對任意一個
+\(\epsilon > 0\)，我們要能找到一個 \(\delta > 0\) 使的當 \(x\)
+的取值滿足：\(0<|x-a|<\delta\)時，\(|f(x)-L|<\epsilon\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{k+kn}{import} \PY{n+nn}{sympy}
+         \PY{n}{x} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{Symbol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{real} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}
+         \PY{n}{y} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{limit}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-6
+
+    \end{Verbatim}
+
+    \hypertarget{ux51fdux6578ux7684ux9023ux7e8cux6027}{%
+\paragraph{函數的連續性}\label{ux51fdux6578ux7684ux9023ux7e8cux6027}}
+
+極限可以用來判斷一個函數是否為連續函數。
+當極限\(\begin{align*}\lim_{x\rightarrow a} f(x)= f(a)\end{align*}\)時，稱函數\(f(x)\)在點\$
+x = a\$
+處為連續的。當一個函數在其定義域中任意一點均為連續，則稱該函數是連續函數。
+
+\hypertarget{ux6cf0ux52d2ux7d1aux6578ux7528ux65bcux6975ux9650ux8a08ux7b97}{%
+\paragraph{泰勒級數用於極限計算}\label{ux6cf0ux52d2ux7d1aux6578ux7528ux65bcux6975ux9650ux8a08ux7b97}}
+
+我們在中學的時候，學習過關於部分極限的計算，這裡不再贅述。泰勒級數也可以用於計算一些形式比較複雜的函數的極限。這裡，僅舉一個例子：
+\(\begin{align*} \lim_{x\rightarrow 0}\frac{sin(X)}{x} &= lim_{x\rightarrow 0} \frac{\frac{x}{1!}-\frac{x^3}{3!}\dots }{x} \\ &= \lim_{x\rightarrow 0} \frac{x(1-\frac{x^2}{3!}+\frac{x^4}{5!}-\frac{x^6}{7!}+\dots}{x} \\ &= \lim_{x\rightarrow 0} 1 -\frac{x^2}{3!} + \frac{x^4}{5!}-\frac{x^6}{7!}+\dots \\& = 1 \end{align*}\)
+
+\hypertarget{ux6d1bux5fc5ux9054ux6cd5ux5247lhopitals-rule}{%
+\paragraph{洛必達法則（l'Hopital's
+rule)}\label{ux6d1bux5fc5ux9054ux6cd5ux5247lhopitals-rule}}
+
+在高中，老師就教過的一個神奇的法則：如果我們在求極限的時候，所求極限是無窮的，那我們可以試一下使用洛必達法則，哪些形式呢：\(\frac{0}{0}, \frac{\infty}{\infty}, \frac{\infty}{0}\)等等。\textbf{這裡，我們要注意一個前提條件：上下兩個函數都是連續函數才可以使用洛必達法則}這裡我們用
+\(\frac{0}{0}\) 作為一個例子：
+\(\begin{align*}\lim_{x \rightarrow a}\frac{f'(x)}{g'(x)} \\ = \lim_{x \rightarrow a}\frac{f'(x)}{g'(x)} \end{align*}\)
+若此時，分子分母還都是\(0\)的話，再次重複：\(\begin{align*}\lim_{x \rightarrow a}\frac{f''(x)}{g''(x)}\end{align*}\)
+
+    \hypertarget{ux5927oux8a18ux6cd5big-o-notation}{%
+\paragraph{\texorpdfstring{大\(O\)記法（Big-O
+Notation)}{大O記法（Big-O Notation)}}\label{ux5927oux8a18ux6cd5big-o-notation}}
+
+\emph{這個我在網上能找到的資料很少，大多是算法的時間複雜度相關的資料}
+算法複雜度的定義： \textgreater{} We denote an algorithm has a
+complexity of O(g(n))if there exists a constants \textgreater{}
+\(c \in R^+\), suchthat \(t(n)\leq c\cdot g(n), \forall n\geq 0\).
+\textgreater{} \textgreater{} 這裡的\(n\)是算法的輸入大小（input
+size），可以看作變量的個數等等。 \textgreater{} \textgreater{}
+方程\(t\)在這裡指算法的``時間''，也可以看作執行基本算法需要的步驟等等。
+\textgreater{} \textgreater{} 方程\(g\)在這裡值得是任意函數。
+
+\emph{我們也可以將這個概念用在函數上：}
+我們已經見過了很多函數，在比較這兩個函數時，我們可能會知道，隨著輸入值\(x\)的增加或者減少，兩個函數的輸出值，兩個函數的輸出值增長或者減少的速度究竟是誰快誰慢，哪一個函數最終會遠遠甩開另一個。
+通過繪製函數圖像，我們可以得到一些之直觀的感受：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{m}\PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
+        \PY{n}{fac} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{math}\PY{o}{.}\PY{n}{factorial}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{m}\PY{p}{]} \PY{c+c1}{\PYZsh{}fac means factorial\PYZsh{}}
+        \PY{n}{exponential} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{e}\PY{o}{*}\PY{o}{*}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{m}\PY{p}{]}
+        \PY{n}{polynomial} \PY{o}{=} \PY{p}{[}\PY{n}{i}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{m}\PY{p}{]}
+        \PY{n}{logarithimic} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{m}\PY{p}{]}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{m}\PY{p}{,}\PY{n}{fac}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{m}\PY{p}{,}\PY{n}{exponential}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{m}\PY{p}{,}\PY{n}{polynomial}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{m}\PY{p}{,}\PY{n}{logarithimic}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    根據上面的圖，我們可以看出\(x \rightarrow \infty\)
+時，\(x! > e^x > x^3 > ln(x)\)
+，想要證明的話，我們需要去極限去算（用洛必達法則）。
+\(\begin{align*}\lim_{x\rightarrow \infty}\frac{e^x}{x^3} = \infty \end{align*}\)
+可以看出，趨於無窮時，分子遠大於分母，反之同理。 我們可以用
+\texttt{sympy} 來算一下這個例子：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{import} \PY{n+nn}{sympy}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{x} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{Symbol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{real} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{e}\PY{o}{*}\PY{o}{*}\PY{n}{x}\PY{o}{/}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}
+         \PY{n}{y} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{limit}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{oo}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+oo
+
+    \end{Verbatim}
+
+    為了描述這種隨著輸入\(x\rightarrow \infty\)或\(x \rightarrow 0\)時，函數的表現，我們如下定義大\(O\)記法：
+若我們稱函數\(f(x)\)在\(x\rightarrow 0\)時，時\(O(g(x))\)，則需要找到一個常數\(C\)，對於所有足夠小的\(x\)均有\(|f(x)|<C|g(x)|\)
+若我們稱函數\(f(x)\)在\(x\rightarrow 0\)時是\(O（g(x))\),則需要找一個常數\(C\)，對於所有足夠大的\(x\)均有\(|f(x)|<C|g(x)|\)
+大\(O\)記法之所以得此名稱，是因為函數的增長速率很多時候被稱為函數的階（\textbf{Order}）
+下面舉一個例子：當\(x\rightarrow \infty\)時，\(x\sqrt{1+x^2}\)是\(O(x^2)\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{import} \PY{n+nn}{sympy}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{n}{x} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{Symbol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{real} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{xvals} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{f} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{n}{sympy}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{g} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         \PY{n}{y1} \PY{o}{=} \PY{p}{[}\PY{n}{f}\PY{o}{.}\PY{n}{evalf}\PY{p}{(}\PY{n}{subs} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{xval}\PY{p}{\PYZcb{}}\PY{p}{)} \PY{k}{for} \PY{n}{xval} \PY{o+ow}{in} \PY{n}{xvals}\PY{p}{]}
+         \PY{n}{y2} \PY{o}{=} \PY{p}{[}\PY{n}{g}\PY{o}{.}\PY{n}{evalf}\PY{p}{(}\PY{n}{subs} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{xval}\PY{p}{\PYZcb{}}\PY{p}{)} \PY{k}{for} \PY{n}{xval} \PY{o+ow}{in} \PY{n}{xvals}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xvals}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{n}{y1}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{xvals}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{n}{y2}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xvals}\PY{p}{,}\PY{n}{y1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{xvals}\PY{p}{,}\PY{n}{y2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux5c0eux6578}{%
+\subsection{導數}\label{ux5c0eux6578}}
+
+\hypertarget{ux5272ux7ddasecent-line}{%
+\subsubsection{割線（Secent Line）}\label{ux5272ux7ddasecent-line}}
+
+曲線的格線是指與弧線由兩個公共點的直線。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{x}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{c+c1}{\PYZsh{} function}
+         \PY{n}{f} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}
+         \PY{c+c1}{\PYZsh{} the tengent line at x=6}
+         \PY{n}{line} \PY{o}{=} \PY{l+m+mi}{106}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{428}
+         
+         
+         \PY{n}{d4} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{5.9}\PY{p}{,}\PY{l+m+mf}{6.1}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{domains} \PY{o}{=} \PY{p}{[}\PY{n}{d3}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} define the plot funtion}
+         \PY{k}{def} \PY{n+nf}{makeplot}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{l}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{d}\PY{p}{,}\PY{p}{[}\PY{n}{f}\PY{o}{.}\PY{n}{evalf}\PY{p}{(}\PY{n}{subs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{xval}\PY{p}{\PYZcb{}}\PY{p}{)} \PY{k}{for} \PY{n}{xval} \PY{o+ow}{in} \PY{n}{d}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                      \PY{n}{d}\PY{p}{,}\PY{p}{[}\PY{n}{l}\PY{o}{.}\PY{n}{evalf}\PY{p}{(}\PY{n}{subs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{xval}\PY{p}{\PYZcb{}}\PY{p}{)} \PY{k}{for} \PY{n}{xval} \PY{o+ow}{in} \PY{n}{d}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{domains}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} draw the plot and the subplot}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{makeplot}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{line}\PY{p}{,}\PY{n}{domains}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_47_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux5207ux7ddatangent-line}{%
+\subsubsection{切線（Tangent Line）}\label{ux5207ux7ddatangent-line}}
+
+中學介紹導數的時候，通常會舉兩個例子，其中一個是幾何意義上的例子：對於函數關於某一點進行球道，得到的是函數在該點處切線的斜率。
+選中函數圖像中的某一點，然後不斷地將函數圖放大，當我們將鏡頭拉至足夠近後便會發現函數圖看起來像一條直線，這條直線就是切線。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{x}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{c+c1}{\PYZsh{} function}
+         \PY{n}{f} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}
+         \PY{c+c1}{\PYZsh{} the tengent line at x=6}
+         \PY{n}{line} \PY{o}{=} \PY{l+m+mi}{106}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{438}
+         
+         \PY{n}{d1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{d2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{d3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{d4} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{5.9}\PY{p}{,}\PY{l+m+mf}{6.1}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{domains} \PY{o}{=} \PY{p}{[}\PY{n}{d1}\PY{p}{,}\PY{n}{d2}\PY{p}{,}\PY{n}{d3}\PY{p}{,}\PY{n}{d4}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} define the plot funtion}
+         \PY{k}{def} \PY{n+nf}{makeplot}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{l}\PY{p}{,}\PY{n}{d}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{d}\PY{p}{,}\PY{p}{[}\PY{n}{f}\PY{o}{.}\PY{n}{evalf}\PY{p}{(}\PY{n}{subs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{xval}\PY{p}{\PYZcb{}}\PY{p}{)} \PY{k}{for} \PY{n}{xval} \PY{o+ow}{in} \PY{n}{d}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                      \PY{n}{d}\PY{p}{,}\PY{p}{[}\PY{n}{l}\PY{o}{.}\PY{n}{evalf}\PY{p}{(}\PY{n}{subs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{xval}\PY{p}{\PYZcb{}}\PY{p}{)} \PY{k}{for} \PY{n}{xval} \PY{o+ow}{in} \PY{n}{d}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{domains}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} draw the plot and the subplot}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{makeplot}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{line}\PY{p}{,}\PY{n}{domains}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    另一個例子就是：對路程的時間函數 \(s(t)\) 求導可以得到速度的時間函數
+\(v(t)\)，再進一步求導可以得到加速度的時間函數
+\(a(t)\)。這個比較好理解，因為函數真正關心的是：當我們稍稍改變一點函數的輸入值時，函數的輸出值有怎樣的變化。
+
+    \hypertarget{ux5c0eux6578derivative}{%
+\subsubsection{導數（Derivative）}\label{ux5c0eux6578derivative}}
+
+導數的定義如下： 定義一：
+\(\begin{align*}f'(a) = \frac{df}{dx}\mid_{x=a} = \lim_{x\rightarrow 0} \frac{f(x)-f(a)}{x-a}\end{align*}\)
+若該極限不存在，則函數在 \(x=a\) 處的導數也不存在。 定義二：
+\(\begin{align*}f'(a) = \frac{df}{dx}\mid_{x=a} = \lim_{h\rightarrow 0} \frac{f(a+h)-f(a)}{h}\end{align*}\)
+以上两个定义都是耳熟能详的定义了，这里不多加赘述。 \textbf{定義三}：
+函數\(f(x)\)在\(x=a\)處的導數\(f'(a)\)是滿足如下條件的常數\(C\)：
+對於在\(a\)附近輸入值的微笑變化\(h\)有，\(f(a+h)=f(a) + Ch + O(h^2)\)
+始終成立，也就是說導數\(C\)是輸出值變化中一階項的係數。
+\(\begin{align*} \lim_{h\rightarrow 0} \frac{f(a+h)-f(a)}{h} = \lim_{h\rightarrow 0} C + O(h) = C \end{align*}\)
+下面具一個例子，求\(cos(x)\)在\(x=a\)處的導數：
+\(\begin{align*} cos(a+h) &= cos(a)cos(h) - sin(a)sin(h)\\&=cos(a)(a+O(h^2)) - sin(a)(h+O(h^3))\\&=cos(a)-sin(a)h+O(h^2)\end{align*}\)
+因此，\(\frac{d}{dx}cos(x)\mid_{x=a} = -sin(a)\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{x}
+         
+         \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}
+         
+         \PY{k}{def} \PY{n+nf}{derivative}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{h}\PY{o}{=}\PY{l+m+mf}{0.00001}\PY{p}{)}\PY{p}{:}\PY{c+c1}{\PYZsh{}define the \PYZsq{}derivative\PYZsq{} function}
+             \PY{k}{return} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{float}\PY{p}{(}\PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{o}{+}\PY{n}{h}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{h}
+         
+         \PY{n}{fprime} \PY{o}{=} \PY{n}{derivative}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+         
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{fprime}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+106.0001799942256
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{}use sympy\PYZsq{}s defult derivative function}
+         \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{x}
+         \PY{n}{f} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{evalf}\PY{p}{(}\PY{n}{subs}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3*x**2 - 2
+106.000000000000
+
+    \end{Verbatim}
+
+    \hypertarget{ux7ddaux6027ux8fd1ux4f3clinear-approximation}{%
+\subsubsection{線性近似（Linear
+approximation）}\label{ux7ddaux6027ux8fd1ux4f3clinear-approximation}}
+
+定義：就是用線性函數去對普通函數進行近似。依據導數的定義三，我們有：\(f(a+h) = f(a) + f'(a)h + O(h^2)\)
+如果，我們將高階項去掉，就獲得了\(f(a+h)\)的線性近似式了：\(f(a+h) = \approx f(a) + f'(a)h\)
+舉個例子，用線性逼近去估算：\(\begin{align*} \sqrt{255} &= \sqrt {256-1} \approx \sqrt{256} + \frac{1}{2\sqrt{256}(-1)} \\ &=16-\frac{1}{32} \\ &=15 \frac{31}{32} \end{align*}\)
+
+    \hypertarget{ux725bux9813ux8fedux4ee3ux6cd5newtons-method}{%
+\subsection{牛頓迭代法（Newton's
+Method）}\label{ux725bux9813ux8fedux4ee3ux6cd5newtons-method}}
+
+\textbf{它是一種用於在實數域和複數域上近似求解方程的方法：使用函數\(f(x)\)的泰勒級數的前面幾項來尋找\(f(X)=0\)的根。}
+首先，選擇一個接近函數\(f(x)\)零點的\(x_0\)，計算對應的函數值\(f(x_0)\)和切線的斜率\(f'(x_0)\)；
+然後計算切線和\(x\)軸的交點\(x_1\)的\(x\)座標：\$ 0 = （x\_1 -
+x\_0)\cdot f'(x\_0) + f(x\_0)\(；<br> 通常來說，\)x\_1\$ 會比 \(x_0\)
+更接近方程\(f(X)=0\)的解。因此，
+我們現在會利用\(x_1\)去開始新一輪的迭代。公式如下：
+\(x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{x}
+         
+         \PY{k}{def} \PY{n+nf}{mysqrt}\PY{p}{(}\PY{n}{c}\PY{p}{,} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{maxiter} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{prt\PYZus{}step} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{maxiter}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{o}{+} \PY{n}{c}\PY{o}{/}\PY{n}{x}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{prt\PYZus{}step} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} 在输出时，\PYZob{}0\PYZcb{}和\PYZob{}1\PYZcb{}将被i+1和x所替代}
+                     \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{After }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ iteration, the root value is updated to }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{x}
+         
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{mysqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{maxiter} \PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{prt\PYZus{}step} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+After 1 iteration, the root value is updated to 1.5
+After 2 iteration, the root value is updated to 1.4166666666666665
+After 3 iteration, the root value is updated to 1.4142156862745097
+After 4 iteration, the root value is updated to 1.4142135623746899
+1.4142135623746899
+
+    \end{Verbatim}
+
+    我們可以通過畫圖，更加了解牛頓法
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}
+         \PY{n}{l1} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}
+         \PY{n}{l2} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{6}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{20}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{30}\PY{p}{:}\PY{l+m+mi}{80}\PY{p}{]}\PY{p}{,}\PY{n}{l1}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{30}\PY{p}{:}\PY{l+m+mi}{80}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{66}\PY{p}{:}\PY{p}{]}\PY{p}{,}\PY{n}{l2}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{66}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{l} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{xmax}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{l} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{ymin}\PY{o}{=}\PY{l+m+mf}{2.0}\PY{o}{/}\PY{l+m+mi}{18}\PY{p}{,}\PY{n}{ymax}\PY{o}{=}\PY{l+m+mf}{6.0}\PY{o}{/}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{l} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{ymin}\PY{o}{=}\PY{l+m+mf}{6.0}\PY{o}{/}\PY{l+m+mi}{18}\PY{p}{,}\PY{n}{ymax}\PY{o}{=}\PY{l+m+mf}{10.0}\PY{o}{/}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{1.9}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZus{}0\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{3.9}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZus{}1\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{3.1}\PY{p}{,}\PY{l+m+mf}{1.3}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}x\PYZus{}2\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+         
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+m+mf}{10.0}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    下面舉一個例子，\(f(x) = x^2 -2x -4 = 0\)的解，從\(x_0 = 4\)
+的初始猜測值開始，找到\(x_0\)的切線：\(y=2x-8\)，找到與\(x\)軸的交點\((4,0)\)，將此點更新為新解：\(x_1 = 4\)，如此循環。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{k}{def} \PY{n+nf}{NewTon}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{maxiter} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{prt\PYZus{}step} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{maxiter}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} 相较于f.evalf(subs=\PYZob{}x:s\PYZcb{}),subs()是更好的将值带入并计算的方法。}
+                 \PY{n}{s} \PY{o}{=} \PY{n}{s} \PY{o}{\PYZhy{}} \PY{n}{f}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{o}{/}\PY{n}{f}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{s}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{prt\PYZus{}step} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{After }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ iteration, the solution is updated to }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{s}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{x}
+         \PY{n}{f} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{NewTon}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{maxiter} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{prt\PYZus{}step} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+After 1 iteration, the solution is updated to 4
+After 2 iteration, the solution is updated to 10/3
+After 3 iteration, the solution is updated to 68/21
+After 4 iteration, the solution is updated to 3194/987
+3194/987
+
+    \end{Verbatim}
+
+    另外，我們可以使用\texttt{sympy}，它可以幫助我們運算
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{k+kn}{import} \PY{n+nn}{sympy}
+         \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{x}
+         \PY{n}{f} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{sympy}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1 + sqrt(5), -sqrt(5) + 1]
+
+    \end{Verbatim}
+
+    \hypertarget{ux512aux5316}{%
+\subsection{優化}\label{ux512aux5316}}
+
+\hypertarget{ux9ad8ux968eux5c0eux6578higher-derivatives}{%
+\subsubsection{高階導數（Higher
+Derivatives）}\label{ux9ad8ux968eux5c0eux6578higher-derivatives}}
+
+在之前，我們講過什麼是高階導數，這裡在此提及，高階導數的遞歸式的定義為：函數\(f(x)\)的\(n\)階導數\(f^{(n)}(x)\)（或記為\(\frac{d^n}{dx^n}(f)\)為：
+\(f^{(n)}(x) = \frac{d}{dx}f^{(n-1}(x)\)
+如果將求導\(\frac{d}{dx}\)看作一個運算符，則相當於反覆對運算的結果使用\(n\)次運算符：\((\frac{d}{dx})^n \ f=\frac{d^n}{dx^n}f\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{x}
+         \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{y}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{f} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{n}{y} 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}the second derivatives of x}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{} the different writing of the second derivatives of x}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} we first get the derivative of x , then get the derivative of y}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2*y
+2*y
+2*(x - 1)
+
+    \end{Verbatim}
+
+    \hypertarget{ux4f18ux5316ux95eeux9898optimization-problem}{%
+\subsubsection{优化问题（Optimization
+Problem）}\label{ux4f18ux5316ux95eeux9898optimization-problem}}
+
+在微積分中，優化問題常常指的是算最大面積，最大體積等，現在給出一個例子：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhspan}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{n}{ec}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{none}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhspan}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{ec}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{none}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhspan}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{ec}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{none}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{l+m+mf}{0.17}\PY{p}{,}\PY{l+m+mf}{0.23}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{0.17}\PY{p}{,}\PY{l+m+mf}{0.23}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mf}{0.8}\PY{p}{,}\PY{l+m+mf}{0.17}\PY{p}{,}\PY{l+m+mf}{0.23}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{0.17}\PY{p}{,}\PY{l+m+mf}{0.23}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{0.495}\PY{p}{,}\PY{l+m+mf}{0.22}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}l\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{0.9}\PY{p}{,}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{frac}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{4\PYZhy{}1\PYZcb{}}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_66_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    用一張給定邊長\(4\)的正方形紙來一個沒有蓋的紙盒，設這個紙盒的底部邊長為\(l\)，紙盒的高為\(\frac{4-l}{2}\)，那麼紙盒的體積為：
+\(V(l) = l^2\frac{4-l}{2}\) 我們會希望之道，怎麼樣得到\$ max\{V\_1,
+V\_2, \dots V\_n\}\$ ；優化問題就是在滿足條件下，使得目標函數（objective
+function）得到最大值（或最小）。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{l} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{V} \PY{o}{=} \PY{k}{lambda} \PY{n}{l}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{l}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{\PYZhy{}}\PY{n}{l}\PY{p}{)} \PY{c+c1}{\PYZsh{} the \PYZsq{}l\PYZsq{} is the charcter \PYZsq{}l\PYZsq{}, not the number\PYZsq{}one\PYZsq{} as \PYZsq{}1\PYZsq{}}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{l}\PY{p}{,}\PY{n}{V}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{vlines}\PY{p}{(}\PY{l+m+mf}{2.7}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{colors} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linestyles} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dashed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_68_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    通過觀察可得，在\(l\)的值略大於\(2.5\)的位置（虛線），獲得最大體積。
+
+    \hypertarget{ux95dcux9375ux9edecritical-points}{%
+\subsubsection{關鍵點（Critical
+Points）}\label{ux95dcux9375ux9edecritical-points}}
+
+通過導數一節，我們知道一個函數在某一處的導數是代表了在輸入後函數值所發生的相對應的變化。
+因此，如果在給定一個函數\(f\)，如果知道點\(x=a\)處函數的導數不為\(0\)，則在該點處稍微改變函數的輸入值，函數值會發生變化，這表明函數在該點的函數值，既不是局部最大值（local
+maximum），也不是局部最小值（local
+minimum）；相反，如果函數\(f\)在點\(x=a\)處函數的導數為\(0\)，或者該點出的導數不存在則稱這個點為關鍵點（critical
+Plints）
+要想知道一個\(f'(a)=0\)的關鍵處，函數值\(f(a)\)是一個局部最大值還是局部最小值，可以使用二次導數測試：
+1. 如果 \(f''(a) > 0\), 則函數\(f\)在\(a\)處的函數值是局部最小值； 2.
+如果 \(f''(a) < 0\), 則函數\(f\)在\(a\)處的函數值是局部最大值； 3. 如果
+\(f''(a) = 0\), 則無結論。
+二次函數測試在中學課本中，大多是要求不求甚解地記憶的規則，其實理解起來非常容易。二次導數測試中涉及到函數在某一點處的函數值、一次導數和二次導數，於是我們可以利用泰勒級數：\(f(x)\)在\(x=a\)的泰勒級數：
+\(f(x) = f(a) + f'(a)(x-a) + \frac{1}{2}f''(a)(x-a)^2 + \dots\)
+因為\(a\)是關鍵點，\(f'(a)\) = 0,
+因而：\(f(x) = f(a) + \frac{1}{2}f''(a)(x-a)^2 + O(x^3)\)
+表明\(f''(a) \neq 0\)時，函數\(f(x)\)在\(x=a\)附近的表現近似於二次函數，二次項的係數\(\frac{1}{2}f''(a)\)決定了函數值在該點的表現。
+回到剛才那題：求最大體積，現在，我們就可以求了：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{k+kn}{import} \PY{n+nn}{sympy}
+         \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{n}{l}
+         \PY{n}{V} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{l}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{\PYZhy{}}\PY{n}{l}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} first derivative}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{V}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} the domain of first derivative is (\PYZhy{}oo,oo),so, the critical point is the root of V\PYZsq{}(1) = 0}
+         \PY{n}{cp} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{V}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{,}\PY{n}{l}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{cp}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}after finding out the critical point, we can calculate the second derivative}
+         \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{cp}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{V}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{l}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{l}\PY{p}{,}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} known that whenl=2.666..., we get the maximum V}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-0.5*l**2 + 1.0*l*(-l + 4)
+[0.0, 2.66666666666667]
+4
+-4
+
+    \end{Verbatim}
+
+    \hypertarget{ux7ddaux6027ux8ff4ux6b78linear-regression}{%
+\subsubsection{線性迴歸（Linear
+Regression）}\label{ux7ddaux6027ux8ff4ux6b78linear-regression}}
+
+二維平面上有\(n\)個數據點，\(p_i = (x_i,y_i)\)，現在嘗試找到一條經過原點的直線\(y=ax\)，使得所有數據點到該直線的殘差（數據點和回歸直線之間的水平距離）的平方和最小。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{c+c1}{\PYZsh{} Set seed of random function to ensure reproducibility of simulation data}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{123}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Randomly generate some data with errors}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{res} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{x} \PY{o}{+} \PY{n}{res}
+         
+         \PY{c+c1}{\PYZsh{} Solve the coefficient of the regression line}
+         \PY{n}{a} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{p}{)}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} 绘图}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{a}\PY{o}{*}\PY{n}{x}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n+nb}{min}\PY{p}{(}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{35.0}\PY{p}{,}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{35.0}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                  \PY{n+nb}{max}\PY{p}{(}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{35.0}\PY{p}{,}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{35.0}\PY{p}{)}\PY{p}{,}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                  \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_73_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    要找到這樣一條直線，實際上是一個優化問題：
+\(\min_a Err(a) = \sum_i(y_i - ax_i)^2\)
+要找出函數\(Err(a)\)的最小值，首先計算一次導函數：\(\frac{dErr}{da} = \sum_i 2(y_i-ax_i)(-x_i)\)，因此，\(a = \frac{\sum_i x_iy_i}{\sum_i x_i^2}\)
+是能夠使得函數值最小的輸入。
+這也是上面\texttt{python}代碼中，求解回歸線斜率所用的計算方式。
+如果，我們不限定直線一定經過原點，即，\(y=ax+b\)，則變量變成兩個：\(a\)和\(b\)：
+\(\min_a Err(a,b) = \sum_i(y_i - ax_i-b)^2\)
+這個問題就是多元微積分中所要分析的問題了，這裡給出一種\texttt{python}中的解法：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{c+c1}{\PYZsh{} 设定好随机函数种子，确保模拟数据的可重现性}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{123}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} 随机生成一些带误差的数据}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{res} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{x} \PY{o}{+} \PY{n}{res}
+         
+         \PY{c+c1}{\PYZsh{} 求解回归线的系数}
+         \PY{n}{a} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{n}{y}\PY{p}{)}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{n}{slope}\PY{p}{,} \PY{n}{intercept} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{polyfit}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} 绘图}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{a}\PY{o}{*}\PY{n}{x}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{slope}\PY{o}{*}\PY{n}{x}\PY{o}{+}\PY{n}{intercept}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n+nb}{min}\PY{p}{(}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{35.0}\PY{p}{,}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{35.0}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                  \PY{n+nb}{max}\PY{p}{(}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{35.0}\PY{p}{,}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{35.0}\PY{p}{)}\PY{p}{,}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                  \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_75_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux7a4dux5206ux8207ux5faeux5206integration-and-differentiation}{%
+\subsection{積分與微分（Integration and
+Differentiation）}\label{ux7a4dux5206ux8207ux5faeux5206integration-and-differentiation}}
+
+\hypertarget{ux7a4dux5206}{%
+\subsubsection{積分}\label{ux7a4dux5206}}
+
+積分時微積分中一個一個核心概念，通常會分為\textbf{定積分和不定積分}兩種。
+
+    \hypertarget{ux5b9aux7a4dux5206integral}{%
+\paragraph{定積分（Integral）}\label{ux5b9aux7a4dux5206integral}}
+
+也被稱為\textbf{黎曼積分（Riemann
+integral）}，直觀地說，對於一個給定的正實數值函數\(f(x)\),\(f(x)\)在一個實數區間\([a,b]\)上的定積分：\(\int_a^b f(x) dx\)
+可以理解成在\(O-xy\)坐標平面上，由曲線\(（x,f(x))\)，直線\(x=a, x=b\)以及\(x\)軸圍成的面積。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{interpolate}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_78_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{黎曼積分}的核心思想就是試圖通過無限逼近來確定這個積分值。同時請注意，如果\(f(x)\)取負值，則相應的面積值\(S\)也取負值。這裡不給出詳細的證明和分析。不太嚴格的講，黎曼積分就是當分割的月來月``精細''的時候，黎曼河去想的極限。下面的圖就是展示，如何通過``矩形逼近''來證明。（這裡不提及勒貝格積分
+Lebesgue integral）
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{as} \PY{n+nn}{ticker}
+          
+          \PY{k}{def} \PY{n+nf}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{5}
+          
+          \PY{n}{a}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{9}  \PY{c+c1}{\PYZsh{} integral limits}
+          \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          \PY{n}{ix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{iy} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{n}{ix}\PY{p}{)}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ix}\PY{p}{,} \PY{n}{iy}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{1.1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}locator}\PY{p}{(}\PY{n}{ticker}\PY{o}{.}\PY{n}{IndexLocator}\PY{p}{(}\PY{n}{base}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{offset}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_80_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{as} \PY{n+nn}{ticker}
+          
+          \PY{k}{def} \PY{n+nf}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              
+              \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{5}
+          
+          \PY{n}{a}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{9}  \PY{c+c1}{\PYZsh{} integral limits}
+          \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          \PY{n}{ix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{iy} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{n}{ix}\PY{p}{)}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ix}\PY{p}{,} \PY{n}{iy}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{1.1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}locator}\PY{p}{(}\PY{n}{ticker}\PY{o}{.}\PY{n}{IndexLocator}\PY{p}{(}\PY{n}{base}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{offset}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{as} \PY{n+nn}{ticker}
+          
+          \PY{k}{def} \PY{n+nf}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{10}
+              \PY{k}{return} \PY{n}{n} \PY{o}{/} \PY{p}{(}\PY{n}{n} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{+} \PY{n}{x} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{3}\PY{p}{)}
+          
+          \PY{n}{a}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{9}  \PY{c+c1}{\PYZsh{} integral limits}
+          \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}
+          \PY{n}{y2} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{n}{x2}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{ix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{iy} \PY{o}{=} \PY{n}{func}\PY{p}{(}\PY{n}{ix}\PY{p}{)}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ix}\PY{p}{,} \PY{n}{iy}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{ymin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figtext}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}locator}\PY{p}{(}\PY{n}{ticker}\PY{o}{.}\PY{n}{IndexLocator}\PY{p}{(}\PY{n}{base}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{offset}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_82_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux4e0dux5b9aux7a4dux5206indefinite-integral}{%
+\paragraph{不定積分（indefinite
+integral）}\label{ux4e0dux5b9aux7a4dux5206indefinite-integral}}
+
+如果，我們將求導看作一個高階函數，輸入進去的一個函數，求導後成為一個新的函數。那麼不定積分可以視作求導的「反函數」，\(F'(x) = f(x)\)
+，則\(\int f(x)dx = F(x) + C\)，
+寫成類似於反函數之間的複合的形式有：\(\int((\frac{d}{dx}F(x))dx) = F(x) + C, \ \ C \in R\)
+即，在微積分中，一個函數\(f = f\)的不定積分，也稱為\textbf{原函數}或\textbf{反函數}，是一個導數等於\$
+f=f \(的函數\) f = F \(，即，\)f = F' =
+f\$。不定積分和定積分之間的關係，由 微積分基本定理 確定。
+\(\int f(x) dx = F(x) + C\) 其中\(f = F\) 是
+\(f = f\)的不定積分。這樣，許多函數的定積分的計算就可以簡便的通過求不定積分來進行了。
+這裡介紹\texttt{python}中的實現方法
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{integrate}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{sympy}\PY{o}{.}\PY{n}{integrate}\PY{p}{(}\PY{n}{sympy}\PY{o}{.}\PY{n}{E}\PY{o}{*}\PY{o}{*}\PY{n}{t}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+t**3 - 3*t
+t**3 + exp(t)
+
+    \end{Verbatim}
+
+    \hypertarget{ux5e38ux5faeux5206ux65b9ux7a0bordinary-differential-equationsode}{%
+\subsection{常微分方程（Ordinary Differential
+Equations,ODE)}\label{ux5e38ux5faeux5206ux65b9ux7a0bordinary-differential-equationsode}}
+
+
+我們觀察一輛行駛的汽車，假設我們發現函數\(a(t)\)能夠很好地描述這輛汽車在各個時刻的加速度，因為對速度的時間函數(v-t)求導可以得到加速度的時間函數(a-t)，如果我們希望根據\(a(t)\)求出\(v(t)\)，很自然就會得出下面的方程：
+\(\frac{dv}{dt}=a(t)\)；如果我們能夠找到一個函數滿足：\(\frac{dv}{dt} = a(t)\)，那麼\(v(t)\)就是上面房車的其中一個解，因為常數項求導的結果是\(0\)，那麼\(\forall C \in R\)，\(v(t)+C\)也都是這個方程的解，因此，常微分方程的解就是\(set \ = \{v(t) + C\}\)
+在得到這一系列的函數後，我們只需要知道任意一個時刻裡汽車行駛的速度，就可以解出常數項\(C\)，從而得到最終想要的一個速度時間函數。
+如果我們沿用「導數是函數在某一個位置的切線斜率」這一種解讀去看上面的方正，就像是我們知道了一個函數在各個位置的切線斜率，反過來曲球這個函數一樣。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{k+kn}{import} \PY{n+nn}{sympy}
+          \PY{n}{t} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{Symbol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{c} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{Symbol}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{domain} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{v} \PY{o}{=} \PY{n}{t}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{t}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}
+          \PY{n}{a} \PY{o}{=} \PY{n}{v}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}
+              
+          \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{:}
+              \PY{n}{slope} \PY{o}{=} \PY{n}{a}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{p}\PY{p}{)}
+              \PY{n}{intercept} \PY{o}{=} \PY{n}{sympy}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{slope}\PY{o}{*}\PY{n}{p}\PY{o}{+}\PY{n}{c}\PY{o}{\PYZhy{}}\PY{n}{v}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{p}\PY{p}{)}\PY{p}{,}\PY{n}{c}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n}{lindomain} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{p}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{p}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{lindomain}\PY{p}{,}\PY{n}{slope}\PY{o}{*}\PY{n}{lindomain}\PY{o}{+}\PY{n}{intercept}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+                  
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{domain}\PY{p}{,}\PY{p}{[}\PY{n}{v}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{n}{t}\PY{p}{,}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{domain}\PY{p}{]}\PY{p}{,}\PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}115}]:} [<matplotlib.lines.Line2D at 0x6ec982d0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_86_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux65cbux8f49ux9ad4rotator}{%
+\subsection{旋轉體（Rotator）}\label{ux65cbux8f49ux9ad4rotator}}
+
+分割法是微積分中的第一步，簡單的講，就是講研究對象的一小部分座位單元，放大了仔細研究，找出特徵，然後在總結整體規律。普遍連說，有兩種分割方式：直角坐標系分割和極座標分割。
+
+\hypertarget{ux76f4ux89d2ux5750ux6a19ux7cfbux5206ux5272}{%
+\subsubsection{直角坐標系分割}\label{ux76f4ux89d2ux5750ux6a19ux7cfbux5206ux5272}}
+
+對於直角坐標系分割，我們已經很熟悉了，上面講到的``矩陣逼近''其實就是沿著\(x\)軸分割成\(n\)段\(\{\Delta x_i\}\)，即。在直角坐標系下分割，是按照自變量進行分割。
+\emph{當然，也可以沿著\(y\)軸進行分割。（勒貝格積分）}
+
+    \hypertarget{ux6975ux5750ux6a19ux5206ux5272}{%
+\subsubsection{極坐標分割}\label{ux6975ux5750ux6a19ux5206ux5272}}
+
+同樣的，極座標也是按照自變量進行分割。這是由函數的影射關係決定的，一直自變量，通過函數運算，就可以得到函數值。從圖形上看，這樣分割可以是的每個分割單元``不規則的邊''的數量最小，最好是只有一條。所以，在實際問題建模時，重要的是選取合適的坐標系。
+\href{https://i.loli.net/2018/06/13/5b1ff2e2bbee6.png}{\includegraphics{https://i.loli.net/2018/06/13/5b1ff2e2bbee6.png}}
+
+    \hypertarget{ux8fd1ux4f3c}{%
+\subsubsection{近似}\label{ux8fd1ux4f3c}}
+
+近似，是微積分中重要的一部，通過近似將分割出來的不規則的``單元''近似成一個規則的''單元``。跟上面一樣，我們無法直接計算曲線圍成的面積，但是可以用一個\textbf{相似}的矩形去替代。
+1. Riemann
+的定義的例子：在待求解的是區間\([a, b]\)上曲線與\(x\)軸圍成的面積，因此套用的是平面的面積公式：\(S_i = h_i \times w_i = f(\xi) \times \Delta x_i\)
+2. 極坐標系曲線積分
+待求解的是在區間\([\theta_1, \theta_2]\)上曲線與原點圍成的面積，因此套用的圓弧面積公式：\(S_i = \frac{1}{2}\times r_i^2 \times \Delta \theta_i = \frac{1}{2} \times [f(\xi_i)^2 \times \Delta \theta_i\)
+3. 平面曲線長度
+平面曲線在微觀上近似為一段``斜線''，那麼，它遵循的是``勾股定理''了，即``Pythagoras
+定理''：\(\Delta l_i = \sqrt{(\Delta x_i)^2 + (\Delta y_i)^2} = \sqrt{1 + (\frac{\Delta y_i}{\Delta x_i}^2 \Delta x_i}\)
+4. 極坐標曲線長度
+\(dl = \sqrt{(dx)^2 + (dy)^2 } = \sqrt{ \frac{d^2[r(\theta)\times cos(\theta)]}{d\theta^2} + \frac{d^2[r(\theta)\times sin(\theta)]}{d\theta^2} d\theta } = \sqrt{ r^2(\theta) + r'^2(\theta)}d\theta\)
+我們不能直接用弧長公式，弧長公式的推導用了\(\pi\)，而\(\pi\)本身就是一個近似值
+
+    \hypertarget{ux6c42ux548c}{%
+\subsubsection{求和}\label{ux6c42ux548c}}
+
+前面幾步都是在微觀層面進行的，只有通過``求和''（Remann
+和）才能回到宏觀層面：\(\lim_{\lambda \rightarrow 0^+}\sum_{i = 0}^n F_i\)
+其中，\(F_i\) 表示各種圍觀單元的公式。
+
+    例題：求（lemniscate）\(\rho^2 = 2a^2 cos(2\theta)\)
+圍成的平民啊區域的面積。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{alpha} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{x} \PY{o}{=} \PY{n}{alpha} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{theta}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{alpha} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{theta}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use PY in Calculus_files/Use PY in Calculus_92_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    這是一個對稱圖形，只需要計算其中的四分之一區域面積即可
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k}{import} \PY{o}{*}
+        
+        \PY{n}{t}\PY{p}{,} \PY{n}{a} \PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{f} \PY{o}{=} \PY{n}{a} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{t}\PY{p}{)}
+        \PY{l+m+mi}{4} \PY{o}{*} \PY{n}{integrate}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{pi} \PY{o}{/} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 2*a**2
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
