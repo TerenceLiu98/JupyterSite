@@ -1,0 +1,1865 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Use\_PY\_in\_Linear\_Algebra}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{use-py-in-linear-algebrea}{%
+\section{Use PY in Linear Algebrea}\label{use-py-in-linear-algebrea}}
+
+\hypertarget{chapter-zero-ux4e58ux6cd5ux548cux5eab}{%
+\subsection{Chapter Zero
+乘法和庫}\label{chapter-zero-ux4e58ux6cd5ux548cux5eab}}
+
+ \#\#\# 矩陣和向量的乘法 1. 點乘（dot
+product）：也被稱為「數量積」「內積」「點積」。結果的絕對值是一個向量在另一個向量方向上的投影的長度誠意另一個向量的長度，是一個標量。
+2. 叉乘（cross product）：也被稱為「向量積」「外積」。對於兩個 \(n\)
+緯的向量叉乘，結果是一個和 \(n-1\)
+個向量都垂直的向量，方向符合右手定則。 3.
+矩陣乘法：代表了線性變換的過程。
+
+\hypertarget{python-ux7684-sympy-ux5e93-ux548c-numpy-ux5e93}{%
+\subsubsection{python 的 sympy 库 和 numpy
+库}\label{python-ux7684-sympy-ux5e93-ux548c-numpy-ux5e93}}
+
+说明：sympy 用於模擬和理解，numpy 用於实践。
+
+\hypertarget{sympy}{%
+\paragraph{sympy}\label{sympy}}
+
+\texttt{sympy}使用\texttt{*}代表矩陣乘法；
+\texttt{sympy}使用\texttt{dot}表示點乘；
+\texttt{sympy}使用\texttt{cross}表示叉乘
+\texttt{det()}表示行列式；\texttt{inv()}表示擬矩陣；\texttt{adjugate()}伴隨矩陣
+
+\hypertarget{numpy}{%
+\paragraph{numpy}\label{numpy}}
+
+\texttt{numpy}使用\texttt{*}表示\texttt{array}乘法默認是按照位置的乘法，矩陣\texttt{matrix}默認的是矩陣乘法，混合起來的話默認是矩陣乘法；
+\texttt{numpy}使用\texttt{dot}表示矩陣\texttt{matrix}和\texttt{array}的矩陣乘法；
+\texttt{numpy}使用\texttt{cross}表示叉乘；
+\texttt{numpy}使用\texttt{det()}表示行列式； \texttt{.T}
+返回自身的轉置； \texttt{.H} 返回自身的共軛轉置； \texttt{.J}
+返回自身的逆矩陣； \texttt{.A}
+返回自身數據的2維數組的一個視圖（沒有做任何的拷貝）
+
+    \hypertarget{chapter-one-matrix}{%
+\subsection{Chapter One Matrix}\label{chapter-one-matrix}}
+
+數學上，一個\(m\times n\)的矩陣是由一個\(m\)行(row)\(n\)列(column)元素排列成的矩形陣列，矩陣裡的元素可以是數字、符號或者數學式。在圖像處理、人工智能燈領域，使用矩陣來表示和處理數據非常常見。例：
+\(\mathbf{A}_{2 \times 3}=\begin{bmatrix} 5 & 2 & 7 \\ 1 & 3 & 4 \end{bmatrix}\)
+其中，矩陣\(A\)的下標\(2\times 3\)表示\(A\)是一個2行3列的矩陣。類似的，另一個示例：
+\(\mathbf{ B }_{ 4 \times 4 }=\begin{bmatrix} 5 & 2 & 7 & 6 \\ 1 & 3 & 4 & 2 \\ 7 & -1 & 9 & 0 \\ 8 & 2 & -2 & 3 \end{bmatrix}\)
+特別的，如果我們要表示矩陣\(A\)的第二行第二個元素：3，可以使用\(A[2,2]\)或者\(a_{2,2}\)。
+在\texttt{python}中的\texttt{numpy}庫中提供了\texttt{ndarrary}類用於儲存高維數組及普通的數組運算，另外提供了\texttt{matrix}類用來支持矩陣運算（矩陣乘法）。下面來舉個例子：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}first method to store the matrix}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5 2 7;1 3 4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{15 2 7 6;1 3 4 2;7 \PYZhy{}1 9 0;8 2 \PYZhy{}2 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{c+c1}{\PYZsh{}print matrix a}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{c+c1}{\PYZsh{}print matrix b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[5 2 7]
+ [1 3 4]]
+[[15  2  7  6]
+ [ 1  3  4  2]
+ [ 7 -1  9  0]
+ [ 8  2 -2  3]]
+[[5 2 7]
+ [1 3 4]]
+[[15  2  7  6]
+ [ 1  3  4  2]
+ [ 7 -1  9  0]
+ [ 8  2 -2  3]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}second method to store the matrix}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{c+c1}{\PYZsh{}print matrix a}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{c+c1}{\PYZsh{}print matrix b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[5 2 7]
+ [1 3 4]]
+[[ 5  2  7  6]
+ [ 1  3  4  2]
+ [ 8  2 -2  3]]
+[[5 2 7]
+ [1 3 4]]
+[[ 5  2  7  6]
+ [ 1  3  4  2]
+ [ 8  2 -2  3]]
+
+    \end{Verbatim}
+
+    這兩種形式完全等效，但是第一種更加直觀，不容易犯錯，所以推薦第一種方式（也很類似\texttt{LaTeX}中構成矩陣的寫法）；
+要把一個\texttt{matrix}的對象轉換為\texttt{ndarray}對象，可以直接用\texttt{getA()}的方法。如果吧\texttt{ndarray}對象轉換成\texttt{matrx}對象可以用\texttt{asmatrix()}方法。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{b} \PY{o}{=} \PY{n}{a}\PY{o}{.}\PY{n}{getA}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{}turn a into ndarray}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{} the type of b}
+         \PY{n}{c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asmatrix}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{} the type of c}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[5 2 7]
+ [1 3 4]]
+<class 'numpy.ndarray'>
+[[5 2 7]
+ [1 3 4]]
+<class 'numpy.matrixlib.defmatrix.matrix'>
+[[5 2 7]
+ [1 3 4]]
+<class 'numpy.ndarray'>
+[[5 2 7]
+ [1 3 4]]
+<class 'numpy.matrixlib.defmatrix.matrix'>
+
+    \end{Verbatim}
+
+    如果你要取出矩陣中的某個值，可以使用類似於數組的下標運算符。但是要注意，計算機的計數方式是從0開始的。例如，要取出\(A[2,2]\)，應該使用：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{a}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 3
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 3
+\end{Verbatim}
+            
+    \hypertarget{ux904bux7b97}{%
+\subsubsection{運算}\label{ux904bux7b97}}
+
+\hypertarget{ux52a0}{%
+\paragraph{加}\label{ux52a0}}
+
+矩陣加法的定義非常符合直覺。假設有\(\mathbf{ A }_{ 3 \times 3 }=\begin{bmatrix} 1 & 0 & 1 \\ 1 & 2 & 1 \\ 2 & 1 & 1 \end{bmatrix}\)，\(\mathbf{ B }_{ 3 \times 3 }=\begin{bmatrix} 2 & 1 & -1 \\ 0 & -1 & 2 \\ 2 & -1 & 0 \end{bmatrix}\)，
+則：
+\(\mathbf{A}+\mathbf{B} = \begin{bmatrix} 1 & 0 & 1 \\ 1 & 2 & 1 \\ 2 & 1 & 1 \end{bmatrix} + \begin{bmatrix} 2 & 1 & -1 \\ 0 & -1 & 2 \\ 2 & -1 & 0 \end{bmatrix} = \begin{bmatrix} 1+2 & 0+1 & 1+(-1) \\ 1+ 0 & 2+(-1) & 1+2 \\ 2+2 & 1+(-1) & 1+0 \end{bmatrix} = \begin{bmatrix} 3 & 1 & 0 \\ 1 & 1 & 3 \\ 4 & 0 & 1 \end{bmatrix}\)
+要注意，兩個矩陣的行數和列數必須相同，否則無定義。下面是\texttt{python}示例：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 0 1;1 2 1;2 1 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 1 \PYZhy{}1;0 \PYZhy{}1 2;2 \PYZhy{}1 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{+}\PY{n}{b}\PY{p}{)}\PY{c+c1}{\PYZsh{} print a+b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[3 1 0]
+ [1 1 3]
+ [4 0 1]]
+[[3 1 0]
+ [1 1 3]
+ [4 0 1]]
+
+    \end{Verbatim}
+
+    很容易看出，矩陣的加法滿足交換律和結合律，即\(A+B=B+A\)，\((A+B)+C=A+(B+C)\)。
+
+    \hypertarget{ux6e1b}{%
+\paragraph{減}\label{ux6e1b}}
+
+矩陣減法也和加法一樣簡單。對於上面給出的\(A\)和\(B\)，有：
+\(\mathbf{A}-\mathbf{B}=\begin{bmatrix} 1 & 0 & 1 \\ 1 & 2 & 1 \\ 2 & 1 & 1 \end{bmatrix}-\begin{bmatrix} 2 & 1 & -1 \\ 0 & -1 & 2 \\ 2 & -1 & 0 \end{bmatrix}=\begin{bmatrix} 1-2 & 0-1 & 1-(-1) \\ 1-0 & 2-(-1) & 1-2 \\ 2-2 & 1-(-1) & 1-0 \end{bmatrix}=\begin{bmatrix} -1 & -1 & 2 \\ 1 & 3 & -1 \\ 0 & 2 & 1 \end{bmatrix}\)
+同樣，相減的兩個矩陣行數和列數必須完全相同，否則無定義。下面是\texttt{python}示例：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[-1 -1  2]
+ [ 1  3 -1]
+ [ 0  2  1]]
+[[-1 -1  2]
+ [ 1  3 -1]
+ [ 0  2  1]]
+
+    \end{Verbatim}
+
+    \hypertarget{ux4e58}{%
+\paragraph{乘}\label{ux4e58}}
+
+矩陣乘法的定義是\(A_{i\times j}\)矩陣的每一行的元素分別與\(B_{j\times k}\)矩陣的每一列的元素兩兩相乘並詳加，從而，得到新的矩陣\(C_{j\times k\)。兩個矩陣能相乘的充份必要條件是第一個矩陣的列數等於第二個矩陣的行數相等，否則，無定義。\(\begin {aligned} \mathbf{A} \times \mathbf{B} &=\begin{bmatrix} 1 & 0 & 1 \\ 1 & 2 & 1 \\ 2 & 1 & 1 \end{bmatrix}\times \begin{bmatrix} 2 & 1 & -1 \\ 0 & -1 & 2 \\ 2 & -1 & 0 \end{bmatrix} \\\ &=\begin{bmatrix} 1\cdot 2+0\cdot 0+1\cdot 2 & 1\cdot 1+0\cdot (-1)+1\cdot (-1) & 1\cdot (-1)+0\cdot 2+1\cdot 0 \\ 1\cdot 2+2\cdot 0+1\cdot 2 & 1\cdot 1+2\cdot (-1)+1\cdot (-1) & 1\cdot (-1)+2\cdot 2+1\cdot 0 \\ 2\cdot 2+1\cdot 0+1\cdot 2 & 2\cdot 1+1\cdot (-1)+1\cdot (-1) & 2\cdot (-1)+1\cdot 2+1\cdot 0 \end{bmatrix}\\\ &=\begin{bmatrix} 4 & 0 & -1 \\ 4 & -2 & 3 \\ 6 & 0 & 0 \end{bmatrix} \end {aligned}\)
+
+    再舉一個行列數不同的例子，假設有\(\mathbf{C}_{2 \times 3} = \begin{bmatrix} 5 & 7 & 2 \\ 4 & 3 & 1 \end{bmatrix}\)和\(\mathbf{D}_{3 \times 1} = \begin{bmatrix} 1 \\ 5 \\ 6 \end{bmatrix}\)，那麼，我們可以得出：\(\mathbf{C}\times \mathbf{D} = \begin{bmatrix} 5 & 7 & 2 \\ 4 & 3 & 1 \end{bmatrix}\times \begin{bmatrix} 1 \\ 5 \\ 6 \end{bmatrix}  =\begin{bmatrix} 5 \cdot 1+ 7 \cdot 5+ 2\cdot 6 \\ 4\cdot 1+3\cdot 5+1\cdot 6 \end{bmatrix} =\begin{bmatrix} 52 \\ 25 \end{bmatrix}\)
+
+    與初等代數中學的乘法不同，矩陣的乘法並不滿足交換律，即，\(A \times B \neq B \times A\)，但是，它滿足分配律：\((A\times B)\times C = A\times (B\times C)\)。
+再介紹兩個特殊的矩陣： 1. 單位矩陣（Identity
+Matrix）他的特點是與行數和列數相等，對角線上的值都是1，其他值都是0。另一個特點是：它與任意矩陣\(A\)相乘結果等於\(A\)。
+\(\mathbf{I}_{3 \times 3} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\)這是一個
+\(3\times 3\)的單位矩陣 2. 零矩陣（Null
+Matrix）顧名思義就是全部元素都是0的矩陣。零矩陣乘以任何矩陣都是零矩陣，與任何矩陣\(A\)都等於\(A\)。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}python示例}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{this is a times b:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{n}{b}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{this is b times a:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{o}{*}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+this is a times b:
+[[ 4  0 -1]
+ [ 4 -2  3]
+ [ 6  0  0]]
+this is b times a:
+[[ 1  1  2]
+ [ 3  0  1]
+ [ 1 -2  1]]
+this is a times b:
+[[ 4  0 -1]
+ [ 4 -2  3]
+ [ 6  0  0]]
+this is b times a:
+[[ 1  1  2]
+ [ 3  0  1]
+ [ 1 -2  1]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{c} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5 7 2;4 3 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1;5;6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{this is c times d:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{c}\PY{o}{*}\PY{n}{d}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{this is a times b times d:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{n}{b}\PY{o}{*}\PY{n}{d}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first,we user b times d, then we use a to times the b*d:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{p}{(}\PY{n}{b}\PY{o}{*}\PY{n}{d}\PY{p}{)}\PY{p}{)}
+         \PY{n}{I} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}we defined I as a 3 by 3 indentity matrix;eye() equals to\PYZsq{}I = np.matrix(\PYZsq{}1 0 0;0 1 0;0 0 1\PYZsq{})\PYZsq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{This is a times I:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{n}{I}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{This is I times a:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{I}\PY{o}{*}\PY{n}{a}\PY{p}{)}
+         \PY{n}{z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}we define z as a 3 by 3 null matrix; np.zeros() equals to\PYZsq{}z = np.matrix(\PYZsq{}0 0 0;0 0 0;0 0 0\PYZsq{})\PYZsq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{This is a times z:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{n}{z}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{This is z times a:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{z}\PY{o}{*}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+this is c times d:
+[[52]
+ [25]]
+this is a times b times d:
+[[-2]
+ [12]
+ [ 6]]
+first,we user b times d, then we use a to times the b*d:
+[[-2]
+ [12]
+ [ 6]]
+This is a times I:
+[[ 1.  0.  1.]
+ [ 1.  2.  1.]
+ [ 2.  1.  1.]]
+This is I times a:
+[[ 1.  0.  1.]
+ [ 1.  2.  1.]
+ [ 2.  1.  1.]]
+This is a times z:
+[[ 0.  0.  0.]
+ [ 0.  0.  0.]
+ [ 0.  0.  0.]]
+This is z times a:
+[[ 0.  0.  0.]
+ [ 0.  0.  0.]
+ [ 0.  0.  0.]]
+this is c times d:
+[[52]
+ [25]]
+this is a times b times d:
+[[-2]
+ [12]
+ [ 6]]
+first,we user b times d, then we use a to times the b*d:
+[[-2]
+ [12]
+ [ 6]]
+This is a times I:
+[[ 1.  0.  1.]
+ [ 1.  2.  1.]
+ [ 2.  1.  1.]]
+This is I times a:
+[[ 1.  0.  1.]
+ [ 1.  2.  1.]
+ [ 2.  1.  1.]]
+This is a times z:
+[[ 0.  0.  0.]
+ [ 0.  0.  0.]
+ [ 0.  0.  0.]]
+This is z times a:
+[[ 0.  0.  0.]
+ [ 0.  0.  0.]
+ [ 0.  0.  0.]]
+
+    \end{Verbatim}
+
+    \hypertarget{ux9664ux6c42ux9006}{%
+\paragraph{\texorpdfstring{\sout{除}（求逆）}{除（求逆）}}\label{ux9664ux6c42ux9006}}
+
+
+矩陣中沒有除法這種操作，但是有一個相似的運算，叫做求逆。在線性代數中，給定一個\(n\)階的方陣\(A\)
+，若存在一個\(n\)階矩陣\(B\)，使得\(AB = BA = I_n\)，其中\(I_n\)為\(n\)階的單位矩陣，則稱\(A\)是\textbf{可逆}的，而\(B\)則是\(A\)的逆矩陣，記作：\(A^{-1}\)。
+\#\#\#\#\# 伴隨陣法：
+\(\mathbf{A}^{-1}=\frac{1}{|\mathbf{A}|}\begin{bmatrix}A_{11} & A_{21} & \ldots & A_{n1} \\ A_{12} & A_{22} & \ldots & A_{n2} \\ \ldots & \ldots & \ldots & \ldots \\ A_{1n} & A_{2n} & \ldots & A_{nn} \end{bmatrix}\)，其中\(A_{ij}\)是\(|A|\)中元素\(a_{ij}\)的代數余子式。
+矩陣\(\begin{bmatrix}A_{11} & A_{21} & \ldots & A_{n1} \\ A_{12} & A_{22} & \ldots & A_{n2} \\ \ldots & \ldots & \ldots & \ldots \\ A_{1n} & A_{2n} & \ldots & A_{nn} \end{bmatrix}\)稱為矩陣\(A\)
+的伴隨矩陣，記作\(A*\) \#\#\#\#\# 初等變換法：
+如果矩陣\(A\)和\(B\)互逆，則\(AB=BA=I\)。由\(AB=BA\)可以得出：兩個矩陣都是方陣；由\(AB=I\)以及定理``兩個矩陣的乘積的行列式等於兩個矩陣的行列式的乘積''可得：兩個矩陣的行列式不等於零。現在假設三階矩陣\({ \mathbf{A} }_{ 3 \times 3 }=\begin{bmatrix} 1 & 0 & 1 \\ 1 & 2 & 1 \\ 2 & 1 & 1 \end{bmatrix}\)，則：
+\(\begin{aligned} \begin{bmatrix}\mathbf{A} \mathbf{I}\end{bmatrix} & \rightarrow \begin{bmatrix} 1 & 0 & 1 & 1 & 0 & 0 \\ 1 & 2 & 1 & 0 & 1 & 0 \\ 2 & 1 & 1 & 0 & 0 & 1 \end{bmatrix} \rightarrow \begin{bmatrix} 1 & 0 & 1 & 1 & 0 & 0 \\ 0 & 2 & 0 & -1 & 1 & 0 \\ 2 & 1 & 1 & 0 & 0 & 1 \end{bmatrix} \rightarrow \begin{bmatrix} 1 & 0 & 1 & 1 & 0 & 0 \\ 0 & 1 & 0 & -0.5 & 0.5 & 0 \\ 2 & 1 & 1 & 0 & 0 & 1 \end{bmatrix}\\ & \rightarrow \begin{bmatrix} 1 & 0 & 1 & 1 & 0 & 0 \\ 0 & 1 & 0 & -0.5 & 0.5 & 0 \\ 1 & 1 & 0 & -1 & 0 & 1 \end{bmatrix} \rightarrow \begin{bmatrix} 1 & 0 & 1 & 1 & 0 & 0 \\ 0 & 1 & 0 & -0.5 & 0.5 & 0 \\ 1 & 0 & 0 & -0.5 & -0.5 & 1 \end{bmatrix} \rightarrow \begin{bmatrix} 0 & 0 & 1 & 1.5 & 0.5 & -1 \\ 0 & 1 & 0 & 0 & 0.5 & 0 \\ 1 & 0 & 0 & -0.5 & -0.5 & 1 \end{bmatrix}\\ &\rightarrow \begin{bmatrix} 1 & 0 & 0 & -0.5 & -0.5 & 1 \\ 0 & 1 & 0 & -0.5 & 0.5 & 0 \\ 0 & 0 & 1 & 1.5 & 0.5 & -1 \end{bmatrix} \end{aligned}\)
+所以：\(\mathbf{A}^{-1}=\begin{bmatrix}-0.5 & -0.5 & 1 \\ -0.5 & 0.5 & 0 \\ 1.5 & 0.5 & -1\end{bmatrix}\)
+
+    \hypertarget{ux5947ux7570ux77e9ux9663singular-matrix}{%
+\subsubsection{奇異矩陣（Singular
+Matrix）}\label{ux5947ux7570ux77e9ux9663singular-matrix}}
+
+如果一個方陣\(A\)滿足條件\(|A|(det(A))\neq 0\)，則稱\(A\)為非奇異矩陣（non-singular
+matrix），否則則稱為奇異矩陣。簡單的說\textbf{沒有逆矩陣的矩陣就是奇異矩陣，有逆矩陣的矩陣就是非奇異矩陣}
+\texttt{python}求逆示例：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 0 1; 1 2 1; 2 1 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{I}\PY{p}{)} \PY{c+c1}{\PYZsh{}the inverse of matrix a }
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{n}{a}\PY{o}{.}\PY{n}{I}\PY{p}{)} \PY{c+c1}{\PYZsh{}a times a inverse equals to indentity matrix}
+         \PY{n}{f} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0 1;0 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{o}{.}\PY{n}{I}\PY{p}{)}\PY{c+c1}{\PYZsh{}because f has no inverse, f is a singular matrix}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[-0.5 -0.5  1. ]
+ [-0.5  0.5  0. ]
+ [ 1.5  0.5 -1. ]]
+[[ 1.  0.  0.]
+ [ 0.  1.  0.]
+ [ 0.  0.  1.]]
+[[-0.5 -0.5  1. ]
+ [-0.5  0.5  0. ]
+ [ 1.5  0.5 -1. ]]
+[[ 1.  0.  0.]
+ [ 0.  1.  0.]
+ [ 0.  0.  1.]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        LinAlgError                               Traceback (most recent call last)
+
+        <ipython-input-19-1bb88e56f1ce> in <module>()
+          3 print(a*a.I) \#a times a inverse equals to indentity matrix
+          4 f = np.matrix('0 1;0 0')
+    ----> 5 print(f.I)\#because f has no inverse, f is a singular matrix
+    
+
+        /usr/lib/python3/dist-packages/numpy/matrixlib/defmatrix.py in getI(self)
+        970         else:
+        971             from numpy.dual import pinv as func
+    --> 972         return asmatrix(func(self))
+        973 
+        974     def getA(self):
+
+
+        /usr/lib/python3/dist-packages/numpy/linalg/linalg.py in inv(a)
+        524     signature = 'D->D' if isComplexType(t) else 'd->d'
+        525     extobj = get\_linalg\_error\_extobj(\_raise\_linalgerror\_singular)
+    --> 526     ainv = \_umath\_linalg.inv(a, signature=signature, extobj=extobj)
+        527     return wrap(ainv.astype(result\_t, copy=False))
+        528 
+
+
+        /usr/lib/python3/dist-packages/numpy/linalg/linalg.py in \_raise\_linalgerror\_singular(err, flag)
+         88 
+         89 def \_raise\_linalgerror\_singular(err, flag):
+    ---> 90     raise LinAlgError("Singular matrix")
+         91 
+         92 def \_raise\_linalgerror\_nonposdef(err, flag):
+
+
+        LinAlgError: Singular matrix
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        LinAlgError                               Traceback (most recent call last)
+
+        <ipython-input-19-1bb88e56f1ce> in <module>()
+          3 print(a*a.I) \#a times a inverse equals to indentity matrix
+          4 f = np.matrix('0 1;0 0')
+    ----> 5 print(f.I)\#because f has no inverse, f is a singular matrix
+    
+
+        /usr/lib/python3/dist-packages/numpy/matrixlib/defmatrix.py in getI(self)
+        970         else:
+        971             from numpy.dual import pinv as func
+    --> 972         return asmatrix(func(self))
+        973 
+        974     def getA(self):
+
+
+        /usr/lib/python3/dist-packages/numpy/linalg/linalg.py in inv(a)
+        524     signature = 'D->D' if isComplexType(t) else 'd->d'
+        525     extobj = get\_linalg\_error\_extobj(\_raise\_linalgerror\_singular)
+    --> 526     ainv = \_umath\_linalg.inv(a, signature=signature, extobj=extobj)
+        527     return wrap(ainv.astype(result\_t, copy=False))
+        528 
+
+
+        /usr/lib/python3/dist-packages/numpy/linalg/linalg.py in \_raise\_linalgerror\_singular(err, flag)
+         88 
+         89 def \_raise\_linalgerror\_singular(err, flag):
+    ---> 90     raise LinAlgError("Singular matrix")
+         91 
+         92 def \_raise\_linalgerror\_nonposdef(err, flag):
+
+
+        LinAlgError: Singular matrix
+
+    \end{Verbatim}
+
+    \hypertarget{ux77e9ux9663ux7684ux8f49ux7f6etransport}{%
+\subsubsection{矩陣的轉置（Transport）}\label{ux77e9ux9663ux7684ux8f49ux7f6etransport}}
+
+在線性代數中，矩陣\(A\)的轉置是另一個矩陣\(A^T\)，如下所示： *
+把\(A\)的橫行寫成\(A^T\)的縱列； * 把\(A\)的縱列寫成\(A^T\)的橫行；
+形式上說就是，\(m\times n\)的矩陣\(A\)的轉置是\(n\times m\)矩陣。
+矩陣\(\underset{m\times n}{\mathbf{A}} = \begin{bmatrix}a_{11} & a_{12} & \ldots & a_{1n} \\ a_{21} & a_{22} & \ldots & a_{2n} \\ \ldots \\ a_{m1} & a_{m2} & \ldots & a_{mn}\end{bmatrix}\)的轉置定義為\(\underset{n\times n}{A^{T}} = \begin{bmatrix}a_{11} & a_{21} & \ldots & a_{m1} \\ a_{12} & a_{22} & \ldots & a_{m2} \\ \ldots \\ a_{1n} & a_{2n} & \ldots & a_{mn}\end{bmatrix}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}python 示例：}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 4;1 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{c+c1}{\PYZsh{}the transport of a}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 2 3;4 5 6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{c+c1}{\PYZsh{}the transport of b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[2 1]
+ [4 3]]
+[[1 4]
+ [2 5]
+ [3 6]]
+[[2 1]
+ [4 3]]
+[[1 4]
+ [2 5]
+ [3 6]]
+
+    \end{Verbatim}
+
+    \textbf{特別的，矩陣的轉置有一個性質：矩陣的轉置等於矩陣調換後分別做轉置的乘積：\(（A\bullet B)^T = B^T\bullet A^T\)}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 4;1 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 6;2 5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{c} \PY{o}{=} \PY{n}{a}\PY{o}{*}\PY{n}{b}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{c}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{o}{.}\PY{n}{T}\PY{o}{*}\PY{n}{a}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[10  7]
+ [32 21]]
+[[10  7]
+ [32 21]]
+[[10  7]
+ [32 21]]
+[[10  7]
+ [32 21]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{o}{*}
+         
+         \PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{3.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{2.5}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mf}{3.5}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{3.5}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} [<matplotlib.lines.Line2D at 0x7605c410>,
+          <matplotlib.lines.Line2D at 0x6f831830>]
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} [<matplotlib.lines.Line2D at 0x7605c410>,
+          <matplotlib.lines.Line2D at 0x6f831830>]
+\end{Verbatim}
+            
+    可以用矩陣表示成：\(\begin{bmatrix} 3 & 2 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 7\\ 1 \end{bmatrix}\)
+設\(\begin{bmatrix}3 & 2 \\-1 & 1\end{bmatrix}\)為矩陣\(A\)，將等式兩邊左乘一個\(A\)的逆，就可以得到：
+\(\begin{aligned} A^{-1}A \begin{bmatrix} x \\ y \end{bmatrix} &= A^{-1} \begin{bmatrix} 7\\ 1 \end{bmatrix}\\\
+&= \frac{1}{|A|}\begin{bmatrix}1 & -2 \\ 1 & 3\end{bmatrix} \begin{bmatrix} 7\\ 1 \end{bmatrix}\\\
+&= \frac{1}{5}\begin{bmatrix}1 & -2 \\ 1 & 3\end{bmatrix} \begin{bmatrix} 7\\ 1 \end{bmatrix}\\\
+&= \frac{1}{5}\begin{bmatrix}5 \\ 10\end{bmatrix} \end{aligned}\)
+因此，\(\begin{bmatrix}x \\ y\end{bmatrix}=\begin{bmatrix}1 \\ 2\end{bmatrix}\)
+
+    雖然這個方法在二元一次方程這看起來還沒有初中學的校園法解得快，但使用矩陣的好處在於對於更高維的數據，比如成白上千的未知數，這個解法依然有效。
+在\texttt{python}中，我們可以使用\texttt{numpy}的線性代數算法庫\texttt{linalg}提供的\texttt{solve}方法來求解方程組。例：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 2; \PYZhy{}1 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{7; 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 1.]
+ [ 2.]]
+[[ 1.]
+ [ 2.]]
+
+    \end{Verbatim}
+
+    \hypertarget{ux6c42ux5411ux91cfux7d44ux5408}{%
+\subsubsection{求向量組合}\label{ux6c42ux5411ux91cfux7d44ux5408}}
+
+假設有向量\(\vec { a } = \begin{bmatrix} 3 \\ -1 \end{bmatrix}\)，\(\vec { b } = \begin{bmatrix} 2 \\ 1 \end{bmatrix}\)，求兩者如何組成新向量\(\vec { c } = \begin{bmatrix} 7 \\ 1 \end{bmatrix}\)？
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{soa} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{soa}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale\PYZus{}units}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    如果用\(x\)和\(y\)分別表示兩個向量的背書，這個問題就可以用矩陣表示成：\(\begin{bmatrix}3 \\-1 \end{bmatrix}x + \begin{bmatrix}2 \\1\end{bmatrix}y=\begin{bmatrix}7\\1\end{bmatrix}\)
+這樣就把這個問題轉換成和上一個問題同構了，使用同樣的方法可以得出：\(\begin{bmatrix}x \\ y\end{bmatrix}=\begin{bmatrix}1 \\ 2\end{bmatrix}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{soa} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{soa}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale\PYZus{}units}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{chapter-two-determinant}{%
+\subsection{Chapter Two Determinant}\label{chapter-two-determinant}}
+
+\hypertarget{ux4ec0ux9ebcux662fux884cux5217ux5f0f}{%
+\subsubsection{什麼是行列式}\label{ux4ec0ux9ebcux662fux884cux5217ux5f0f}}
+
+\textbf{行列式}（Dterminant），在顯示代數中，行列式是一個值，一個數值可以告訴我們一個矩陣是否是奇異的。對於每一個\(n\times n\)的矩陣\(A\)，據對應一個標量\(det(A)\)，它的值將告訴我們矩陣是否為非奇異的。
+1. \(2\times 2\) 矩陣的行列式值
+\(det(\  \left[\begin{array}{cc}  a & b\\  c & d\\ \end{array}\right] \  ) = ad - bc\)
+我們也可以用\texttt{sympy}進行核對：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k}{import} \PY{o}{*}
+            
+         \PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{c}\PY{p}{,}\PY{n}{d} \PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a,b,c,d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{M1}\PY{o}{=}\PY{n}{Matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{c}\PY{p}{,} \PY{n}{d}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{M1}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{} print the determinant of matrix M1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a*d - b*c
+a*d - b*c
+
+    \end{Verbatim}
+
+    \hypertarget{ux884cux5217ux5f0fux7684ux5e7eux4f55ux610fux7fa9ux4e8cux7dadux548cux4e09ux7dadux6b50ux5f0fux7a7aux9593ux4e2dux7684ux4f8bux5b50}{%
+\subsubsection{行列式的幾何意義：二維和三維歐式空間中的例子}\label{ux884cux5217ux5f0fux7684ux5e7eux4f55ux610fux7fa9ux4e8cux7dadux548cux4e09ux7dadux6b50ux5f0fux7a7aux9593ux4e2dux7684ux4f8bux5b50}}
+
+行列式的一個自然的怨氣就是\(n\)維平行體的體積。行列式的定義和\(n\)維平行體的體積有著本質上的關聯。
+在二維空間中，行列式如上面例子所示；比如說：\(det(A,B) =\  \left|\begin{array}{cc}  2 & 3\\  1 & 4\\ \end{array}\right| \ = 2\bullet 4 - 3\bullet 1 = 5\)，我們經過計算可以知道，當係數是實數的時候，行列式表示的就是向量\(\vec A\)和\(\vec B\)
+形成的平行四邊形的\textbf{有向面積}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{o}{*}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} [<matplotlib.lines.Line2D at 0x6ebe3c30>,
+          <matplotlib.lines.Line2D at 0x6ebe3cf0>,
+          <matplotlib.lines.Line2D at 0x6ebe84d0>,
+          <matplotlib.lines.Line2D at 0x6ebe8b90>]
+\end{Verbatim}
+            
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} [<matplotlib.lines.Line2D at 0x6ebe3c30>,
+          <matplotlib.lines.Line2D at 0x6ebe3cf0>,
+          <matplotlib.lines.Line2D at 0x6ebe84d0>,
+          <matplotlib.lines.Line2D at 0x6ebe8b90>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_36_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_36_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+            
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{} print the determinant of matrix M1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5.0
+5.0
+
+    \end{Verbatim}
+
+    我們通過計算，可以得到這個矩陣的行列式等於\(5\)，可以看出，上圖由紅線和藍線形成的是一個平行四邊形，我們可以通過計算得出，它的面積等於\(5\)
+*這裡只是簡單介紹二維行列式，具體請查閱課本**
+
+    那如果是三位空間呢？在三維的有向空間中，三個三維向量的行列式是\$\left\textbar{}\textbackslash{}begin\{array\}\{ccc\}\\
+x \& x' \& x'`\textbackslash{}\\
+y \& y' \& z'`\textbackslash{} z \& z' \&
+z'`\textbackslash{}end\{array\}\right\textbar{}\\
+\hspace*{0.333em}= xy'z'`+ x'y'`z + x'`yz' - xy'`z' - xyz'`- x''y'z \$
+比如說，三個向量\((2,1,5),(6,0,8)\) 和 \((3,2,4)\) 的行列式為：
+\$\left\textbar{}\textbackslash{}begin\{array\}\{ccc\}\\
+2 \& 6 \& 3\textbackslash{}\\
+1 \& 0 \& 2\textbackslash{} 5 \& 8 \& 4
+\textbackslash{}end\{array\}\right\textbar{} = 28 \$
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d} \PY{k}{import} \PY{n}{Axes3D}
+         
+         \PY{n}{p0} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{p1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}
+         \PY{n}{p2} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}
+         
+         \PY{n}{origin} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{Z} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{origin}\PY{p}{,}\PY{n}{origin}\PY{p}{)} 
+         \PY{n}{U}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{W} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{p0}\PY{p}{,}\PY{n}{p1}\PY{p}{,}\PY{n}{p2}\PY{p}{)}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{Z}\PY{p}{,}\PY{n}{U}\PY{p}{,}\PY{n}{V}\PY{p}{,}\PY{n}{W}\PY{p}{,}\PY{n}{arrow\PYZus{}length\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}zlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    類比一下二維向量的行列式，我們可以猜測一下三維向量組的行列式的幾何意義，就是這三個向量行程的平行六面體的\textbf{有向體積}；我們可以用\texttt{python}來算它的行列式：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+28.0
+28.0
+
+    \end{Verbatim}
+
+    \emph{\textbf{特別的，如果向量組中，所有向量共線或者共面（線性相關），面積或體積為零}，什麼是線性相關，我們會在後面解釋}
+
+    \hypertarget{chapter-three-vector}{%
+\subsection{Chapter Three Vector}\label{chapter-three-vector}}
+
+\hypertarget{what-is-vector}{%
+\subsubsection{What is Vector}\label{what-is-vector}}
+
+在初中（或高中）物理，我們就已經接觸過向量了，那向量到底是什麼？它是指一個同事具有大小和方向，且滿足平行四邊形法則的集合對象。一般地，同時滿足具有大小和方向兩個性質的集合對象就可以稱作為向量（物理中的電流：有方向，有大小，但是它不是向量，這是特殊情況，我們在線性代數中不討論）。與向量相對的叫做\textbf{標量}（scalar），一般標量和向量最大的區別就是是否有向。
+在\(R^n\)空間中定義\(\vec V\)，可以用一個包含\(n\)個實數的有序集來表示：\(\vec V = \begin{bmatrix} v_1 \\ v_2 \\ \dots \\ v_n\end{bmatrix}\)，這個有序集中的每一個元素被稱為向量的分量（在某一維度的量）。例如，一個在\(R^2\)空間的向量\(\begin{bmatrix} 2 \\ 1 \end{bmatrix}\),我們也可以用\((2,1)\)或\(<2,1>\)來表示：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{soa} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{soa}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale\PYZus{}units}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    向量的長度被定義為\(\parallel v \parallel = \sqrt{v_1^2 + v_2^2 +\dots + v_n^2}\)；當然的，當\(\parallel v \parallel = 1\)，我們稱這個向量是\textbf{單位向量}
+
+    \hypertarget{ux57faux672cux904bux7b97}{%
+\subsubsection{基本運算}\label{ux57faux672cux904bux7b97}}
+
+\hypertarget{ux52a0ux6cd5}{%
+\paragraph{加法}\label{ux52a0ux6cd5}}
+
+向量\(a\)和向量\(b\)的加法定義為：\(\mathbf{a} + \mathbf{b} = \begin{bmatrix} a_1 + b_2 \\ a_2 + b_2 \\ \dots \\a_n + b_n \end{bmatrix}\)
+下面通過畫圖來示意向量\(\mathbf{a} = \begin{bmatrix} -1 \\ 2 \end{bmatrix}\)與\(\mathbf{b} = \begin{bmatrix}3 \\ 1\end{bmatrix}\)相加，等於\(\begin{bmatrix} 2 \\ 3 \end{bmatrix}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{soa} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{soa}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale\PYZus{}units}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    可以看出，向量的加法是遵從平行四邊形法則的，在\texttt{python}中，我們可以直接用\texttt{numpy}的\texttt{ndarray}來表示向量：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{o}{+}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[2 3]
+[2 3]
+
+    \end{Verbatim}
+
+    \hypertarget{ux6e1bux6cd5}{%
+\paragraph{減法}\label{ux6e1bux6cd5}}
+
+了解了加法了，減法就相當於加了一個反方向的向量，\(\mathbf{a} - \mathbf{b} = \begin{bmatrix} a_1 - b_1 \\ a_2 - b_2 \\ \ldots \\ a_n - b_n \end{bmatrix}\)，下面通過畫圖來示意向量\(\mathbf{a} = \begin{bmatrix} -1 \\ 2 \end{bmatrix}\)與\(\mathbf{b} = \begin{bmatrix}3 \\ 1\end{bmatrix}\)相減，等於\(\begin{bmatrix} -4 \\ 1 \end{bmatrix}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{soa} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{soa}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale\PYZus{}units}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{a} \PY{o}{\PYZhy{}} \PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-4  1]
+[-4  1]
+
+    \end{Verbatim}
+
+    \hypertarget{ux4e58ux6cd5}{%
+\paragraph{乘法}\label{ux4e58ux6cd5}}
+
+\hypertarget{ux6a19ux91cfux4e58ux4ee5ux5411ux91cf}{%
+\subparagraph{標量乘以向量}\label{ux6a19ux91cfux4e58ux4ee5ux5411ux91cf}}
+
+標量\(c\)乘以向量\(\mathbf{a}\)定義為：\(c \cdot \mathbf{a} = \begin{bmatrix} c \cdot a_1 \\ c \cdot a_2 \\ \ldots \\ c \cdot a_n \end{bmatrix} = \begin{bmatrix} a_1 \cdot c \\ a_2 \cdot c \\ \ldots \\ a_n \cdot c \end{bmatrix}\)
+用圖來示意\(\mathbf{a} \begin{bmatrix} -1 \\2 \end{bmatrix}\)乘以一個標量\(3\)得到\(\begin{bmatrix}-3 \\ 6 \end{bmatrix}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{3} \PY{o}{*} \PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-3  6]
+[-3  6]
+
+    \end{Verbatim}
+
+    \hypertarget{ux5411ux91cfux9edeux7a4d}{%
+\subparagraph{向量點積}\label{ux5411ux91cfux9edeux7a4d}}
+
+定義如下：\(\vec{\mathbf{a}}\cdot \vec{\mathbf{b}} = \begin{bmatrix} a_1 \\ a_2 \\ \ldots \\ a_n\end{bmatrix} \cdot \begin{bmatrix} b_1 \\ b_2 \\ \ldots \\ b_n \end{bmatrix} = a_{1}b_{1} + a_{2}b_{2} + \ldots + a_{n}b_{n}\)
+可以看出，向量點積得到的是一個標量； 例如:
+\(\begin{bmatrix} 3 \\ 5 \\ 2 \end{bmatrix} \cdot \begin{bmatrix} 1 \\ 4 \\ 7 \end{bmatrix} = 3 \cdot 1 + 5 \cdot 4 + 2 \cdot 7 = 37\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{vec\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{vec\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{vec\PYZus{}1}\PY{p}{,} \PY{n}{vec\PYZus{}2}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} dot product of vectors}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cross}\PY{p}{(}\PY{n}{vec\PYZus{}1}\PY{p}{,} \PY{n}{vec\PYZus{}2}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} cross multipication of vectors}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+37
+[ 27 -19   7]
+37
+[ 27 -19   7]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{soa} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{soa}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{quiver}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{U}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{angles}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale\PYZus{}units}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_58_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    可以看出，第一個答案是點乘出來的結果，在\texttt{python-numpy}中，我們用\texttt{np.dot(vector,\ vector)}來計算兩個或多個向量的點積。而\texttt{(vector\ *\ vector)}則是計算向量的叉乘結果，下面來介紹一下叉乘（向量積）：
+它是向量和向量的乘積，不過結果是一個向量，它的集合意義是所得的向量和被乘向量所在的平面垂直，方向由右手定則規定，大小是兩個被乘向量張成的平行四邊形的面積。所以，向量積不滿足交換律。下面主要介紹在\(\mathbf{R}^2\)和\(\mathbf{R}^3\)的情況下的向量積：
+\(\mathbf{R}^2\)的向量積：
+
+\(\begin{bmatrix} a_1 \\ a_2\end{bmatrix} \times \begin{bmatrix} b_1 \\ b_2 \end{bmatrix} = \begin{bmatrix} a_1 \cdot b_2 - a_2 \cdot b_1\end{bmatrix}\)
+
+ 例如：
+
+\(\begin{bmatrix} 1 \\ 2 \end{bmatrix} \times \begin{bmatrix} 3 \\4 \end{bmatrix} =\begin{bmatrix} 1 \cdot 4 - 3 \cdot 2 \end{bmatrix}= \begin{bmatrix}-2\end{bmatrix}\)
+
+\(\mathbf{R}^3\)的向量積：
+
+\(\begin{bmatrix} a_1 \\ a_2 \\ a_3\end{bmatrix} \times \begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix} = \begin{bmatrix} a_2 \cdot b_3 - a_3 \cdot b_2 \\ a_3 \cdot b_1 - a_1 \cdot b_3 \\ a_1 \cdot b_2 - a_2 \cdot b_1\end{bmatrix}\)
+
+ 例如：
+
+\(\begin{bmatrix} 3 \\ 5 \\ 2 \end{bmatrix} \times \begin{bmatrix} 1 \\ 4 \\ 7 \end{bmatrix} =\begin{bmatrix} 5 \cdot 7 - 2 \cdot 4 \\ 2 \cdot 1 - 3 \cdot 7 \\ 3 \cdot 4 - 5 \cdot 1\end{bmatrix}= \begin{bmatrix} 27 \\ -19 \\ 7\end{bmatrix}\)
+
+ 可以看出，向量積的結果就是一個新的向量。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cross}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} cross multipication of vec a and vec b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 27 -19   7]
+[ 27 -19   7]
+
+    \end{Verbatim}
+
+    之前我們所講的向量長度的定義式：\(\left\| \vec{\mathbf{v}} \right\| = \sqrt{v_{1}^{2} + v_{2}^{2} + \ldots + v_{n}^{2}}\)，如果我們連立向量點積的定義就可以得出\(\parallel \mathbf{v} \parallel = \sqrt{\vec{v}\cdot \vec{v}}\)
+關於點積，還有一個重要的重要的性質，就是\textbf{柯西不等式}：
+\textbf{對於兩個非零向量，\(\vec{x}, \vec{y} \in \mathbf{R}^n, |\vec{x}\cdot \vec{y}| \leq \parallel \mathbf{x}\parallel \parallel\mathbf{y} \parallel\)，當且僅當\(\vec{\mathbf{x}} = c\vec{\mathbf{y}}\)時，等號成立}。證明如下：
+
+\(\begin{align} \left\|\vec{\mathbf{x}} + \vec{\mathbf{y}}\right\|^2 & = (\vec{\mathbf{x}} + \vec{\mathbf{y}})\cdot (\vec{\mathbf{x}} + \vec{\mathbf{y}}) \\\
+ & = \left\|\vec{\mathbf{x}}\right\|^2 + 2\vec{\mathbf{x}}\vec{\mathbf{y}} + \left\|\vec{\mathbf{y}}\right\|^2 \\\
+& \le \left\|\vec{\mathbf{x}}\right\|^2 + 2\left\|\vec{\mathbf{x}}\right\|\left\|\vec{\mathbf{y}}\right\| + \left\|\vec{\mathbf{y}}\right\|^2 \end{align}\)
+
+ 所以：
+
+\(\left\|\vec{\mathbf{x}} + \vec{\mathbf{y}}\right\|^2 \le (\left\|\vec{\mathbf{x}}\right\| + \left\|\vec{\mathbf{y}}\right\|)^2\)
+
+ 兩邊開平方後：
+
+\(\left\|\vec{\mathbf{x}} + \vec{\mathbf{y}}\right\| \le \left\|\vec{\mathbf{x}}\right\| + \left\|\vec{\mathbf{y}}\right\|\)
+
+
+這也就是我們高中三角函數裡學過的\textbf{三角不等式}，從幾何的角度來說，向量的點積和向量的夾角\(\theta\)的餘弦值時有關的：\(\vec{\mathbf{a}}\cdot\vec{\mathbf{b}} = \left\|\vec{\mathbf{a}}\right\|\left\|\vec{\mathbf{b}}\right\|cos\theta\)
+
+    從另一個角度來看，這其實就是一個向量在另一個向量上的投影:
+\(Proj_L({\vec{\mathbf{x}}}) = c\vec{\mathbf{v}} = (\frac{\vec{\mathbf{x}}\cdot \vec{\mathbf{v}}}{\vec{\mathbf{v}}\cdot \vec{\mathbf{v}}})\vec{\mathbf{v}}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{c+c1}{\PYZsh{}the first way to define the function}
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}projection}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{a}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{b}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{1.0}\PY{o}{*}\PY{n}{b}\PY{o}{/}\PY{n}{b}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+        
+        \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{get\PYZus{}projection}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 1.5  1.5]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np} 
+        \PY{c+c1}{\PYZsh{}the second way to define the function }
+        \PY{n}{find\PYZus{}projection} \PY{o}{=} \PY{k}{lambda} \PY{n}{a}\PY{p}{,} \PY{n}{b} \PY{p}{:} \PY{n}{a}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{b}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{1.0} \PY{o}{*} \PY{n}{b}\PY{o}{/}\PY{n}{b}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+        
+        \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{find\PYZus{}projection}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 1.5  1.5]
+
+    \end{Verbatim}
+
+    這時候再考慮向量積，從集合的角度，向量積和向量間的夾角\(\theta\)的正弦值有關：\(\left\|\vec{\mathbf{a}}\times\vec{\mathbf{b}}\right\| = \left\|\vec{\mathbf{a}}\right\|\left\|\vec{\mathbf{b}}\right\|sin\theta\)，這就意味著，向量的向量積反應了兩個向量的正交程度（正交：向量積等於零），\(sin\theta = 0\)
+正交程度最小，\(sin\theta = 1\)，正交程度最大。
+
+    \hypertarget{ux77e9ux9663ux7684ux5411ux91cfux7a4d}{%
+\subparagraph{矩陣的向量積}\label{ux77e9ux9663ux7684ux5411ux91cfux7a4d}}
+
+\emph{矩陣乘法}
+我們可以將向量理解成一個\(1 \times n\)的矩陣，當矩陣\(A\)的列數與向量\(\vec x\)的分量數目想等式，矩陣和向量的積有定義：
+
+\(\underset{m\times n}{A}\vec{\mathbf{x}}=\begin{bmatrix}a_{11} & a_{12} & \ldots & a_{1n} \\ a_{21} & a_{22} & \ldots & a_{2n} \\ \ldots \\ a_{m1} & a_{m2} & \ldots & a_{mn}\end{bmatrix}\begin{bmatrix}x_1 \\ x_2 \\ \ldots \\ x_n \end{bmatrix} = \begin{bmatrix}a_{11}x_1 + a_{12}x_2 + \ldots + a_{1n}x_n \\ a_{21}x_1 + a_{22}x_2 + \ldots + a_{2n}x_n \\ \ldots \\ a_{m1}x_1 + a_{m2}x_2 + \ldots + a_{mn}x_n \\ \end{bmatrix}\)
+
+
+例：\(\begin{bmatrix}4 & 3 & 1 \\ 1 & 2 & 5\end{bmatrix} \begin{bmatrix}5 \\ 2 \\ 7\end{bmatrix} = \begin{bmatrix}4\cdot 5 + 3\cdot 2 + 1\cdot 7 \\ 1 \cdot 5 + 2 \cdot 2 + 5 \cdot 7\end{bmatrix} = \begin{bmatrix}33 \\ 44\end{bmatrix}\)
+
+    矩陣的向量積，可以當作時矩陣的所有列向量的線性組合：
+\(\underset { m\times n }{ \mathbf{A} } \vec { \mathbf{x} } =\begin{bmatrix} \underbrace { \begin{bmatrix} a_{ 11 } \\ a_{ 21 } \\ \ldots \\ a_{ m1 } \end{bmatrix} }_{ \vec { \mathbf{ V }_{ 1 } } } & \underbrace { \begin{bmatrix} a_{ 12 } \\ a_{ 22 } \\\ldots \\ a_{ m2 } \end{bmatrix} }_{ \vec { \mathbf{ V_{ 2 } } } } & \ldots & \underbrace { \begin{bmatrix} a_{ 1n } \\ a_{ 2n } \\ \ldots \\ a_{ mn } \end{bmatrix} }_{ \vec { \mathbf{ V_{ n } } } } \end{bmatrix}\begin{bmatrix} x_{ 1 } \\ x_{ 2 } \\ \ldots \\ x_{ n } \end{bmatrix}=x_1\vec{\mathbf{V}_1}+x_2\vec{\mathbf{V}_2}+\ldots+x_n\vec{\mathbf{V}_n}\)
+
+    而向量\(\vec{x}\)的每一個份量可以看成\(\mathbf{A}\)的每一個列向量的加權。\textbf{一個矩陣其實就是一個線性變換，一個矩陣乘以一個向量後得到的向量，其實就相當於將這個向量進行了線性變換。}
+
+    \hypertarget{ux5411ux91cfux7684ux8f49ux7f6e}{%
+\subsubsection{向量的轉置}\label{ux5411ux91cfux7684ux8f49ux7f6e}}
+
+向量\$ \vec{\mathbf{V}} =
+\underbrace{\begin{bmatrix}v_1 \\ v_2 \\ \ldots \\ v_n \end{bmatrix}}\_\{n\times 1\}\$
+的轉置定義為\(\mathbf{V}^T = \underbrace{\begin{bmatrix}v_1 & v_2 & \ldots & v_n \end{bmatrix}}_{1 \times n}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} we use V = (2,4) to give a example}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{vec\PYZus{}3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} if we use double bracket, we are writing a two dimentional vecotr}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{vec\PYZus{}3}\PY{o}{.}\PY{n}{T}\PY{p}{)} \PY{c+c1}{\PYZsh{} print the transport of vec\PYZus{}3}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[2]
+ [4]]
+
+    \end{Verbatim}
+
+    向量的轉置有一個性質：一個向量\(\vec {v}\)
+點乘另一個向量\(\vec{w}\)，其結果和向量\(\vec{v}\)轉置後和向量\(\vec{w}\)做矩陣乘法相同。即：\(\vec{\mathbf{v}} \cdot \vec{\mathbf{w}} = \vec{\mathbf{v}}^T \vec{\mathbf{w}}\)
+
+    \hypertarget{chapter-four-vector-space}{%
+\subsection{Chapter Four Vector Space}\label{chapter-four-vector-space}}
+
+\hypertarget{ux5f35ux6210ux7a7aux9593span}{%
+\subsubsection{張成空間（span）}\label{ux5f35ux6210ux7a7aux9593span}}
+
+一組向量的張成空間，說白了就是指這些向量隨便線性組合後能夠表示多少個向量，也被稱為線性生成空間。記做\(span(S)\)；如果\(S = \{v_1, v_2, \dots, v_n\}\)是
+\(V\)的有限子集，則生成空間為：\(span(S) = span(v_1, v_2, \dots, v_n) = \{\lambda_1 v_1, \lambda_2 v_2, \dots, \lambda_n v_n|\lambda_1, \lambda_2, \dots, \lambda_n \in K\}\)
+例如，對於\(\mathbf{R}^2\)空間中兩個不平行的非零向量\(\vec{vec_4} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}\)和向量\(\vec{vec_5} = \begin{bmatrix} 0 \\ 3 \end{bmatrix}\)，不難發現，這兩個向量可以表示二維空間\(\mathbf{R}^2\)中的任意一個向量，即，\(span(\vec{vec_4}, \vec{vec_5}) = \mathbf{R}^2\)，證明如下：
+
+    對於\(\mathbf{R}^2\)中任意向量\(\begin{bmatrix} x \\ y \end{bmatrix}\)，假設可以用\(vec_4\)和\(vec_5\)線性組合而成，
+那麼有：\(c_1 \begin{bmatrix}2 \\ 1\end{bmatrix} + c_2 \begin{bmatrix} 0 \\ 3 \end{bmatrix} = \begin{bmatrix} x \\ y \end{bmatrix}\)
+即：\(\left\{ \begin{align} c_1 \cdot 2 & + c_2 \cdot 0 &= x\\\
+c_1 \cdot 1 & + c_2 \cdot 3 &= y \end{align} \right.\) 求解得：
+\(\left\{ \begin{align} c_1 &= \frac{x}{2}\\ c_2 &= \frac{y}{3} - \frac{x}{6} \end{align} \right.\)
+由於\(x, y\)的值已經確定，所以\(c_1，c_2\)的值也必然是唯一的。
+
+    \hypertarget{ux7ddaux6027ux76f8ux95dcux548cux7ddaux6027ux7121ux95dclinearly-dependent-and-linearly-independent}{%
+\subsubsection{線性相關和線性無關（Linearly Dependent and Linearly
+Independent）}\label{ux7ddaux6027ux76f8ux95dcux548cux7ddaux6027ux7121ux95dclinearly-dependent-and-linearly-independent}}
+
+在線性代數裡，向量空間的一組元素中，若沒有向量可用有限個其他向量的線性組合所表示，则稱為線性無關或線性獨立（linearly
+independent），反之稱為線性相關（linearly
+dependent）。例如在三維歐幾里得空間\(\mathbf{R}^3\)的三個向量\((1, 0, 0)，(0, 1, 0)\)
+和\((0, 0, 1)\)線性無關。但\((2, −1, 1)，(1, 0, 1)\)和
+\((3, −1, 2)\)線性相關，因為第三個是前兩個的和。
+\emph{相信各位都已知道那八條還是十條相關性，這裡不做贅述}
+上面那個例子例如，\(\vec{vec_4} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}\)和向量\(\vec{vec_5} = \begin{bmatrix} 0 \\ 3 \end{bmatrix}\)，如果給他們再加一個向量\(\vec{vec_6} = \begin{bmatrix} 5 \\ 2 \end{bmatrix}\)，由於\(\vec{vec_5}\)可以由其他兩個向量線性組合而成，由三個向量共同張成的空間並沒有發生變化，仍然是\(\mathbf{R}^3\)，因此稱集合\(\{\vec{vec_3}, \vec{vec_4}, \vec{vec_5}\}\)線性相關。
+
+    \hypertarget{ux5982ux4f55ux5224ux65b7ux662fux5426ux7ddaux6027ux76f8ux95dc}{%
+\subsubsection{如何判斷是否線性相關}\label{ux5982ux4f55ux5224ux65b7ux662fux5426ux7ddaux6027ux76f8ux95dc}}
+
+一個向量集合\(s = v_1, v_2, \dots, v_n\)
+線性相關的充分必要是存在一部分非零係數使得：\(c_1v_1 + c_2v_2 + \dots + c_nv_n = \begin{bmatrix} 0 \\ 0 \\ \dots \\ 0 \end{bmatrix}\)。
+例如：向量：\(\begin{bmatrix}2 \\ 1\end{bmatrix}\) 和
+\(\begin{bmatrix}3 \\ 2\end{bmatrix}\)，則先寫出如下等式：
+\(c_1 \begin{bmatrix}2 \\ 1\end{bmatrix} + c_2 \begin{bmatrix}3 \\ 2\end{bmatrix} = \begin{bmatrix}0 \\ 0\end{bmatrix}\),
+容易求解得：\(\begin{bmatrix}c_1 \\ c_2\end{bmatrix} = \begin{bmatrix}0 \\ 0\end{bmatrix}\)，說明這兩個向量線性無關。
+類似的，對於三個\(\mathbf{R}^3\)中的向量\(\begin{bmatrix}2 \\ 0 \\ 0\end{bmatrix}, \begin{bmatrix} 0 \\ 1 \\ 0\end{bmatrix}\)和\(\begin{bmatrix} 0 \\ 0 \\ 7\end{bmatrix}\)，不難判斷出它們是線性無關的，它們共同張成了\(\mathbf{R}^3\)空間。
+而對於向量集合：\(\left\{\begin{bmatrix}2 \\ 1\end{bmatrix}, \begin{bmatrix}3 \\ 2\end{bmatrix}, \begin{bmatrix}1 \\ 2 \end{bmatrix}\right\}\)，不難算出存在非零係數：\(\begin{bmatrix}c_1 \\ c_2 \\ c_3\end{bmatrix} = \begin{bmatrix}-4 \\ 3 \\ -1\end{bmatrix}\)
+使得
+\(c1 \begin{bmatrix}2 \\ 1\end{bmatrix} + c_2 \begin{bmatrix}3 \\ 2\end{bmatrix} + c_3 \begin{bmatrix}1 \\ 2 \end{bmatrix} = \begin{bmatrix}0 \\ 0\end{bmatrix}\)。因此，此集合線性相關。
+
+    \hypertarget{chapter-five-linear-algebra-advanced-text}{%
+\subsection{Chapter Five Linear Algebra Advanced
+Text}\label{chapter-five-linear-algebra-advanced-text}}
+
+在前面幾張，已經簡單介紹了線性代數中最基本的數據表達方式：\textbf{矩陣}和\textbf{向量}。有了這兩個數學工具作為基礎，我們可以進一步討論下面的內容：
+1. 如何理解線性代數的基。 2.
+向量中的子空間、另空間、列空間、行空間、零空間都是什麼？我們應該如何求解？
+3. 如何用線性代數的知識來擬合數據？ 4.
+機器學習、圖形處理中常見的``特徵向量''究竟是什麼？它和變換矩陣有什麼關係？
+
+    \hypertarget{ux968eux68afux5f62ux77e9ux9663echelon-matrix}{%
+\subsubsection{階梯形矩陣（Echelon
+Matrix）}\label{ux968eux68afux5f62ux77e9ux9663echelon-matrix}}
+
+階梯形矩陣是一類非常實用的工具，可以幫助我們求解線性空間的基，這就是能用在諸如計算解不是唯一的方程組之類的問題上。
+\#\#\#\# 階梯形矩陣
+
+若矩陣\(\mathbf{A}\)滿足如下條件： 1.
+若有零行（元素全為零的行），則零行應在最下方； 2.
+非零首元（即非零行的第一個不為零的元素）的列標號隨行標號的增加而嚴格遞增。
+
+則這個矩陣稱為階梯形矩陣。
+
+    示例：
+
+\(\begin{bmatrix} 2 & 0 & 2 & 1 \\ 0 & 5 & 2 & -2 \\ 0 & 0 & 3 & 2 \\ 0 & 0 & 0 & 0 \end{bmatrix}\)
+
+    \hypertarget{ux884cux7c21ux5316ux968eux68afux5f62ux77e9ux9663row-echelon-matrix}{%
+\paragraph{行簡化階梯形矩陣（Row Echelon
+Matrix）}\label{ux884cux7c21ux5316ux968eux68afux5f62ux77e9ux9663row-echelon-matrix}}
+
+若矩陣\(\mathbf{A}\)滿足如下條件： 1. 它是階梯形矩陣; 2.
+非零首元所在列出了非零首元外，其餘元素都為零。
+
+則稱此矩陣為行簡化階梯形矩陣。
+
+    示例：
+
+\(\begin{bmatrix} 2 & 0 & 2 & 1 \\ 0 & 5 & 2 & -2 \\ 0 & 0 & 3 & 2 \\ 0 & 0 & 0 & 0 \end{bmatrix}\)
+
+    \hypertarget{ux884cux6700ux7c21ux968eux68afux5f62ux77e9ux9663reduced-row-echelon-form}{%
+\paragraph{行最簡階梯形矩陣（reduced row echelon
+form）}\label{ux884cux6700ux7c21ux968eux68afux5f62ux77e9ux9663reduced-row-echelon-form}}
+
+若矩陣\(\mathbf{A}\)滿足如下條件： 1. 它是行簡化階梯形矩陣； 2.
+非零首元都為一。
+
+則稱它為行最簡階梯形矩陣。下面我們來講講如何將矩陣化簡為最簡階梯形：
+
+    對於這個矩陣\(\mathbf{A} = \begin{bmatrix} 1 & 2 & 1 & 1 & 7\\ 1 & 2 & 2 & -1 & 12\\ 2 & 4 & 0 & 6 & 4 \end{bmatrix}\)，使用\textbf{初等變換（Elementary
+Operations of Linear System）}就可以將矩陣轉換成如下形式：
+\(\begin{bmatrix} 1 & 2 & 1 & 1 & 7\\ 1 & 2 & 2 & -1 & 12\\ 2 & 4 & 0 & 6 & 4 \end{bmatrix} \rightarrow \begin{bmatrix} 1 & 2 & 1 & 1 & 7\\ 0 & 0 & 1 & -2 & 5\\ 2 & 4 & 0 & 6 & 4 \end{bmatrix} \rightarrow \begin{bmatrix} 1 & 2 & 1 & 1 & 7\\ 0 & 0 & 1 & -2 & 5\\ 0 & 0 & -2 & 4 & -10 \end{bmatrix} \rightarrow \begin{bmatrix} 1 & 2 & 1 & 1 & 7\\ 0 & 0 & 1 & -2 & 5\\ 0 & 0 & 0 & 0 & 0 \end{bmatrix} \rightarrow \begin{bmatrix} 1 & 2 & 0 & 3 & 2\\ 0 & 0 & 1 & -2 & 5\\ 0 & 0 & 0 & 0 & 0 \end{bmatrix}\)
+
+    \textbf{行最簡形}非常實用，可以用來解方程（滑稽；例如下面這個方程組：
+
+\(\left\{ \begin{eqnarray} x_1 + 2x_2 + x_3 + x_4 &=& 7 \\\
+x_1 + 2x_2 + 2x_3 - x_4 &=& 12 \\\
+2x_1 + 4x_2 + 6x_4 &=& 4 \end{eqnarray} \right.\)
+
+    按照常理，只有三個方程，肯定無法求解出四個未知數，此時，如果我們使用\texttt{numpy.linalg.solve}，求解時就會觸發\texttt{LinAlgError}，但是通過化成最簡形，我們可以進一步找出變量的憲制關係。首先，將方程組表達成增廣矩陣形式：
+
+\(\begin{bmatrix} 1 & 2 & 1 & 1 & 7\\ 1 & 2 & 2 & -1 & 12\\ 2 & 4 & 0 & 6 & 4 \end{bmatrix}\)
+
+ 然後將其行簡化，得：
+
+\(\begin{bmatrix} 1 & 2 & 0 & 3 & 2\\ 0 & 0 & 1 & -2 & 5\\ 0 & 0 & 0 & 0 & 0 \end{bmatrix}\)
+
+    從結果可以看出這個矩陣的主列有兩個，而且是線性無關的。所以矩陣\(A\)的秩是\(2\)，，即，\(rank\mathbf{(A)} = 2\).
+
+    \textbf{矩陣的秩的一個特性：矩陣\(A\)等於矩陣\(A\)的轉置地秩序，即，}\(rank(\mathbf{A})=rank(\mathbf{A^T})\)
+在\texttt{python}中，可以使用\texttt{numpy}包中的\texttt{linalg.matrix\_rank}方法計算矩陣的秩：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 1 1 1;1 2 3 4;4 3 2 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{matrix\PYZus{}rank}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+
+    \end{Verbatim}
+
+    \textbf{注意}⚠️，在\texttt{numpy}中的秩和線性代數裡的秩不是同一個概念。在\texttt{numpy}中維度（dimensions）叫做軸（axes），軸的個數叫做秩。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 1 1 1;1 2 3 4; 0 0 1 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{ndim}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 2（维度）}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 2（a.ndim 的别名，已经过时）}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{matrix\PYZus{}rank}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 3（秩）}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+2
+3
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.5/dist-packages/ipykernel\_launcher.py:4: VisibleDeprecationWarning: `rank` is deprecated; use the `ndim` attribute or function instead. To find the rank of a matrix see `numpy.linalg.matrix\_rank`.
+  after removing the cwd from sys.path.
+
+    \end{Verbatim}
+
+    \hypertarget{ux884cux7a7aux9593}{%
+\paragraph{行空間}\label{ux884cux7a7aux9593}}
+
+有了列空間的定義，行空間顧名思義其實就是矩陣每一行轉置得到的向量張成的自空間，也就是矩陣的轉置的列空間，記做：\(R(\mathbf{A}) = C(\mathbf{A}^T)\)
+例如：矩陣\(\mathbf{A} = \begin{bmatrix}1 & 1 & 1 & 1 \\ 1 & 2 & 3 & 4 \\4 & 3 & 2 & 1\end{bmatrix}\)的行空間就等於：\(R(\mathbf{A}) = C(\mathbf{A}^T) = span\left(\begin{bmatrix}1 \\ 1 \\ 1 \\ 1\end{bmatrix}\begin{bmatrix}1 \\ 2 \\ 3 \\ 4\end{bmatrix}\begin{bmatrix}4 \\ 3 \\ 2 \\ 1\end{bmatrix}\right)\)
+
+    \hypertarget{ux96f6ux7a7aux9593}{%
+\paragraph{零空間}\label{ux96f6ux7a7aux9593}}
+
+上面已經講過了零空間，現在這裡的零空間是指矩陣\(A^T\)的零空間，也就是\textbf{左零空間}。即：\(N(\mathbf{A}^T) = \left\{ \vec{\mathbf{x}} | \mathbf{A}^{T} \vec{\mathbf{x}} = \vec{\mathbf{0}} \right\} = \left\{ \vec{\mathbf{x}} | \vec{\mathbf{x}}^{T} \mathbf{A} = \vec{\mathbf{0}}^{T} \right\}\)
+例如，矩陣\(\mathbf{B} = \begin{bmatrix}1 & 1 & 4 \\ 1 & 2 & 3 \\1 & 4 & 2\\ 1 & 3 & 1\end{bmatrix}\)的轉置是矩陣\(\mathbf{A} = \mathbf{A} = \begin{bmatrix}1 & 1 & 1 & 1 \\ 1 & 2 & 3 & 4 \\4 & 3 & 2 & 1\end{bmatrix}\)，因此左零空間等於：\(N(\mathbf{B^T}) = N(\mathbf{A}) = span\left(\begin{bmatrix} 1 \\ -2 \\ 1 \\ 0 \end{bmatrix} \begin{bmatrix} 2 \\ -3 \\ 0 \\ 1 \end{bmatrix}\right)\)；由於轉置是對稱的，所以矩陣\(A\)的轉置的左零空間也是矩陣\(A\)的零空間。
+
+    \hypertarget{ux5b50ux7a7aux9593ux7684ux6b63ux4ea4ux88dc}{%
+\paragraph{子空間的正交補}\label{ux5b50ux7a7aux9593ux7684ux6b63ux4ea4ux88dc}}
+
+假設\(V\)是\(R^n\)的一個子空間，那麼\(V\)的正交補\(V^\perp\)也是一個子空間，定義為\(\left\{\vec{\mathbf{x}} | \vec{\mathbf{x}} \vec{\mathbf{v}}=0\right\}\)，也就是說\(R^n\)中所有正交於\(V\)的向量所組成的子空間。
+由於正交是對稱的，所以正交補也是對稱的。一個子空間的正交補的正交補依然等於這個子空間。
+矩陣的零空間是行空間的正交補：\(N(\mathbf{A}) = R(\mathbf{A})^{\bot}\)；反過來，矩陣的左零空間是列空間的正交補：\(N(\mathbf{B}^T) = C(\mathbf{B})^{\bot}\)
+
+    \hypertarget{ux6700ux5c0fux4e8cux4e58ux903cux8fd1}{%
+\subsubsection{最小二乘逼近}\label{ux6700ux5c0fux4e8cux4e58ux903cux8fd1}}
+
+最小二乘法是一個使用的數學工具，利用它在方程誤解的情況下給出近似解。在機器學習中，最小二乘逼近是一個重要的擬合方法。
+假設有一個方程：\(\underset{n\times k}{\mathbf{A}}\vec{\mathbf{x}} = \vec{\mathbf{b}}\)
+無解。把上式寫成：\(\vec{a_1}\vec{\mathbf{x}} + \vec{a_2}\vec{\mathbf{x}} + \ldots + \vec{a_k}\vec{\mathbf{x}} = \vec{\mathbf{b}}\)
+無解，就意味著\(\mathbf{A}\)的所有列向量的張成空間不包括向量\(\vec{b}\)。即：\(\vec{\mathbf{b}} \notin span(C(\mathbf{A}))\)
+
+    我們可以通過最小二乘法，求解出近似解。即，要找出一些\(\vec{x*}\)使得\(\left\|\vec{\mathbf{b}}-\mathbf{A}\vec{\mathbf{x}^*}\right\|\)最小。用向量\(\vec{\mathbf{V}}\)代表\(\mathbf{A}\vec{\mathbf{x*}}\)，有：
+\(\left\| \begin{bmatrix} \vec{b_1}-\vec{v_1}\\ \vec{b_2}-\vec{v_2}\\ \ldots\\ \vec{b_n}-\vec{v_n}\\ \end{bmatrix} \right\|^2 = (b_1-v_1)^2 + (b_2-v_2)^2 + \ldots + (b_n-v_n)^2\)
+把這個值最小化的過程叫做\textbf{最小二乘逼近}。
+
+    如何求出\(\mathbf{A}\vec{\mathbf{x*}}\)這個近似值呢？從集合上考慮，列空間可以看成空間中張成的一個平面，而平面\(\vec{b}\)並不落在這個平面上。但我們知道，在這個平面上與向量\(\vec{b}\)最接近的向量就是它的投影！所以，\(\mathbf{A}\vec{\mathbf{x}^*} = Proj_{C(\mathbf{A})}\vec{\mathbf{b}}\)，直接計算\(Proj_{C(\mathbf{A})}\vec{\mathbf{b}}\)並不簡單。不過，\(\vec{\mathbf{b}}-\mathbf{A}\vec{\mathbf{x}}\)其實就是\(\mathbf{A \vec{x}}\)的正交補，所以一個簡單的求解方法是將原來無解的方程做成一個\(\mathbf{A}\)的轉置再求解：\(\mathbf{A}^T\mathbf{A}\vec{\mathbf{x}^*} = \mathbf{A}^T\vec{\mathbf{b}}\)得出的解就是原方程的近似解。
+
+    \hypertarget{ux793aux4f8b-ux89e3ux4e0bux5217ux65b9ux7a0bux7d44}{%
+\paragraph{示例
+解下列方程組}\label{ux793aux4f8b-ux89e3ux4e0bux5217ux65b9ux7a0bux7d44}}
+
+\(\left\{ \begin{eqnarray} x + y &=& 3 \\\
+x - y &=& -2 \\\
+y &=& 1 \end{eqnarray} \right.\)
+將三個方程表示的直線畫出來，可以看出這三條直線並沒有交點：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{o}{*}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} [<matplotlib.lines.Line2D at 0x696c2530>,
+         <matplotlib.lines.Line2D at 0x696c25f0>,
+         <matplotlib.lines.Line2D at 0x696c2db0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_97_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    那麼，我們應該如何找出一個與三條直線距離最近的一個點呢？這時候就可以使用最小二乘逼近了。
+先將方程寫成矩陣和向量的形式：
+
+\(\underbrace{ \begin{bmatrix} 1 & 1 \\ 1 & -1 \\ 0 & 1 \end{bmatrix} }_{\mathbf{A}} \underbrace{ \begin{bmatrix} x \\ y \end{bmatrix} }_{\vec{\mathbf{x}}} = \underbrace{ \begin{bmatrix} 3 \\ -2 \\ 1 \end{bmatrix} }_{\vec{\mathbf{b}}}\)
+
+    這個等式的最小二乘逼近就是：
+
+\(\begin{align} \begin{bmatrix} 1 & 1 & 0 \\ 1 & -1 & 1\\ \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 1 & -1 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} x^* \\ y^* \end{bmatrix} & = \begin{bmatrix} 1 & 1 & 0 \\ 1 & -1 & 1\\ \end{bmatrix} \begin{bmatrix} 3 \\ -2 \\ 1 \end{bmatrix} \\\
+\begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix} \begin{bmatrix} x^* \\ y^* \end{bmatrix} & = \begin{bmatrix} 1 \\ 6 \end{bmatrix} \end{align}\)
+
+由於是二解方程，我們可以很容易求出矩陣\(\begin{bmatrix}2 & 0 \\ 0 & 3\end{bmatrix}\)的逆是：\(\begin{bmatrix}\frac{1}{2} & 0 \\ 0 & \frac{1}{3}\end{bmatrix}\)
+
+所以：
+
+\(\begin{bmatrix} x^* \\ y^* \end{bmatrix} = \begin{bmatrix}\frac{1}{2} & 0 \\ 0 & \frac{1}{3}\end{bmatrix} \begin{bmatrix} 1 \\ 6 \end{bmatrix} = \begin{bmatrix} \frac{1}{2} \\ 2 \end{bmatrix}\)
+
+    在\texttt{python}中，可以使用\texttt{numpy.linalg.lstsq}方法來求解最小二乘逼近。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{o}{*}
+         
+         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{xData}\PY{p}{,}\PY{n}{yData1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} <matplotlib.collections.PathCollection at 0x68fb39b0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_101_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{lstsq}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(array([ 0.5,  2. ]), array([ 1.5]), 2, array([ 1.73205081,  1.41421356]))
+
+    \end{Verbatim}
+
+    \texttt{numpy.inalg.lstsq}的返回值包括了四個部分： 1.
+最小二乘逼近，如果\texttt{b}是二維的，那麼這個逼近的結果有多個列，每一列是一個逼近解，逼近解就是\(\begin{bmatrix}0,5 \\ 2 \end{bmatrix}\).
+2.
+殘差。即，每一個\texttt{b\ -\ a*x}的長度的和。對於上例，殘差是\(1.5\).
+3. 矩陣\(a\)的秩。對於上例，矩陣\(a\)的秩為\(2\)。 4.
+矩陣\(a\)的歧異值。對於上例，矩陣\(a\)的奇異值為：\(\begin{bmatrix}1.73205081 \\ 1.41421356\end{bmatrix}\)
+
+    \hypertarget{ux7ebfux6027ux56deux5f52}{%
+\paragraph{线性回归}\label{ux7ebfux6027ux56deux5f52}}
+
+問題：給定\(4\)個坐標點\((-1,0),(0,1),(1,),(2,1)\)，求一條經過這些點的直線\(y = mx + b\)。
+將四個點畫圖如下：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{o}{*}
+         
+         
+         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} <matplotlib.collections.PathCollection at 0x68f023d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_105_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    顯然這樣的直線並不存在。然而我們能夠使用最小二乘逼近，找到一條盡可能靠近這些點的直線。將四個點表示成方程組的形式：
+
+\(\left\{ \begin{eqnarray} f(-1) &= -m + b = 0\\\
+f(0) &= 0 + b = 1\\\
+f(1) &= m + b = 2\\\
+f(2) &= 2m + b = 1 \end{eqnarray} \right.\)
+
+然後方程組用矩陣和向量的形式：
+
+\(\underbrace{ \begin{bmatrix} -1 & 1 \\ 0 & 1 \\ 1 & 1 \\ 2 & 1 \end{bmatrix} }_{\mathbf{A}} \underbrace{ \begin{bmatrix} m\\ b \end{bmatrix} }_{\vec{\mathbf{x}}} = \underbrace{ \begin{bmatrix} 0\\ 1\\ 2\\ 1 \end{bmatrix} }_{\vec{\mathbf{b}}}\)
+
+這兩個等式的最小二乘逼近就是：
+
+\(\begin{align} \begin{bmatrix} -1 & 0 & 1 & 2 \\ 1 & 1 & 1 & 1 \end{bmatrix} \begin{bmatrix} -1 & 1 \\ 0 & 1 \\ 1 & 1 \\ 2 & 1 \end{bmatrix} \begin{bmatrix} m^*\\ b^* \end{bmatrix} &= \begin{bmatrix} -1 & 0 & 1 & 2 \\ 1 & 1 & 1 & 1 \end{bmatrix} \begin{bmatrix} 0\\ 1\\ 2\\ 1 \end{bmatrix}\\\
+\begin{bmatrix} 6 & 2 \\ 2 & 4 \end{bmatrix} \begin{bmatrix} m^*\\ b^* \end{bmatrix} &= \begin{bmatrix} 4\\ 4 \end{bmatrix} \end{align}\)
+
+容易求得\(\begin{bmatrix}6 & 2\\2 & 4\end{bmatrix}\)的逆\(\frac{1}{20}\begin{bmatrix}4 & -2\\-2 & 6\end{bmatrix}\)，因此
+
+\(\begin{bmatrix}m^*\\b^*\end{bmatrix} = \frac{1}{20}\begin{bmatrix}4 & -2\\-2 & 6\end{bmatrix}\begin{bmatrix}4 \\ 4\end{bmatrix} = \frac{1}{20}\begin{bmatrix}8 \\ 16\end{bmatrix} = \begin{bmatrix}\frac{2}{5} \\ \frac{4}{5}\end{bmatrix}\)
+
+將直線\(y = \frac{2}{5}x + \frac{4}{5}\)繪圖如下所示：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{pylab} \PY{k}{import} \PY{o}{*}
+         
+         
+         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{x1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{y1} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{5} \PY{o}{+} \PY{l+m+mi}{4}\PY{o}{/}\PY{l+m+mi}{5}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{y1}\PY{p}{(}\PY{n}{x1}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} [<matplotlib.lines.Line2D at 0x68d4ea70>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Linear_Algebra_files/Use_PY_in_Linear_Algebra_107_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    這就是所求的直線的近似解。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}1 1;0 1;1 1;2 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{lstsq}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(array([ 0.4,  0.8]), array([ 1.2]), 2, array([ 2.68999405,  1.66250775]))
+
+    \end{Verbatim}
+
+    \hypertarget{ux7279ux5fb5ux5411ux91cfelgen-vector}{%
+\subsubsection{特徵向量（Elgen
+Vector）}\label{ux7279ux5fb5ux5411ux91cfelgen-vector}}
+
+``特徵''在模式識別和圖像處理中是一個非常常見的詞彙，我們要認識和描繪一件事物，首先就要找出這個事務的特徵。同樣的道理，要讓計算機識別一件事物，稍嫌就要讓計算機學會理解或者抽象出食物的特徵。什麼樣的東西能當成特徵呢？那必須是能``放之四海而皆準''的依據。不論個體如何變幻，都能從中吵到這類群裡共有的特點。
+在線性代數中，``特徵''就是一個更抽象的描述。我們知道，矩陣乘法對應了一個變換，是把任意一個向量變換成裡一個方向或長度都大多不同的新向量。在這個變幻的過程中，原向量主要發成旋轉、伸縮的變化。如果矩陣對某一個向量或某些向量只發生伸縮（尺度）變換，而沒有產生旋轉的效果（也就意味著張成的子空間發生改變），這樣的向量就被認為是特徵向量。
+
+\(\mathbf{T}(\vec{\mathbf{v}}) = \underbrace{\mathbf{A}}_{n\times n}\vec{\mathbf{v}} = \underbrace{\lambda}_{特征值} \overbrace{\vec{\mathbf{v}}}^{特征向量}\)
+
+其中，\(\mathbf{T}\)是一種線性變換，我們知道線性變換，我們知道線性變換可以用矩陣向量積來表示，因此可以表示成\(\mathbf{A \vec{v}}\)。\(\mathbf{A}\)是一個\(n \times n\)的方陣。\(\vec{v}\)就是特徵向量（Elgen
+Vector），也就是「能被伸縮的向量」（要求是非\(0\)向量），而\(\lambda\)的特徵向量\(\vec{v}\)所對應的特徵之，也就是「伸縮了多少」。如果特徵之是負數，那說明了矩陣不但吧向量拉長（縮短）了，而且讓向量只想了相反的方向。
+
+    \textbf{簡而言之，特徵就是在線性變量當中不變的向量}
+
+    \hypertarget{ux6c42ux89e3ux7279ux5fb5ux503c}{%
+\paragraph{求解特徵值}\label{ux6c42ux89e3ux7279ux5fb5ux503c}}
+
+非\(0\)向量\(\vec{v}\)是線性變化矩陣\(\mathbf{A}\)的特徵向量，需要滿足如下條件：
+
+\(det(\lambda \mathbf{I}_n - \underbrace{\mathbf{A}}_{n\times n}) = 0\)
+
+其中，\(det\)表示矩陣行列式，\(\lambda\)是特徵值，\(\mathbf{I}\)是單位矩陣。
+例如矩陣\(\mathbf{A} = \begin{bmatrix}1 & 2 \\ 4 & 3\end{bmatrix}\)，代入公式\(2\)得：
+
+\(\begin{align} det\left( \lambda \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}-\begin{bmatrix} 1 & 2 \\ 4 & 3 \end{bmatrix} \right) &=0 \\ det\left( \begin{bmatrix} \lambda & 0 \\ 0 & \lambda \end{bmatrix}-\begin{bmatrix} 1 & 2 \\ 4 & 3 \end{bmatrix} \right) &=0 \\ det\left( \begin{bmatrix} \lambda -1 & -2 \\ -4 & \lambda -3 \end{bmatrix} \right) &=0 \end{align}\)
+
+所以有：
+
+\(\begin{align} (\lambda -1)(\lambda -3)-8 & =0 \\ \lambda ^{ 2 }-4\lambda -5 &=0 \\ (\lambda - 5)(\lambda +1) &= 0\end{align}\)
+
+因此\(\lambda\)得值等於\(5\)或者\(-1\)。
+在\texttt{python}中，可以使用\texttt{numpy.linalg.eigvals}方法求解一個方陣的特徵值：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 2;4 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eigvals}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-1.  5.]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 2 3;4 3 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}如果矩陣不是方針，就會出現 LinalgError 錯誤}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eigvals}\PY{p}{(}\PY{n}{b}\PY{p}{)} \PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        LinAlgError                               Traceback (most recent call last)
+
+        <ipython-input-47-c63357ac2e74> in <module>()
+          1 b = np.matrix('1 2 3;4 3 1')
+    ----> 2 print(np.linalg.eigvals(b) )
+    
+
+        /usr/lib/python3/dist-packages/numpy/linalg/linalg.py in eigvals(a)
+        900     \_assertNoEmpty2d(a)
+        901     \_assertRankAtLeast2(a)
+    --> 902     \_assertNdSquareness(a)
+        903     \_assertFinite(a)
+        904     t, result\_t = \_commonType(a)
+
+
+        /usr/lib/python3/dist-packages/numpy/linalg/linalg.py in \_assertNdSquareness(*arrays)
+        210     for a in arrays:
+        211         if max(a.shape[-2:]) != min(a.shape[-2:]):
+    --> 212             raise LinAlgError('Last 2 dimensions of the array must be square')
+        213 
+        214 def \_assertFinite(*arrays):
+
+
+        LinAlgError: Last 2 dimensions of the array must be square
+
+    \end{Verbatim}
+
+    \hypertarget{ux6c42ux89e3ux7279ux5fb5ux5411ux91cf}{%
+\paragraph{求解特徵向量}\label{ux6c42ux89e3ux7279ux5fb5ux5411ux91cf}}
+
+變換矩陣\(\mathbf{A}\)的特徵空間（特徵向量的空間）可以用下面的等式來求解：
+
+\(\mathbf{E}_{\lambda}=N(\lambda I_n - \mathbf{A})\)
+
+例如上面的變換矩陣\(\mathbf{A} = \begin{bmatrix}1 & 2 \\ 4 & 3 \end{bmatrix}\)，帶入公式\(3\)得：
+
+\({ E }_{ \lambda }=N\left( \lambda I_{ n }-\begin{bmatrix} 1 & 2 \\ 4 & 3 \end{bmatrix} \right) =N\left( \lambda \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}-\begin{bmatrix} 1 & 2 \\ 4 & 3 \end{bmatrix} \right) =N\left( \begin{bmatrix} \lambda -1 & -2 \\ -4 & \lambda -3 \end{bmatrix} \right)\)
+
+當\(\lambda = 5\)時，
+
+\({ E }_{ 5 }=N\left( \begin{bmatrix} 4 & -2 \\ -4 & 2 \end{bmatrix} \right)\)
+
+利用前面所學的零空間的求解方法，得：
+
+\({ E }_{ 5 }= span\left(\begin{bmatrix}\frac{1}{2} \\ 1 \end{bmatrix}\right)\)
+
+同樣的，當\(\lambda = -1\)時，
+
+\({ E }_{ -1 }= span\left(\begin{bmatrix}1 \\ -1 \end{bmatrix}\right)\)
+
+    在\texttt{python}中，可以使用\texttt{numpy.linalg.eig}方法來求解方針的特徵值和特徵向量：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 2;4 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    得到的元祖中，第一部分時特徵值，和前面使用\texttt{numpy.linalg.eigvals}得到的結果完全一樣；第二部分時特徵向量，乍一看和我們上面求解的結果不一樣，但如果我們這麼些就完全不一樣了：
+
+\(\begin{bmatrix}-0.70710678\begin{bmatrix}1 \\ -1\end{bmatrix} & -0.89442719\begin{bmatrix}\frac{1}{2} \\ 1\end{bmatrix} \end{bmatrix}\)
+
+    變換矩陣線性無關的特徵向量特別適合作為空間的基，因為在這些方向上變換矩陣可以拉伸向量而不必扭曲和旋轉它，使得計算大為簡單。我們把這種基稱為\textbf{特徵基}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
