@@ -43,3 +43,55 @@
 [NotebookApp | CRITICAL] Shutdown confirmed
 [NotebookApp | INFO] Shutting down 1 kernel
 [NotebookApp | INFO] Kernel shutdown: 17421e8f-d736-4bc7-b561-cb110f245ec0
+[NotebookApp | WARNING] No nbgrader_config.py file found (rerun with --debug to see where nbgrader is looking)
+[NotebookApp | INFO] Loading the validate_assignment nbgrader serverextension
+[NotebookApp | INFO] Serving notebooks from local directory: /Users/liujunjie/JupyterSite
+[NotebookApp | INFO] 0 active kernels
+[NotebookApp | INFO] The Jupyter Notebook is running at:
+[NotebookApp | INFO] http://localhost:8888/?token=c58d40a99a8f6e7040fcdbab17447d8d6ca8b25cbed45ad1
+[NotebookApp | INFO] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[NotebookApp | CRITICAL] 
+    
+    Copy/paste this URL into your browser when you connect for the first time,
+    to login with a token:
+        http://localhost:8888/?token=c58d40a99a8f6e7040fcdbab17447d8d6ca8b25cbed45ad1&token=c58d40a99a8f6e7040fcdbab17447d8d6ca8b25cbed45ad1
+[NotebookApp | INFO] Accepting one-time-token-authenticated connection from ::1
+[NotebookApp | INFO] Kernel started: 4eb082b1-3b0d-4f35-8de6-2af262b854cb
+[NotebookApp | INFO] Adapting to protocol v5.1 for kernel 4eb082b1-3b0d-4f35-8de6-2af262b854cb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Starting buffering for 4eb082b1-3b0d-4f35-8de6-2af262b854cb:8d6d7f4a495e4b2283408c47aa6f8500
+[NotebookApp | INFO] Adapting to protocol v5.1 for kernel 4eb082b1-3b0d-4f35-8de6-2af262b854cb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Starting buffering for 4eb082b1-3b0d-4f35-8de6-2af262b854cb:4adbc4b10f1349b096aea0d48daa7d38
+[NotebookApp | WARNING] Notebook Notebooks/Use_PY_in_Calculus.ipynb is not trusted
+[NotebookApp | INFO] Kernel started: eb293a1b-c6d7-441b-8926-7ab12d30f61c
+[NotebookApp | INFO] Adapting to protocol v5.1 for kernel eb293a1b-c6d7-441b-8926-7ab12d30f61c
+[NotebookApp | INFO] Saving file at /Notebooks/Use_PY_in_Calculus.ipynb
+[NotebookApp | WARNING] Notebook Notebooks/Use_PY_in_Calculus.ipynb is not trusted
+[NotebookApp | WARNING] No nbgrader_config.py file found. Rerun with DEBUG log level to see where nbgrader is looking.
+[NotebookApp | INFO] Validating '/Users/liujunjie/JupyterSite/Notebooks/Use_PY_in_Calculus.ipynb'
+[NotebookApp | INFO] Executing notebook with kernel: python3
+[NotebookApp | INFO] Starting buffering for eb293a1b-c6d7-441b-8926-7ab12d30f61c:299dee38b5dd4defb3ebc34a5b0b22ec
+[NotebookApp | INFO] Creating new notebook in /Notebooks
+[NotebookApp | INFO] Kernel started: 5be87e3b-55f4-47da-9436-e20f91775c48
+[NotebookApp | INFO] Adapting to protocol v5.1 for kernel 5be87e3b-55f4-47da-9436-e20f91775c48
+[NotebookApp | INFO] Saving file at /Notebooks/Untitled.ipynb
+[NotebookApp | WARNING] No nbgrader_config.py file found. Rerun with DEBUG log level to see where nbgrader is looking.
+[NotebookApp | INFO] Validating '/Users/liujunjie/JupyterSite/Notebooks/Untitled.ipynb'
+[NotebookApp | INFO] Executing notebook with kernel: python3
+[NotebookApp | INFO] Starting buffering for 5be87e3b-55f4-47da-9436-e20f91775c48:2a9df8e4782c4acd966ee69065e0a2e0
+[NotebookApp | INFO] Kernel shutdown: 5be87e3b-55f4-47da-9436-e20f91775c48
+[NotebookApp | WARNING] delete /Notebooks/Untitled.ipynb
+[NotebookApp | INFO] interrupted
+[NotebookApp | CRITICAL] Shutdown confirmed
+[NotebookApp | INFO] Shutting down 2 kernels
+[NotebookApp | INFO] Kernel shutdown: 4eb082b1-3b0d-4f35-8de6-2af262b854cb
+[NotebookApp | INFO] Kernel shutdown: eb293a1b-c6d7-441b-8926-7ab12d30f61c
