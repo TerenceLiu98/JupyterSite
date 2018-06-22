@@ -11880,76 +11880,14 @@ code with images will allow the PDFs to build, but the images will not appear).<
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Easy-Usage-from-Julia">Easy Usage from Julia<a class="anchor-link" href="#Easy-Usage-from-Julia">&#182;</a></h2><p>This repository is also setup as a Julia package repository. To have users easily
-open up the Jupyter notebooks, they can use the commands from within Julia:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;IJulia&quot;</span><span class="p">)</span> <span class="c"># use once to install IJulia</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="s">&quot;https://github.com/ChrisRackauckas/JupyterSite&quot;</span><span class="p">)</span> <span class="c"># Change this to your Github repo</span>
-<span class="k">using</span> <span class="n">IJulia</span>
-<span class="n">notebook</span><span class="p">(</span><span class="n">dir</span><span class="o">=</span><span class="n">Pkg</span><span class="o">.</span><span class="n">dir</span><span class="p">(</span><span class="s">&quot;JupyterSite&quot;</span><span class="p">)</span><span class="o">*</span><span class="s">&quot;/Notebooks&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This will open up the Jupyter notebook at the location of your notebooks</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Additional-Feature:-Continuous-Integration-Testing">Additional Feature: Continuous Integration Testing<a class="anchor-link" href="#Additional-Feature:-Continuous-Integration-Testing">&#182;</a></h3><p>One can use Julia's continuous integration testing framework to test your notebooks.
-To do so, check out <a href="http://www.stochasticlifestyle.com/finalizing-julia-package-documentation-testing-coverage-publishing/">this blog post</a>
-for how to setup Julia CI and <a href="https://github.com/stevengj/NBInclude.jl">NBinclude.jl</a> for how
-to include notebook files into Julia. Use this to add tests to the test/runtests.jl
-file. To run the tests locally, use the commands</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">Pkg</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="s">&quot;JupyterSite&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Example-Output">Example Output<a class="anchor-link" href="#Example-Output">&#182;</a></h1><p>The example notebooks can be found at:</p>
-<p><a href="https://github.com/ChrisRackauckas/JupyterSite/blob/master/Notebooks">https://github.com/ChrisRackauckas/JupyterSite/blob/master/Notebooks</a></p>
-<h2 id="HTML">HTML<a class="anchor-link" href="#HTML">&#182;</a></h2><p><a href="https://chrisrackauckas.github.io/JupyterSite/">https://chrisrackauckas.github.io/JupyterSite/</a></p>
-<p><a href="https://chrisrackauckas.github.io/JupyterSite/Html/GithubIntroduction.html">https://chrisrackauckas.github.io/JupyterSite/Html/GithubIntroduction.html</a></p>
-<h2 id="Slides">Slides<a class="anchor-link" href="#Slides">&#182;</a></h2><p><a href="https://chrisrackauckas.github.io/JupyterSite/Slides/Index.html">https://chrisrackauckas.github.io/JupyterSite/Slides/Index.html</a></p>
-<p><a href="https://chrisrackauckas.github.io/JupyterSite/Slides/GithubIntroduction.html">https://chrisrackauckas.github.io/JupyterSite/Slides/GithubIntroduction.html</a></p>
-<h2 id="Markdown">Markdown<a class="anchor-link" href="#Markdown">&#182;</a></h2><p><a href="https://github.com/ChrisRackauckas/JupyterSite/tree/master/Markdown">https://github.com/ChrisRackauckas/JupyterSite/tree/master/Markdown</a></p>
-<h2 id="LaTeX">LaTeX<a class="anchor-link" href="#LaTeX">&#182;</a></h2><p><a href="https://github.com/ChrisRackauckas/JupyterSite/tree/master/Tex">https://github.com/ChrisRackauckas/JupyterSite/tree/master/Tex</a></p>
-<h2 id="PDF">PDF<a class="anchor-link" href="#PDF">&#182;</a></h2><p><a href="https://github.com/ChrisRackauckas/JupyterSite/tree/master/Pdfs">https://github.com/ChrisRackauckas/JupyterSite/tree/master/Pdfs</a></p>
+<h2 id="HTML">HTML<a class="anchor-link" href="#HTML">&#182;</a></h2><p><a href="https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Linear_Algebra.html">https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Linear_Algebra.html</a>
+<br></p>
+<p><a href="https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Calulus.html">https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Calulus.html</a>
+<br></p>
+<p><a href="https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Advanced_Statstics.html">https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Advanced_Statstics.html</a></p>
+<h2 id="Markdown">Markdown<a class="anchor-link" href="#Markdown">&#182;</a></h2><p><a href="https://terenceliu98.github.io/JupyterSite/tree/master/Markdown">https://terenceliu98.github.io/JupyterSite/tree/master/Markdown</a></p>
+<h2 id="LaTeX">LaTeX<a class="anchor-link" href="#LaTeX">&#182;</a></h2><p><a href="https://terenceliu98.github.io/JupyterSite/tree/master/Tex">https://terenceliu98.github.io/JupyterSite/tree/master/Tex</a></p>
+<h2 id="PDF">PDF<a class="anchor-link" href="#PDF">&#182;</a></h2><p><a href="https://terenceliu98.github.io/JupyterSite/tree/master/Pdfs">https://terenceliu98.github.io/JupyterSite/tree/master/Pdfs</a></p>
 
 </div>
 </div>

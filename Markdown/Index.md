@@ -82,60 +82,22 @@ For organizations, the user name is replaced with the organization name.
 Note that PDF output is not compatible with the usage of Markdown images (though
 code with images will allow the PDFs to build, but the images will not appear).
 
-## Easy Usage from Julia
-
-This repository is also setup as a Julia package repository. To have users easily
-open up the Jupyter notebooks, they can use the commands from within Julia:
-
-
-```julia
-Pkg.add("IJulia") # use once to install IJulia
-Pkg.clone("https://github.com/ChrisRackauckas/JupyterSite") # Change this to your Github repo
-using IJulia
-notebook(dir=Pkg.dir("JupyterSite")*"/Notebooks")
-```
-
-This will open up the Jupyter notebook at the location of your notebooks
-
-### Additional Feature: Continuous Integration Testing
-
-One can use Julia's continuous integration testing framework to test your notebooks.
-To do so, check out [this blog post](http://www.stochasticlifestyle.com/finalizing-julia-package-documentation-testing-coverage-publishing/)
-for how to setup Julia CI and [NBinclude.jl](https://github.com/stevengj/NBInclude.jl) for how
-to include notebook files into Julia. Use this to add tests to the test/runtests.jl
-file. To run the tests locally, use the commands
-
-
-```julia
-Pkg.test("JupyterSite")
-```
-
-# Example Output
-
-The example notebooks can be found at:
-
-https://github.com/ChrisRackauckas/JupyterSite/blob/master/Notebooks
-
 ## HTML
+https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Linear_Algebra.html
+<br>
 
-https://chrisrackauckas.github.io/JupyterSite/
+https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Calulus.html
+<br>
 
-https://chrisrackauckas.github.io/JupyterSite/Html/GithubIntroduction.html
-
-## Slides
-
-https://chrisrackauckas.github.io/JupyterSite/Slides/Index.html
-
-https://chrisrackauckas.github.io/JupyterSite/Slides/GithubIntroduction.html
-
+https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Advanced_Statstics.html
 ## Markdown
 
-https://github.com/ChrisRackauckas/JupyterSite/tree/master/Markdown
+https://terenceliu98.github.io/JupyterSite/tree/master/Markdown
 
 ## LaTeX
 
-https://github.com/ChrisRackauckas/JupyterSite/tree/master/Tex
+https://terenceliu98.github.io/JupyterSite/tree/master/Tex
 
 ## PDF
 
-https://github.com/ChrisRackauckas/JupyterSite/tree/master/Pdfs
+https://terenceliu98.github.io/JupyterSite/tree/master/Pdfs
