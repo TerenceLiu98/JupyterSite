@@ -294,108 +294,12 @@ It just takes one button, simplifying the entire process. The
 do all of this (any of the conversions can be disabled by commenting out
 the appropriate lines).
 
-    \hypertarget{example-site}{%
-\subsection{Example Site}\label{example-site}}
-
-An example of the product this package generates can be found at:
-https://github.com/UCIDataScienceInitiative/IntroToJulia .
-
-The site that this generates is:
-http://UCIDataScienceInitiative.github.io/IntroToJulia/
-
-    \hypertarget{installation}{%
-\subsection{Installation}\label{installation}}
-
-To use this, first install Jupyter (note: Python must be installed)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{pip}\NormalTok{ install jupyter}
-\end{Highlighting}
-\end{Shaded}
-
-For the PDF output to work, a distribution of LaTeX must be installed.
-Also, we will need pandoc:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ExtensionTok{pip}\NormalTok{ install pandoc}
-\end{Highlighting}
-\end{Shaded}
-
-    \hypertarget{using-the-package}{%
-\subsection{Using the Package}\label{using-the-package}}
-
-\hypertarget{downloading-the-template}{%
-\subsubsection{Downloading the
-Template}\label{downloading-the-template}}
-
-The easiest way to get started is to clone the package repository using
-Git:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{git}\NormalTok{ clone https://github.com/ChrisRackauckas/JupyterSite}
-\end{Highlighting}
-\end{Shaded}
-
-    \hypertarget{the-notebooks}{%
-\subsubsection{The Notebooks}\label{the-notebooks}}
-
-The files which the site is built from are the notebooks that are
-included in the Notebooks folder. The \texttt{Index.ipynb} file build
-the site index (the first page shown in the webpage) and additional
-\texttt{.ipynb} files are rendered in the various forms. Thus to add
-your own content, simply add the \texttt{.ipynb} files to this
-directory.
-
-Note that notebooks have to be setup for slides in order for the
-slideshow to work. Inside the notebook, use view \textgreater{}
-CellToolbar \textgreater{} Slideshow and set the appropriate blocks to
-slides.
-
-    \hypertarget{building-the-site}{%
-\subsubsection{Building The Site}\label{building-the-site}}
-
-To build the site files, use the \texttt{publish.sh} file. To do so, go
-to the top directory of the repository and use the command:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{sh}\NormalTok{ publish.sh}
-\end{Highlighting}
-\end{Shaded}
-
-If your Git is correctly setup, this will render the files and upload
-the files to Github. Upon success, your \texttt{index.html} will be
-available at:
-
-\begin{verbatim}
-http://<github-username>.github.io/<repository-name>/
-\end{verbatim}
-
-For example, my user name is ChrisRackauckas and this repository is
-named JupyterSite. Therefore the site for that this makes is at
-
-\begin{verbatim}
-http://ChrisRackauckas.github.io/JupyterSite/
-\end{verbatim}
-
-For organizations, the user name is replaced with the organization name.
-
-    \hypertarget{caveat}{%
-\paragraph{Caveat}\label{caveat}}
-
-Note that PDF output is not compatible with the usage of Markdown images
-(though code with images will allow the PDFs to build, but the images
-will not appear).
-
     \hypertarget{html}{%
 \subsection{HTML}\label{html}}
 
 https://terenceliu98.github.io/JupyterSite//Html/Use\_PY\_in\_Linear\_Algebra.html
 
-https://terenceliu98.github.io/JupyterSite//Html/Use\_PY\_in\_Calulus.html
+https://terenceliu98.github.io/JupyterSite//Html/Use\_PY\_in\_Calculus.html
 
 https://terenceliu98.github.io/JupyterSite//Html/Use\_PY\_in\_Advanced\_Statstics.html
 \#\# Markdown
