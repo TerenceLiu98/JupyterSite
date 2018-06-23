@@ -1,0 +1,972 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Use\_PY\_in\_Advanced\_Statistics }
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{use-python-in-advanced-statistics}{%
+\section{Use Python in Advanced
+Statistics}\label{use-python-in-advanced-statistics}}
+
+\emph{這個學期剛剛學完了概率論與數理統計，這好趁這個機會複習一下並複習一下
+\texttt{python}} 
+
+    \hypertarget{chapter-one-probability}{%
+\subsection{Chapter One Probability}\label{chapter-one-probability}}
+
+\hypertarget{ux96a8ux6a5fux8a66ux9a57ux8207ux6a23ux672cux7a7aux9593random-experiment-and-sample-space}{%
+\subsubsection{隨機試驗與樣本空間（Random Experiment and Sample
+Space）}\label{ux96a8ux6a5fux8a66ux9a57ux8207ux6a23ux672cux7a7aux9593random-experiment-and-sample-space}}
+
+\hypertarget{ux96a8ux6a5fux8a66ux9a57}{%
+\paragraph{隨機試驗}\label{ux96a8ux6a5fux8a66ux9a57}}
+
+隨機試驗是概率論中一個基本的概念。概括的講，在概率論中把符合下面三個特點的試驗叫做隨機試驗：
+* 可以在向空的條件下重複進行； *
+每次試驗的可能結果不只一個，並且事先明確試驗的所有可能結果； *
+進行一次試驗之前不能確定哪一個結果會出現。
+
+隨機試驗有很多種，例如常出現的擲骰子，摸球，射擊等。所有的隨機試驗的結果可以分為兩類來表示：
+*
+數量化表示：射擊命中的次數，商場每個小時的客流量，每天經過某個收費站的車輛等，這個結果本事就是數字；
+*
+非數量化表示：拋硬幣的結果（正面/反面），化驗的結果（陽性/陰性）等，這些結果是定型的，非數量化的。但是可以用示性函數來表示，例如可以規定正面（陽性）為\(1\)，反面為\(0\)，這樣就可以實現了非數量化結果的數量化。
+
+    \hypertarget{ux6a23ux672cux7a7aux9593sample-space}{%
+\paragraph{樣本空間（Sample
+Space）：}\label{ux6a23ux672cux7a7aux9593sample-space}}
+
+\begin{itemize}
+\tightlist
+\item
+  隨機試驗的所有可能結果構成的集合。一般即為\(S\)（capital S）；
+\item
+  \(S\) 中的元素\(e\)稱為樣本點（也可以叫基本事件）；
+\item
+  事件是樣本空間的子集，同樣是一個集合。
+\end{itemize}
+
+    \hypertarget{ux4e8bux4ef6ux7684ux95dcux4fc2}{%
+\paragraph{事件的關係}\label{ux4e8bux4ef6ux7684ux95dcux4fc2}}
+
+\begin{itemize}
+\tightlist
+\item
+  事件的包含：\(A \subseteq B\);
+\item
+  事件的相等：\(A = B\);
+\item
+  互斥事件（互不相容事件）：不能同時出現；
+\item
+  事件的和（並）：\(A cup B\)
+\item
+  事件的差： \(A - B\),\(A\)發生，\(B\)不發生；
+\item
+  對立事件（逆事件）：互斥，必須出現其中一個。
+\end{itemize}
+
+ 事件的運算性質就是集合的性質
+
+    \hypertarget{ux983bux7387ux548cux6982ux7387}{%
+\subsubsection{頻率和概率}\label{ux983bux7387ux548cux6982ux7387}}
+
+\hypertarget{ux983bux7387}{%
+\paragraph{頻率：}\label{ux983bux7387}}
+
+頻率是指\(0～1\)之間的一個實數，在大量重複試驗的基礎上給出了隨機事件發生可能性的估計。
+概率的穩定性：在充分多次試驗中，事件的頻率總在一個定值附近擺動，而且，試驗次數越多擺動越小。這個性質叫做頻率的穩定性。
+
+    \hypertarget{ux6982ux7387}{%
+\paragraph{概率：}\label{ux6982ux7387}}
+
+概率的統計性定義：當試驗次數增加時，隨機時間\(A\)發生的頻率的穩定值為\(p\)就稱為概率。記為\(P(A) = P\)
+概率的公理化定義：設隨機試驗對於的樣本空間為\(S\)。對每一個事件\(A\)，定義為\(P(A)\)，滿足：
+1. 非負性：\(P(A) \geq 0\); 2.
+規範性：\(P(S) = 1; 3. 可列可加性：\)A\_1, A\_2,
+\dots 兩兩互斥，及\(A_iA_j = \oslash, i \neq j\)則
+\(P(\cup A_i) = \sum P(A_i)\)
+
+    \hypertarget{ux689dux4ef6ux6982ux7387conditional-probability}{%
+\paragraph{條件概率（Conditional
+Probability）:}\label{ux689dux4ef6ux6982ux7387conditional-probability}}
+
+\(P(A|B)\)表示在事件\(B\)發生的條件下，事件\(A\)發生的概率，相當於\(A\)在\(B\)所佔的比例。此時，樣本空間從原來的完整樣本空間\(S\)縮小到了\(B\)，由於有了條件的約束（事件\(B\)），使得原本的樣本空間減少了。
+
+    下面我們可以通過韋恩圖做示例： plot one：條件概率的樣本空間； plot
+two：條件概率應如何計算
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{sympy}
+         
+         
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib\PYZus{}venn} \PY{k}{import} \PY{n}{venn3}\PY{p}{,} \PY{n}{venn3\PYZus{}circles}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{venn2}\PY{p}{(}\PY{n}{subsets}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{set\PYZus{}labels} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sample Venn diagram \PYZhy{} plot one}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P(AB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xy}\PY{o}{=}\PY{n}{v}\PY{o}{.}\PY{n}{get\PYZus{}label\PYZus{}by\PYZus{}id}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{xytext}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{70}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{70}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{textcoords}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offset points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bbox}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{boxstyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{round,pad=0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{arrowprops}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{arrowstyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{connectionstyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arc3,rad=0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{sympy}
+         
+         
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib\PYZus{}venn} \PY{k}{import} \PY{n}{venn3}\PY{p}{,} \PY{n}{venn3\PYZus{}circles}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{venn2}\PY{p}{(}\PY{n}{subsets}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{set\PYZus{}labels} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{c} \PY{o}{=} \PY{n}{venn2\PYZus{}circles}\PY{p}{(}\PY{n}{subsets}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dashed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}lw}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{)}
+         \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ls}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sample Venn diagram}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P(AB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xy}\PY{o}{=}\PY{n}{v}\PY{o}{.}\PY{n}{get\PYZus{}label\PYZus{}by\PYZus{}id}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}position}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{xytext}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{70}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{70}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{textcoords}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{offset points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bbox}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{boxstyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{round,pad=0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{arrowprops}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{arrowstyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{connectionstyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arc3,rad=0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \(P(B|A) = \frac{P(AB)}{P(A)}\) \(P(A|B) = \frac{P(AB)}{P(B)}\)
+
+    例題：一個家庭中有兩個小孩，已知至少一個是女孩，問兩個都是女孩的概率是多少？（假設生男生女是等可能的）
+\textbf{解}：由題意可得：樣本空間為
+
+\begin{verbatim}
+S = {(兄,弟), (兄,妹),(姐,弟),(姐,妹)}<br>
+B = {(兄,妹), (姐,弟),(姐,妹)}<br>
+A = {(姐,妹)}<br>
+\end{verbatim}
+
+由於，事件 \(B\) 已經發生了，所以這時試驗的所有可能只有三種，而事件
+\(A\) 包含的基本事件只占其中的一種，所以有：\(P(A|B) = \frac{1}{3}\)
+即，在已知至少一個是女孩的請卡滾下，兩個都是女孩的概率為\(\frac{1}{3}\)。在這個例子中，如果不知道事件
+\(B\) 發生，則事件 \(A\) 發生的概率為 \(P(A) = \frac{1}{4}\) 這裡的
+\(P(A) \neq P(A|B)\)，其中的原因在於事件 \(B\)
+的發生改變了樣本空間，使它由原來的 \(S\) 縮減為新的樣本空間 \(S_B = B\)
+
+    \hypertarget{ux96a8ux6a5fux8b8aux91cfrandom-variable}{%
+\paragraph{隨機變量（Random
+Variable）}\label{ux96a8ux6a5fux8b8aux91cfrandom-variable}}
+
+在幾乎所有教材裡，介紹概率論都是從事件和樣本空間說起的，但是後面的概率論都是圍繞著隨機變量展開的。可以說前面的事件和樣本空間都是引子，引出了隨機變量這個概率論的核心概念。後面的統計學是建立在概率論的理論基礎之上的，因此可以說理解隨機變量這個概念是學習和運用概率論與數理統計的關鍵。
+\textbf{隨機變量}：
+
+\begin{itemize}
+\tightlist
+\item
+  首先這是一個變量，變量與常數相對，也就是說其取值是不明確的，其實隨機變量的整個取值範圍就是前面說的樣本空間；
+\item
+  其次這個量是隨機的，也就是說它的去職代有不確定性，讓然是在樣本空間這個範圍內的。
+\end{itemize}
+
+    \textbf{定義：} \textgreater{} 設隨機試驗的樣本空間是 \(S\) ，若對 \(S\)
+中的每一個樣本點 \(e\) ，都有唯一的實數值 \(X(e)\) 為隨機變量，間記為
+\(X\)
+
+    隨機變量的定義並不複雜，但是理解起來去不是這麼直觀。
+
+\begin{itemize}
+\tightlist
+\item
+  首先，隨即變量與之前定義的事件是有關係的，因為每個樣本點本身就是一個基本事件；
+\item
+  在前面隨機試驗結果的表示中提到，無論是數量化的結果還是非數量化的結果，即不管試驗結果是否與數值有關，都可以引入變量，使試驗結果與數建立對應關係；
+\item
+  隨機變量本質上是一種函數，其目的就是建立試驗結果（樣本中的點，同基本事件\(e\)）與實數之間的對應關係（例如將``正面''影射為\(1\)，``反面''影射為\(0\)）；
+\item
+  自變量為基本事件\(e\)，定義域為樣本空間\(S\)，值域為某個實數集合，多個自變量可以對應同一個函數值，但不允許一個自變量對應多個函數值；
+\item
+  隨機變量\(X\)取某個值或某些值就表示某種事件，且具有一定的概率；
+\item
+  隨機變量中的隨機來源於隨機試驗結果的不確定性。
+\end{itemize}
+
+    我們可以通過引入隨機變量，我們簡化了隨機試驗結果（事件）的表示，從而可以更加方便的對隨機試驗進行研究。
+
+    \textbf{隨機變量的分類}: * 離散隨機變量； * 連續隨機變量； *
+每類隨機變量都有其獨特的概率密度函數和概率分佈函數。
+
+\textbf{隨機變量的數字特徵}： * 期望（均值），眾數，分位數，中位數； *
+方差； * 協方差； * 相關係數。
+
+    \hypertarget{ux96a8ux6a5fux8b8aux91cfrandom-variable}{%
+\subsubsection{隨機變量（Random
+Variable）}\label{ux96a8ux6a5fux8b8aux91cfrandom-variable}}
+
+\emph{對隨機變量以及其取值規律的研究是概率的核心內容。在上一個小結中，總結了隨機變量的概念以及隨機變量與事件的聯繫。這個小結會更加深入的討論隨機變量。}
+
+\hypertarget{ux96a8ux6a5fux8b8aux91cfux8207ux4e8bux4ef6}{%
+\paragraph{隨機變量與事件}\label{ux96a8ux6a5fux8b8aux91cfux8207ux4e8bux4ef6}}
+
+隨機變量的本質是一種函數（映射關係），在古典概率模型中，``事件和事件的概率''是核心概念；但是在現代概率論中，``隨機變量及其取值規律''是核心概念。
+\textbf{隨機變量與事件的聯繫與區別} 小結 1
+中對著練歌概念的聯繫進行了非常詳細的描述。隨機變量實際上只是事件的另一種表達方式，這種表達方式更加的形式化和符號化，也更佳便於理解以及進行邏輯運算。不同的事件，其實就是隨機變量不同取值的組合。在陈希孺先生的書中，有一個很好的例子來說明這兩者的區別：
+\textgreater{}
+對於隨機試驗，我們所關心的往往是與所研究的特定問題有關的某個或某些變量，而這些量就是隨機變量。當然，有事我們所關心的是某個或某些特定的隨機時間。例如，在特定一群人中，年收入在萬元以上的高收入者，以及年收入在\(3000\)元以下的低收入者，各自比率如何？者看上去是兩個孤立的事件。可是當我們引入一個隨機變量\(X\)：
+\textgreater{} \textgreater{} \textgreater{}
+
+\$X = \$ 隨機抽出一個人其年收入
+
+\begin{quote}
+則\(X\)是我們關心的隨機變量。上述兩個事件可以分表表示為\(\{X > 10000\}\)或\(\{X < 3000\}\)。這就看出：\textbf{隨機事件}這個概念實際上包容在\textbf{隨機變量}這個更廣的概念之中。也就是說，隨機事件是靜態的觀點來研究隨機現象，而隨機變量則是一種動態的觀點。「概率論能從計算一些孤立事件的概率發展成為一個更高的理論體系，其根本概念就是隨機變量
+\end{quote}
+
+\emph{這段話，非常清楚的解釋了隨機變量與事件的區別：就跟變量和常量之間的區別那樣}
+
+    \hypertarget{ux96a8ux6a5fux8b8aux91cfux7684ux5206ux985ethe-classification-of-the-random-variable}{%
+\paragraph{隨機變量的分類（The Classification of the Random
+Variable）}\label{ux96a8ux6a5fux8b8aux91cfux7684ux5206ux985ethe-classification-of-the-random-variable}}
+
+\textbf{隨機變量從其可能的取值的性質分為兩大類：離散型隨機變量（Discrete
+Random Variable）和連續性隨機變量（Continuous Random Variable）}
+\#\#\#\#\# 離散型隨機變量（Discrete Random Variable）
+
+離散型隨機變量的取值在整個實數軸上是有間隔的，要麼只有有限個取值，要麼就是無限可數。
+如下圖：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{k}{def} \PY{n+nf}{poisson\PYZus{}pmf}\PY{p}{(}\PY{n}{mu}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{poisson\PYZus{}dis} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{poisson}\PY{p}{(}\PY{n}{mu}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{poisson\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{p}{,} \PY{n}{poisson\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.999}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             
+             \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{poisson\PYZus{}dis}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poisson pmf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{vlines}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{poisson\PYZus{}dis}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PMF of poisson distribution(mu=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{) \PYZhy{} plot three}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{mu}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+         \PY{n}{poisson\PYZus{}pmf}\PY{p}{(}\PY{n}{mu}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[  1.   2.   3.   4.   5.   6.   7.   8.   9.  10.  11.  12.  13.  14.  15.
+  16.  17.]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k}{def} \PY{n+nf}{binom\PYZus{}pmf}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{binom\PYZus{}dis} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{binom}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{p}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{binom\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.0001}\PY{p}{)}\PY{p}{,} \PY{n}{binom\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.9999}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}  
+             
+             \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{binom\PYZus{}dis}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binom pmf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{vlines}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{binom\PYZus{}dis}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PMF of binomial distribution(n=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{, p=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{) \PYZhy{} plot four}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+         
+         \PY{n}{binom\PYZus{}pmf}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[  4.   5.   6.   7.   8.   9.  10.  11.  12.  13.  14.  15.  16.  17.  18.]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  Plot three 是 Poisson Distribution
+\item
+  Plot four 是 Binomal Distribution
+\end{itemize}
+
+常見的\textbf{離散型隨機變量}包括以下這幾種：
+
+\begin{itemize}
+\tightlist
+\item
+  0-1分佈（Bernoulli Distribution）
+\item
+  二項分布（Binomial Distribution）
+\item
+  幾何分佈（Geometric Distribution）
+\item
+  泊松分佈（Poisson Distribution）
+\item
+  超幾何分佈（Hyper-geometric Distribution）
+\end{itemize}
+
+    \hypertarget{ux9023ux7e8cux578bux96a8ux6a5fux8b8aux91cfcontinuous-random-variable}{%
+\subparagraph{連續型隨機變量（Continuous Random
+Variable）}\label{ux9023ux7e8cux578bux96a8ux6a5fux8b8aux91cfcontinuous-random-variable}}
+
+連續型隨機變量的取值要麼包括了整個實數集\((-\infty, \infty)\)，要麼在一個區間內連續，總之，這一類的隨機變量的可能取值要比離散型隨機變量的取值多得多，個數是無窮不可數的。
+
+    \textbf{常見的連續型隨機變量包括以下幾種}：
+
+\begin{itemize}
+\tightlist
+\item
+  均勻分布
+\item
+  指數分佈
+\item
+  正太分佈（\(\gamma\)分佈， \(\beta\)分佈，\(\chi^2\)分佈等）
+\end{itemize}
+
+\hypertarget{ux6982ux7387ux5bc6ux5ea6ux51fdux6578ux7684ux6027ux8cea}{%
+\subparagraph{概率密度函數的性質}\label{ux6982ux7387ux5bc6ux5ea6ux51fdux6578ux7684ux6027ux8cea}}
+
+所有的概率密度函數\(f(x)\)都滿足一下的兩條性質；所有滿足下面兩條性質的一元函數也都可以作為概率密度函數。
+\(f(x) \geq 0\)，以及\(\int_{-\infty}^{+\infty}f(x)dx = 1\).
+
+    \hypertarget{ux96a8ux6a5fux8b8aux91cfux7684ux57faux672cux6027ux8cea}{%
+\paragraph{隨機變量的基本性質}\label{ux96a8ux6a5fux8b8aux91cfux7684ux57faux672cux6027ux8cea}}
+
+隨機變量最主要的性質是其所有可能取到的這些值的取值規律，即取到的概率大小。如果我們把一個隨機變量的所有可能的取值的規律都研究透徹了，那麼這個隨機變量也就研究透徹了。隨機案變量的性質只要有兩類：一類是大而全的性質，這類性質可以詳細描述所有可能取值的概率，律如\textbf{累積分佈函數（Cumulative
+Distribution Funtion）}和\textbf{概率密度函數（Probability Density
+Function）}；另一類是找到該隨機變量的一些特徵或者代表值，例如隨機變量的方差或者期望等數字特徵。常見的隨機變量的性質如下表：
+
+    \begin{longtable}[]{@{}cc@{}}
+\toprule
+name & 解釋\tabularnewline
+\midrule
+\endhead
+CDF: Cumulative Distribution Function &
+連續型和離散型隨機變量都有，一般以\(F(X)\)表示\tabularnewline
+PDF: Probability Density Function &
+連續型隨機變量在各點的取值規律，用\(f(x)\)表示\tabularnewline
+PDF: Probability Density Function &
+連續型隨機變量在各點的取值規律，用\(f(x)\)表示\tabularnewline
+PMF: Probability Mass Function &
+離散型型隨機變量在各特定取值上的概率\tabularnewline
+RVS: Random Variate Sample & 從一個給定分佈取樣\tabularnewline
+PPF: Percentile Point Function & CDF 的反函數\tabularnewline
+IQR: Inter Quartile Range & \(25%\)分位數與\(75%\)
+分位數之差\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \emph{PDF 只有\textbf{連續型隨機變量}才有， PMF
+只有\textbf{離散型隨機變量}才有；一個分佈的 CDF 求導等於 PDF，
+一個分佈的 PDF 積分後就是 CDF}
+
+    \hypertarget{ux4e00ux7dadux96e2ux6563ux578bux96a8ux6a5fux8b8aux91cfux53caux5176-python-ux5be6ux73fe}{%
+\subsubsection{一維離散型隨機變量及其 Python
+實現}\label{ux4e00ux7dadux96e2ux6563ux578bux96a8ux6a5fux8b8aux91cfux53caux5176-python-ux5be6ux73fe}}
+
+上一小節，對隨機變量做了一個概述，這一節主要紀錄以為離散變量以及關於他們的一些性質。對於概率論與數理統計方面的計算以及可視化，主要的\texttt{pyhton}包有\texttt{scipy}，\texttt{numpy}和\texttt{matplotlib}等。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \texttt{scipy} 是 \texttt{python}
+中使用最為廣泛的科學計算工具包，在加上\texttt{numpy}和\texttt{matplotlib}，基本可以處理大多數的計算和作圖任務。下面是\texttt{wikipedia}對\texttt{scipy}的介紹：
+
+\begin{quote}
+SciPy是一个开源的Python算法库和数学工具包。SciPy包含的模块有最优化、线性代数、积分、插值、特殊函数、快速傅里叶变换、信号处理和图像处理、常微分方程求解和其他科学与工程中常用的计算。与其功能相类似的软件还有MATLAB、GNU
+Octave和Scilab。SciPy目前在BSD许可证下发布。它的开发由Enthought资助。
+\end{quote}
+
+我們使用的是 \texttt{scipy}中的
+\texttt{stats}模塊，這個模塊包歡樂概率論以及統計相關的函數。
+相關函數可以查詢： scipy stats
+
+    \hypertarget{ux4f2fux52aaux5229ux5206ux4f48bernoulli-distribution}{%
+\paragraph{伯努利分佈（Bernoulli
+Distribution）}\label{ux4f2fux52aaux5229ux5206ux4f48bernoulli-distribution}}
+
+又名兩點分佈或者\(0-1\)分佈，是一個離散型概率分佈。若伯努利試驗成功，則伯努利隨機變量取值為\(1\)，如果失敗則取值為\(0\)。記其成功概率為\(p(0\leq p \leq 1)\)，失敗概率為：\(q = 1-p\)。其概率質量函數（PMF）
+為：
+
+\(\begin{equation} \nonumber P_X(x) = \left\{ \begin{array}{l l} p& \quad \text{for  } x=1\\ 1-p & \quad \text{ for } x=0\\ 0 & \quad \text{ otherwise } \end{array} \right. \end{equation}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{bernoulli}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{p} \PY{o}{=} \PY{l+m+mf}{0.8}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{bernoulli}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{p}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bernoulli pmf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bernoulli pmf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{1.1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    伯努利分佈只有一個參數\(p\)，記做\(X ~ Bernuolli(p)\)，或\(X ~ B(1,p)\)，讀做\(X\)服從參數為\(p\)的伯努利分佈。伯努利分佈適合於試驗結果只有兩種可能的單次試驗。例如拋一次硬幣，其結果只有正面或者反面兩種可能；一次產品質量檢測，結果只有合格還是不合格這兩種可能。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{bernoulli}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{k}{def} \PY{n+nf}{bernoulli\PYZus{}pmf}\PY{p}{(}\PY{n}{p}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{)}\PY{p}{:}
+        
+            \PY{n}{ber\PYZus{}dist} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{bernoulli}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+            \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{x\PYZus{}name} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{pmf} \PY{o}{=} \PY{p}{[}\PY{n}{ber\PYZus{}dist}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{ber\PYZus{}dist}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{pmf}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{x\PYZus{}name}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PMF of bernoulli distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{bernoulli\PYZus{}pmf}\PY{p}{(}\PY{n}{p}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    上面兩幅圖都是表示伯努利分佈的
+PMF；我們為了得到比較準確的某個服從伯努利分佈的隨機變量的期望，需要大量重複伯努利試驗，例如重複\(n\)次，然後利用\(\frac{正面朝上的次數}{n}\)來估計\(p\)值，當我們重複\(n\)次以後，這就變成了二項分布，就是下面會提到的\textbf{二項分布}。
+
+    \hypertarget{ux4e8cux9879ux5206ux5e03binomial-distribution}{%
+\paragraph{二项分布（Binomial
+Distribution）}\label{ux4e8cux9879ux5206ux5e03binomial-distribution}}
+
+二項分布是指\(n\)個獨立的是/非試驗中成功的次數的離散概率分佈，其中每次試驗的成功概率為\(p\)。這樣的單詞成功/失敗試驗又稱為伯努利試驗。實際上，當\(n = 1\)時，二項分布就是伯努利分佈。二項分布時顯著性差異的二項試驗的基礎。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+         \PY{k}{def} \PY{n+nf}{binom\PYZus{}pmf}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{binom\PYZus{}dis} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{binom}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{p}\PY{p}{)} 
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{binom\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.0001}\PY{p}{)}\PY{p}{,} \PY{n}{binom\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.9999}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(x)  \PYZsh{} [ 0.  1.  2.  3.  4.]}
+             \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{binom\PYZus{}dis}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binom pmf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{vlines}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{binom\PYZus{}dis}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PMF of binomial distribution(n=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{, p=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{binom\PYZus{}pmf}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux4e8cux9805ux5206ux5e03ux548cux5176ux4ed6ux5206ux4f48ux7684ux95dcux4fc2}{%
+\subparagraph{二項分布和其他分佈的關係}\label{ux4e8cux9805ux5206ux5e03ux548cux5176ux4ed6ux5206ux4f48ux7684ux95dcux4fc2}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  二項分布的和 如果\(X~B(n,p)\)
+  和\(Y~B(n,p)\)，且\(X\)和\(Y\)相互獨立，那麼\(X + Y\) 也服從二項分佈：
+  \(X + Y～B（n+m, p)\)
+\item
+  伯努利分佈 二項分布就是\(n\)重伯努利試驗
+\item
+  泊松分佈
+  泊松分佈實際上可以通過二項分布推導出來，當\(n\)很大，\(p\)很小的時候，我們可以通過極限
+  去證明（證明見下方）
+\end{enumerate}
+
+ 我們首先先畫圖來看，當\(n = 100，p = 0.1\)時
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{binom\PYZus{}pmf}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{1000000}\PY{p}{,}\PY{n}{p}\PY{o}{=}\PY{l+m+mf}{0.00001}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} poisson\PYZus{}distribution\PYZus{}PMF}
+         \PY{k}{def} \PY{n+nf}{poisson\PYZus{}pmf}\PY{p}{(}\PY{n}{mu}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            
+             \PY{n}{poisson\PYZus{}dis} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{poisson}\PY{p}{(}\PY{n}{mu}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{poisson\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{p}{,} \PY{n}{poisson\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.999}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(x)}
+             \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{poisson\PYZus{}dis}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ms}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poisson pmf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{vlines}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{poisson\PYZus{}dis}\PY{o}{.}\PY{n}{pmf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PMF of poisson distribution(mu=}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{mu}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{poisson\PYZus{}pmf}\PY{p}{(}\PY{n}{mu}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    由圖可得：兩者近似相等；下面是數學證明：
+
+Let \(X\) be as described, Let \$ k \geq 0\$ be fixed, we write
+\(p = \frac{\lambda}{n}\) and suppose that \(n\) is large. Then:
+
+\(\begin{align*}  Pr(X = k) &= \binom n k p^k \left({1 - p}\right)^{n-k} \\& \simeq \frac {n^k} {k!} \left({\frac \lambda n}\right)^k \left({1 - \frac \lambda n}\right)^n \left({1 - \frac \lambda n}\right)^{-k} \\ &= \frac 1 {k!} \lambda^k \left({1 + \frac {-\lambda} n}\right)^n \left({1 - \frac \lambda n}\right)^{-k} \\ &= \frac 1 {k!} \lambda^k \left({1 + \frac {-\lambda} n}\right)^n \\ &\simeq \frac{1}{k}\lambda^k e^{-\lambda} \end{align*}\)
+
+when \(n \gg k\) it's a reasonable approximation for \$\binom n k \$, as
+\$ 1-p = (1 - \frac{\lambda}{n})\$ is very close to \(1\). Hence the
+result. \textbf{Comment:} Okay wise guy, exactly what constitutes ``very
+large'', ``very small'', and ``of a reasonable size''? Well, if
+\(n = 10^6\) and \(p = 10^{-5}\), we have np = 10 = \lambda\$ That's the
+sort of order of magnitude we're talking about here.
+
+    \hypertarget{ux6ccaux677eux5206ux4f48poisson-distribution}{%
+\paragraph{泊松分佈（Poisson
+Distribution）}\label{ux6ccaux677eux5206ux4f48poisson-distribution}}
+
+泊松分佈有一個參數\(\lambda\)（或\(\mu\)），表示單位事件內隨機事件的平均發生次數，其
+PMF 表示為：
+
+\(\begin{equation}\nonumber P_X(k) = \left\{\begin{array}{l l}\frac{e^{-\lambda} \lambda^k}{k!}& \quad \text{for  } k \in R_X\\ 0 & \quad \text{ otherwise} \end{array} \right. \end{equation}\)
+
+以上表示單位時間上的泊松分佈，即\(t = 1\)，如果表示時間\(t\)上的泊松分佈，則需要將\(\lambda\)乘以\(t\)
+\(\Rightarrow\lambda t\)
+
+一個隨機變量\(X\)服從參數為\(\lambda\)的柏松分佈，記做\(X～Poisson(\lambda)\)，或\(X～P(\lambda)\)。
+
+    泊松分佈適合於描述單位時間內隨機時間發生的次數的概率分佈。如，某一服務設施在一定時間內收到的服務請求的次數，電話交換機接到胡椒的次數，機器出現的故障數，DNA序列的變異數等等。
+
+    \hypertarget{ux4e00ux7dadux9023ux7e8cux578bux96a8ux6a5fux8b8aux91cfux53caux5176-python-ux5be6ux73fe}{%
+\subsubsection{一維連續型隨機變量及其 Python
+實現}\label{ux4e00ux7dadux9023ux7e8cux578bux96a8ux6a5fux8b8aux91cfux53caux5176-python-ux5be6ux73fe}}
+
+上一小節總結了幾種離散型隨機變量，這個小節總結連續型隨機變量。離散型隨機變量的可能取值為有限多個或者無限可數，而連續型隨機變量的可能取值則為一段連續的區域或者整個實數軸，是不可數的。最常見的連續型隨機變量有三種：均勻分布、指數分佈和正太分佈。
+
+    \hypertarget{ux5747ux52fbux5206ux4f48uniform-distribution}{%
+\paragraph{均勻分佈（Uniform
+Distribution）}\label{ux5747ux52fbux5206ux4f48uniform-distribution}}
+
+如果連續型隨機變量\(X\)具有如下的概率目睹函數，則稱\(X\)服從\([a,b]\)上的菊允分佈，記做\(X～U[a,b]\)
+
+\(\begin{equation} \nonumber f_X(x) = \left\{ \begin{array}{l l} \frac{1}{b-a} & \quad a < x < b\\ 0 & \quad x < a \textrm{ or } x > b \end{array} \right. \end{equation}\)
+
+均勻分佈具有等可能性，也就是說服從\(U(a,b)\)上的均勻分佈的隨機變量\(X\)落入\((a,b)\)中國年的任意子區間的概率只與其取件長度有關，與取件所處的位置無關。
+
+    由於是均勻分佈的概率函數是一個常數，因此，其累積分佈函數是一條直線，隨著其取值在定義域內增加，累積分佈函數值均勻增加。
+
+\(\begin{equation} \hspace{70pt} F_X(x) = \left\{ \begin{array}{l l} 0 & \quad \textrm{for } x < a \\ \frac{x-a}{b-a} & \quad \textrm{for }a \leq x \leq b\\ 1 & \quad \textrm{for } x > b \end{array} \right. \hspace{70pt} \end{equation}\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{uniform}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{uniform}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CDF of uniform distribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    均勻分佈主要可以用在： *
+設通過某站的汽車10分鐘一輛，則乘客候車時間\(X\)，在\([0,10]\)上服從均勻分佈；
+*
+某電台每20分鐘發一個信號，我們隨手打開收音機，等待的時間\(X\)在\([0,20]\)上服從均勻分佈
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{k}{def} \PY{n+nf}{uniform\PYZus{}distribution}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    均匀分布，在实际的定义中有两个参数，分布定义域区间的起点和终点[a, b]}
+          \PY{l+s+sd}{    :param loc: 该分布的起点, 相当于a}
+          \PY{l+s+sd}{    :param scale: 区间长度, 相当于 b\PYZhy{}a}
+          \PY{l+s+sd}{    :return:}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{uniform\PYZus{}dis} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{n}{loc}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{n}{scale}\PY{p}{)}
+              \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{uniform\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.01}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{uniform\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.99}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+              \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} 直接传入参数}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{stats}\PY{o}{.}\PY{n}{uniform}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} 从冻结的均匀分布取值}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{uniform\PYZus{}dis}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frozen pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} 计算ppf分别等于0.001, 0.5, 0.999时的x值}
+              \PY{n}{vals} \PY{o}{=} \PY{n}{uniform\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.999}\PY{p}{]}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{vals}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [ 2.004  4.     5.996]}
+          
+              \PY{c+c1}{\PYZsh{} Check accuracy of cdf and ppf}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{allclose}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.999}\PY{p}{]}\PY{p}{,} \PY{n}{uniform\PYZus{}dis}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Ture}
+          
+              \PY{n}{r} \PY{o}{=} \PY{n}{uniform\PYZus{}dis}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stepfilled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF of Unif(}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{loc}\PY{p}{,} \PY{n}{loc}\PY{o}{+}\PY{n}{scale}\PY{p}{)}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{uniform\PYZus{}distribution}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 2.004  4.     5.996]
+True
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    從定義式中可以看出，定義一個均勻分佈需要兩個參數：定義域的起點\(a\)和終點\(b\)，但是在\texttt{Python}中是\texttt{localtion}是\texttt{scale}，分別表示起點和區間長度:
+scripy.stats.uniform
+
+上面的代碼採用了兩種方式\(\Rightarrow\)直接傳入參數和先凍結了一個分佈，然後畫出均勻分佈的概率分佈函數。此外還從該分佈中選取了10000個值做直方圖。
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
