@@ -16,18 +16,18 @@ Here is the link of the origin repo:
 ## My Files
 
 ### HTML
-* <a href="https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Calculus.html">Use Python in Calculus </a>
+* <a href="https://terenceliu98.github.io/Jupytersite//Html/Use_PY_in_Calculus.html">Use Python in Calculus </a>
 <br>
 
-* <a href="https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Linear_Algebra.html">Use Python in Linear Algebra </a>
+* <a href="https://terenceliu98.github.io/Jupytersite//Html/Use_PY_in_Linear_Algebra.html">Use Python in Linear Algebra </a>
 <br>
 
-* <a href="https://terenceliu98.github.io/JupyterSite//Html/Use_PY_in_Advanced_Statstics.html">Use Python in Advanced Statstics</a>
+* <a href="https://terenceliu98.github.io/Jupytersite//Html/Use_PY_in_Advanced_Statstics.html">Use Python in Advanced Statstics</a>
 
 ### Markdown
 
-* https://github.com/TerenceLiu98/JupyterSite/tree/master/Markdown
+* https://github.com/TerenceLiu98/Jupytersite/tree/master/Markdown
 
 ### Slides
 
-* https://terenceliu98.github.io/JupyterSite/
+* https://terenceliu98.github.io/Jupytersite/

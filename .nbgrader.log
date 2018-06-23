@@ -95,3 +95,25 @@
 [NotebookApp | INFO] Shutting down 2 kernels
 [NotebookApp | INFO] Kernel shutdown: 4eb082b1-3b0d-4f35-8de6-2af262b854cb
 [NotebookApp | INFO] Kernel shutdown: eb293a1b-c6d7-441b-8926-7ab12d30f61c
+[NotebookApp | WARNING] No nbgrader_config.py file found (rerun with --debug to see where nbgrader is looking)
+[NotebookApp | INFO] Loading the validate_assignment nbgrader serverextension
+[NotebookApp | INFO] Serving notebooks from local directory: /Users/liujunjie/JupyterSite
+[NotebookApp | INFO] 0 active kernels
+[NotebookApp | INFO] The Jupyter Notebook is running at:
+[NotebookApp | INFO] http://localhost:8888/?token=38fb933e23e76c0a956b326f7903d5234c56ee294836eb86
+[NotebookApp | INFO] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[NotebookApp | CRITICAL] 
+    
+    Copy/paste this URL into your browser when you connect for the first time,
+    to login with a token:
+        http://localhost:8888/?token=38fb933e23e76c0a956b326f7903d5234c56ee294836eb86&token=38fb933e23e76c0a956b326f7903d5234c56ee294836eb86
+[NotebookApp | INFO] Accepting one-time-token-authenticated connection from ::1
+[NotebookApp | INFO] Kernel started: d7cfc786-b595-468c-8011-9eb239488793
+[NotebookApp | INFO] Adapting to protocol v5.1 for kernel d7cfc786-b595-468c-8011-9eb239488793
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Saving file at /Notebooks/Index.ipynb
+[NotebookApp | INFO] Starting buffering for d7cfc786-b595-468c-8011-9eb239488793:c3737997d9ed44459b7b9a250a48b3b0
+[NotebookApp | INFO] interrupted
+[NotebookApp | CRITICAL] Shutdown confirmed
+[NotebookApp | INFO] Shutting down 1 kernel
+[NotebookApp | INFO] Kernel shutdown: d7cfc786-b595-468c-8011-9eb239488793
