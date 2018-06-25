@@ -576,3 +576,432 @@ uniform_distribution(loc=2, scale=4)
 從定義式中可以看出，定義一個均勻分佈需要兩個參數：定義域的起點$a$和終點$b$，但是在`Python`中是`localtion`是`scale`，分別表示起點和區間長度: <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.uniform.html">scripy.stats.uniform</a><br>
 
 上面的代碼採用了兩種方式$\Rightarrow$直接傳入參數和先凍結了一個分佈，然後畫出均勻分佈的概率分佈函數。此外還從該分佈中選取了10000個值做直方圖。
+
+上圖是一個均勻分佈：$U(2,6)$的概率密度函數曲線
+
+#### 指數分佈（Exponentinal Distribution）
+
+在概率論和統計學中，指數分佈（Exponential Distribution）是一種連續型的概率分佈。可以用來表示獨立隨機時間發生的時間間隔，比如旅客進入機場的時間間隔，打進客服中心電話的時間間隔、中文維基百科新條目出現的時間等等。其實，指數分佈和離散型的泊松分佈有很大關係。泊松分佈表示的是單位時間（或單位面積）內隨機時間的平均發生次數，指數分佈則可以用來表示獨立隨機事件發生的時間間隔。由於發生次數之能事自然數，所以泊松分佈很自然就是離散型的隨機變量；而時間間隔則可以是任意的實數，因此其定義域為：$(0, +\infty)$
+
+如果一個隨機變量$X$的概率密度函數滿足以下形式，就稱$X$為服從參數$\lambda$的指數分佈（Exponential
+Distribution），記做$X～E(\lambda)$或$X～Exp(\lambda)$<br>
+
+指數函數只有一個參數$\lambda$，且$\lambda > 0$
+<br>
+<center>
+    $\begin{equation}              \nonumber f_X(x) = \left\{               \begin{array}{l l}                 \lambda e^{-\lambda x} & \quad  x > 0\\                 0 & \quad \textrm{otherwise}               \end{array} \right.             \end{equation}$
+</center>
+<br>
+
+##### 主要用途：
+
+* 表示獨立隨機案時間發生的時間間隔；
+* 在排隊輪中，一個顧客接受服務的時間段也可以用指數分佈來近似；
+* 無記憶性的現象（連續時間）
+
+##### 性質
+
+指數分佈的一個顯著的特點就是具有無記憶性。例如如果排隊的顧客接受服務的時間長短服從指數分佈，那麼無論你已經排了多久的隊伍，在排$t$分鐘的概率始終是相同的。
+<br>
+
+用公式表達則為：<br>
+<center>
+    $P(X \geq s + t | X \geq s) = P(X \geq t) \text{  for all  } s,t > 0$
+</center>
+<br>
+
+
+
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+
+def exponential_dis(loc=0, scale=1.0):
+    """
+    指数分布，exponential continuous random variable
+    按照定义，指数分布只有一个参数lambda，这里的scale = 1/lambda
+    :param loc: 定义域的左端点，相当于将整体分布沿x轴平移loc
+    :param scale: lambda的倒数，loc + scale表示该分布的均值，scale^2表示该分布的方差
+    :return:
+    """
+    exp_dis = stats.expon(loc=loc, scale=scale)
+    x = np.linspace(exp_dis.ppf(0.000001),
+                    exp_dis.ppf(0.999999), 100)
+    fig, ax = plt.subplots(1, 1)
+
+    # 直接传入参数
+    ax.plot(x, stats.expon.pdf(x, loc=loc, scale=scale), 'r-',
+            lw=5, alpha=0.6, label='uniform pdf')
+
+    # 从冻结的均匀分布取值
+    ax.plot(x, exp_dis.pdf(x), 'k-',
+            lw=2, label='frozen pdf')
+
+    # 计算ppf分别等于0.001, 0.5, 0.999时的x值
+    vals = exp_dis.ppf([0.001, 0.5, 0.999])
+    print(vals)  
+
+    # Check accuracy of cdf and ppf
+    print(np.allclose([0.001, 0.5, 0.999], exp_dis.cdf(vals)))
+
+    r = exp_dis.rvs(size=10000)
+    ax.hist(r, normed=True, histtype='stepfilled', alpha=0.2)
+    plt.ylabel('Probability')
+    plt.title(r'PDF of Exp(0.5)')
+    ax.legend(loc='best', frameon=False)
+    plt.show()
+
+exponential_dis(loc=0, scale=2)
+```
+
+    [  2.00100067e-03   1.38629436e+00   1.38155106e+01]
+    True
+
+
+
+![png](Use_PY_in_Advanced_Statistics%20_files/Use_PY_in_Advanced_Statistics%20_54_1.png)
+
+
+上圖是，$Exp(0,5)$的概率分佈函數圖<br>
+
+下面是對不同參數的指數分佈的概率分佈函數圖的比較：
+
+
+```python
+def diff_exp_dis():
+    """
+    不同参数下的指数分布
+    :return:
+    """
+    exp_dis_0_5 = stats.expon(scale=0.5)
+    exp_dis_1 = stats.expon(scale=1)
+    exp_dis_2 = stats.expon(scale=2)
+
+    x1 = np.linspace(exp_dis_0_5.ppf(0.001), exp_dis_0_5.ppf(0.9999), 100)
+    x2 = np.linspace(exp_dis_1.ppf(0.001), exp_dis_1.ppf(0.999), 100)
+    x3 = np.linspace(exp_dis_2.ppf(0.001), exp_dis_2.ppf(0.99), 100)
+    fig, ax = plt.subplots(1, 1)
+    ax.plot(x1, exp_dis_0_5.pdf(x1), 'b-', lw=2, label=r'lambda = 2')
+    ax.plot(x2, exp_dis_1.pdf(x2), 'g-', lw=2, label='lambda = 1')
+    ax.plot(x3, exp_dis_2.pdf(x3), 'r-', lw=2, label='lambda = 0.5')
+    plt.ylabel('Probability')
+    plt.title(r'PDF of Exponential Distribution')
+    ax.legend(loc='best', frameon=False)
+    plt.show()
+
+diff_exp_dis()
+```
+
+
+![png](Use_PY_in_Advanced_Statistics%20_files/Use_PY_in_Advanced_Statistics%20_56_0.png)
+
+
+#### 正態分佈（Normal Distribution）
+
+正態分佈，又名高斯分佈（Gaussian Distribution），是一種非常常見的連續概率分佈，經常用在自然和社會科學中表示一種不明的隨機變量。由於中心極限定理的存在，正太分佈也是所有分佈中應用最廣泛的分佈。<br>
+
+##### 定義：
+
+若隨機變量$X$的概率密度符合以下形式，就稱$X$服從參數為$\mu, \sigma$的正態分佈，記做：$X～N(\mu,\sigma^2)$.
+<br>
+<center>
+    $f_X (x) = \frac{1}{\sqrt{2 \pi } \sigma} \exp \left\{-\frac{(x - \mu)^2}{2 \sigma^2} \right\}, \hspace{20pt} \textrm{for all } x \in \mathbb{R}.$
+</center>
+<br>
+
+如果上式公式中$\mu = 0, \sigma = 1$，就叫做標準正態分佈（Standard Normal Distribution），一般記做$Z～N(0,1)$<br>
+
+由於標準正態分佈在統計學中的重要地位，它的累積分佈函數（CDF）有一個專門的表示符號：$\Phi$，一般在統計相關的書籍附錄中的“標準正太分佈函數值表”就是該值與隨機變量的取值之間的對應關係。
+
+
+```python
+import scipy.stats as stats
+import numpy as np
+import matplotlib.pyplot as plot
+
+fig, ax = plt.subplots(1, 1)
+x = np.linspace(-3,3)
+y = stats.norm.cdf(x, loc=0, scale=1)
+y1 = stats.norm.pdf(x, loc=0, scale=1)
+ax.plot(x,y,'-',label='cdf of standard norm')
+ax.plot(x,y1,'-',label='pdf of standard norm')
+ax.legend( loc='best',frameon=False)
+
+plt.title(r'Standard Normal Distribution')
+
+plt.show()
+```
+
+
+![png](Use_PY_in_Advanced_Statistics%20_files/Use_PY_in_Advanced_Statistics%20_58_0.png)
+
+
+##### 正態分佈兩個參數含義：
+* 當固定$\sigma$，改變$\mu$時，$f(x)$圖形的形狀不變，只是沿著$x$軸做平移變換，因此$\mu$被稱為位置參數（決定了（對稱軸的位置）；
+*當固定$\mu$，改變$\sigma$時，$f(x)$圖形的對稱軸不變，形狀改變，$\sigma$越小，圖形越高越瘦;$\sigma$越大，圖形越矮越胖，因此$\sigma$被稱為尺度參數（決定曲線的分散程度）<br>
+
+下面是示例：
+
+
+```python
+import scipy.stats as stats
+import numpy as np
+import matplotlib.pyplot as plot
+
+fig, ax = plt.subplots(1, 1)
+x = np.linspace(-5,5)
+y = stats.norm.pdf(x, loc=0, scale=1)
+y1 = stats.norm.pdf(x, loc=2, scale=1)
+ax.plot(x,y,'-',label='pdf of norm with mu = 0')
+ax.plot(x,y1,'-',label='pdf of norm with mu = 2')
+ax.legend(loc='best',frameon=True)
+
+plt.title(r'Normal Distribution')
+
+plt.show()
+```
+
+
+![png](Use_PY_in_Advanced_Statistics%20_files/Use_PY_in_Advanced_Statistics%20_60_0.png)
+
+
+
+```python
+import scipy.stats as stats
+import numpy as np
+import matplotlib.pyplot as plot
+
+fig, ax = plt.subplots(1, 1)
+x = np.linspace(-5,5)
+y = stats.norm.pdf(x, loc=0, scale=1)
+y1 = stats.norm.pdf(x, loc=0, scale=2)
+ax.plot(x,y,'-',label='pdf of norm with sigma = 1')
+ax.plot(x,y1,'-',label='pdf of norm with sigma = 2')
+ax.legend(loc='best',frameon=True)
+
+plt.title(r'Normal Distribution')
+
+plt.show()
+```
+
+
+![png](Use_PY_in_Advanced_Statistics%20_files/Use_PY_in_Advanced_Statistics%20_61_0.png)
+
+
+##### 性質：
+
+* $f(x)$關於$x = \mu$對稱；
+* 當$x \leq \mu$時，$f(x)$ 時嚴格單調遞增函數；
+* $f_max = f(\mu) = \frac{1}{\sqrt{2\pi}\sigma}$;
+* 當$X～N(\mu,\sigma^2)$時，$\frac{X - \mu}{\sigma} \sim N(0, 1)$
+<br>
+
+*利用第四點，我們在計算一般的正態分佈時，可以轉化成標準正態分佈進行計算*
+
+
+```python
+def diff_normal_dis():
+
+    norm_dis_0 = stats.norm(0, 1)  # 标准正态分布
+    norm_dis_1 = stats.norm(0, 0.5)
+    norm_dis_2 = stats.norm(0, 2)
+    norm_dis_3 = stats.norm(2, 2)
+
+    x0 = np.linspace(norm_dis_0.ppf(1e-8), norm_dis_0.ppf(0.99999999), 1000)
+    x1 = np.linspace(norm_dis_1.ppf(1e-10), norm_dis_1.ppf(0.9999999999), 1000)
+    x2 = np.linspace(norm_dis_2.ppf(1e-6), norm_dis_2.ppf(0.999999), 1000)
+    x3 = np.linspace(norm_dis_3.ppf(1e-6), norm_dis_3.ppf(0.999999), 1000)
+    fig, ax = plt.subplots(1, 1)
+    ax.plot(x0, norm_dis_0.pdf(x0), 'r-', lw=2, label=r'miu=0, sigma=1')
+    ax.plot(x1, norm_dis_1.pdf(x1), 'b-', lw=2, label=r'miu=0, sigma=0.5')
+    ax.plot(x2, norm_dis_2.pdf(x2), 'g-', lw=2, label=r'miu=0, sigma=2')
+    ax.plot(x3, norm_dis_3.pdf(x3), 'y-', lw=2, label=r'miu=2, sigma=2')
+    plt.ylabel('Probability')
+    plt.title(r'PDF of Normal Distribution')
+    ax.legend(loc='best', frameon=False)
+    plt.show()
+
+diff_normal_dis()
+```
+
+
+![png](Use_PY_in_Advanced_Statistics%20_files/Use_PY_in_Advanced_Statistics%20_63_0.png)
+
+
+### 隨機變量的數字特徵（Numerical Characteristic）
+
+如果說一個隨機變量的分佈函數（累積分佈函數或概率密度分佈）是對隨機變量最完整，最具體的描述，那麼隨機變量的數字特徵就是對該隨機變量特徵的描述。分佈函數就如同一個人的全身像，而數字特徵就像一個人的局部特寫。
+
+#### 常見的數字特徵：
+
+* 數學期望（Expectation）
+* 方差（Variance）
+* 矩（Moments）
+* 協方差和相關係數（Covariance and Correlative Coefficient ）
+
+前面三個數字特徵都是耽擱隨機變量自身的特徵，第四個數字特徵則是表示兩個隨機變量之間的關係，其他數學特種還有中位數，眾數等等
+
+#### 數學期望（Matematical Expectation）
+
+一個隨機變量$X$的數學期望，簡稱期望，也叫做均值（Mean），記做E(X)。常見於隨機變量的定義中，都直接或間接包含了“期望”這個參數，該參數一般於分佈在座標軸上的位置有關。期望與我們平時說的平均值不多，體現的是隨機變量中的“大碩鼠”的取值情況或趨勢。
+<br>
+
+在計算中，隨機變量$X$的平均值E(X)並不等於一個具體樣本集$x$的均值E(x)$\Rightarrow$計算一個具體樣本集的均值時，是將所有的值求和然後除以樣本個數，因為此時的$x$已經是一個具體的數列，而不再具有隨機性$\Rightarrow$隨機變量$X$的均值是加權平均數。
+<br>
+
+例如，一個離散型隨機變量$X$的概率質量分佈列如下：
+<br>
+
+|X|0|1|2|3|4|
+|------|----|----|----|----|----|
+|P(X=x)|0.15|0.30|0.25|0.20|0.10|
+<br>
+
+那麼，根據定義，我們可以算出：$E(X) = \displaystyle \sum_{ i = 1 }^{ n } x_i p_i = 0 \times 0.15 + 1 \times 0.3 + 2 \times 0.25 + 3 \times 0.2 + 4 \times 0.1 = 1.8$；如果我們從該隨機變量中取1個樣本集$x_1 = 1，1，2，4，4$，那麼$E(x_1) = \frac{1 + 1 + 2 + 4 + 4}{5} = 2.4$
+
+此外，正是定義中對期望是否存在給出了明確的定義：在求離散型隨機變量的期望時，需要其和式構成的級數是收斂的；在連續型隨機變量時，也有類似的要求。一個典型的例子：連續型隨機變量「柯西分佈」因為不滿足此條件，所以不具有均值，具體解釋可以參考：<a href"http://web.ipac.caltech.edu/staff/fmasci/home/mystats/CauchyVsGaussian.pdf"> Comparing the Cauchy and Gaussian (Normal) density function</a> 和 <a href="https://stats.stackexchange.com/questions/36027/why-does-the-cauchy-distribution-have-no-mean"> Why does the Cauchy distribution have no mean ? </a>
+
+##### 期望的性質：
+
+* 設$c$為一個常數，則$E(c) = c$;
+* 設$X$是一個隨機變量，$c$是常數，則$E(cX) = cE(X)$;
+* 設$X,Y$是兩個隨機變量，則有$E(X + Y) = E(X) + E(Y)$；<br>
+
+將上面三個性質結合起來，則有：$E(aX + bY + c) = aE(X) + bE(Y) + c$，可以推廣到任意有限個隨機變量線性組合的情況；
+
+* 設$X,Y$是相互獨立的兩個隨機變量，則有$E(XY) = E(X)E(Y)$，可以推廣到任意有限個相互獨立的隨機變量之積的情況。
+
+##### 常見分佈的期望
+
+下面這些分佈的期望是指隨機變量的期望，而不是某個隨機變量抽樣得到的樣本集的期望。在離散隨機變量中，數學期望的物理意義是「一維離散質點系的重心坐標“，在連續型隨機變量中，數學期望的物理意義是「一維連續質點系的重心坐標”。
+<br>
+
+* 0-1 分佈：$X～B(1,p), E(X) = p$;
+* 二項分佈：$X～B(n,p), E(X) = np$;
+* 泊松分佈：$X～P(\lambda), E(X) = \lambda$;
+* 幾何分佈：$X～G(p), E(X) = \frac{1}{p}$;
+* 均勻分佈：$X～N(a, b), E(X) = \frac{a+b}{2}$;
+* 正態分佈：$X～N(\mu, \sigma^2), E(X) = \mu$;
+* 指數分佈，$X～E(\lambda), E(X) = \frac{1}{\lambda}$
+
+##### 樣本均值的計算
+
+在實際的應用中，我們一般都是已知某個分佈的一組樣本，需要求這組樣本的均值。在計算時，定義中的平均值時算術平均值；還有一種是計算幾何平均值，及所有樣本值相乘後開$N$次方，$N$為樣本數。
+<br> 
+
+算術平均值和幾何平均值最大的區別在於：如果樣本中有$0$存在，幾何平均值就等於$0$；如果樣本中不包含$0$，通常算數平均值$\geq$幾何平均值。下面是 $Python$的實現方法
+
+
+```python
+import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt
+
+## 计算平均值
+x = np.arange(1, 11)
+print(x)  # [ 1  2  3  4  5  6  7  8  9 10]
+mean = np.mean(x)
+print(mean)  # 5.5
+
+# 对空值的处理，nan stands for 'Not-A-Number'
+x_with_nan = np.hstack((x, np.nan))
+print(x_with_nan)  # [  1.   2.   3.   4.   5.   6.   7.   8.   9.  10.  nan]
+mean2 = np.mean(x_with_nan)
+print(mean2)  # nan，直接计算没有结果
+mean3 = np.nanmean(x_with_nan)
+print(mean3)  # 5.5
+
+## 计算几何平均值
+x2 = np.arange(1, 11)
+print(x2)  # [ 1  2  3  4  5  6  7  8  9 10]
+geometric_mean = stats.gmean(x2)
+print(geometric_mean)  # 4.52872868812，几何平均值小于等于算数平均值
+```
+
+    [ 1  2  3  4  5  6  7  8  9 10]
+    5.5
+    [  1.   2.   3.   4.   5.   6.   7.   8.   9.  10.  nan]
+    nan
+    5.5
+    [ 1  2  3  4  5  6  7  8  9 10]
+    4.52872868812
+
+
+#### 方差（Variance）
+
+一個隨機變量$X$的方差，刻畫了$X$取值的波動性，是衡量該隨機變量取值分散程度的數字特徵。方差越大，就表示該隨機變量越分散；方差越小，表示該隨機變量越集中。在實際應用中，例如常見的「QC」問題，如果一個工廠的出場的合格評分方差大，說明了優質品和劣質品都比較多，**出品不穩定**；相反，如果方差比較小，說明了合格品比較多，優質品和劣質品較少，**出品穩定**
+
+##### 性質：
+1. 設$c$為常數，則$Var(c) = 0$；
+2. 設$X$是一個隨機變量，$c$是常數，則$Var(cX) = c^2 Var(X)$；特例，$D(-X) = D(X)$；
+3. 設$X, Y$是兩個隨機變量，則有$Var(X + Y) = Var(X) + Var(Y) + 2\cdot tail$，其中，$tail = E[X-E(X)][Y-E(Y)]$. 特別的，如果$X, Y$相互獨立，則$tail = 0$
+4. $Var(X) = 0 \Leftrightarrow P(X = c) =1,$ 且$c = E(X)$ ;
+5. 當$X, Y$相互獨立時，$Var(XY) = Var(X)Var(Y) + Var(X)[E(Y)]^2 +Var(Y)[E(X)]^2$
+<br>
+
+還有一個常用的計算方差的公式：$D(X) = E(X^2) - [E(X)]^2$
+
+##### 常見分佈的方差：
+
+* 0-1 分佈：$X～B(1,p), Var(X) = p(1-p)$;
+* 二項分佈：$X～B(n,p), Var(X) = np(1-p)$;
+* 泊松分佈：$X～P(\lambda), Var(X) = \lambda$;
+* 幾何分佈：$X～G(p), Var(X) = \frac{1-p}{p^2}$;
+* 均勻分佈：$X～N(a, b), Var(X) = \frac{(b-a)^2}{12}$;
+* 正態分佈：$X～N(\mu, \sigma^2), Var(X) = \sigma^2, (\sigma > 0)$;
+* 指數分佈，$X～E(\lambda), Var(X) = \frac{1}{\lambda^2}$
+
+##### 樣本方差的計算
+
+就如同計算均值一樣，通常我們的計算都是從某個分佈中抽樣得到的一組樣本的方差，樣本方差一般使用$S^2$表示，按照方差的定義：
+<br>
+<center>
+    $Var(X) = E{[X - E(X)]^2} = \frac{1}{n} \displaystyle \sum_{i=1}^{n}(X_i - \bar{X})^2$
+</center>
+<br>
+
+其中：$\bar{X} = E(X)$。如果直接用上面的公式計算$S^2$，等同於使用樣本的二階中心距。但是樣本的二階中心距並不是隨機變量$X$這個總體分佈的無偏估計，將上式中的$n$換成$n-1$就得到了樣本方差計算公式，這也是總體方差無偏估計。
+<br>
+<center>
+    $S^2 = \frac{1}{n - 1} \displaystyle \sum_{i=1}^{n}(X_i - \bar{X})^2$
+</center>
+<br>
+
+從直觀來說，由於樣本方差中多了一個約束條件 ——樣本的均值時固定的，$E(X) = \bar{X} \Rightarrrow$如果已知$n-1$樣本，那麼根據均值可以直接計算出第$n$哥樣本的值，因此自由度比計算總體方差的時候減少了$1$個。
+
+
+```python
+import numpy as np
+
+# 参考
+# https://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html
+# https://docs.scipy.org/doc/numpy/reference/generated/numpy.var.html
+
+
+data = np.arange(7, 14)
+print(data)  # [ 7  8  9 10 11 12 13]
+
+## 计算方差
+# 直接使用样本二阶中心距计算方差，分母为n
+var_n = np.var(data)  # 默认，ddof=0
+print(var_n) # 4.0
+# 使用总体方差的无偏估计计算方差，分母为n-1
+var_n_1 = np.var(data, ddof=1)  # 使用ddof设置自由度的偏移量
+print(var_n_1) # 4.67
+
+
+## 计算标准差
+std_n = np.std(data, ddof=0)
+std_n_minus_1 = np.std(data, ddof=1)  # 使用ddof设置自由度的偏移量
+print(std_n, std_n_minus_1)  # 2.0, 2.16
+print(std_n**2, std_n_minus_1**2)  # 4.0, 4.67
+```
+
+    [ 7  8  9 10 11 12 13]
+    4.0
+    4.66666666667
+    2.0 2.16024689947
+    4.0 4.66666666667
+

@@ -964,6 +964,522 @@ scripy.stats.uniform
 
 上面的代碼採用了兩種方式\(\Rightarrow\)直接傳入參數和先凍結了一個分佈，然後畫出均勻分佈的概率分佈函數。此外還從該分佈中選取了10000個值做直方圖。
 
+    上圖是一個均勻分佈：\(U(2,6)\)的概率密度函數曲線
+
+    \hypertarget{ux6307ux6578ux5206ux4f48exponentinal-distribution}{%
+\paragraph{指數分佈（Exponentinal
+Distribution）}\label{ux6307ux6578ux5206ux4f48exponentinal-distribution}}
+
+在概率論和統計學中，指數分佈（Exponential
+Distribution）是一種連續型的概率分佈。可以用來表示獨立隨機時間發生的時間間隔，比如旅客進入機場的時間間隔，打進客服中心電話的時間間隔、中文維基百科新條目出現的時間等等。其實，指數分佈和離散型的泊松分佈有很大關係。泊松分佈表示的是單位時間（或單位面積）內隨機時間的平均發生次數，指數分佈則可以用來表示獨立隨機事件發生的時間間隔。由於發生次數之能事自然數，所以泊松分佈很自然就是離散型的隨機變量；而時間間隔則可以是任意的實數，因此其定義域為：\((0, +\infty)\)
+
+    如果一個隨機變量\(X\)的概率密度函數滿足以下形式，就稱\(X\)為服從參數\(\lambda\)的指數分佈（Exponential
+Distribution），記做\(X～E(\lambda)\)或\(X～Exp(\lambda)\)
+
+指數函數只有一個參數\(\lambda\)，且\(\lambda > 0\)
+
+\(\begin{equation} \nonumber f_X(x) = \left\{ \begin{array}{l l} \lambda e^{-\lambda x} & \quad x > 0\\ 0 & \quad \textrm{otherwise} \end{array} \right. \end{equation}\)
+
+\hypertarget{ux4e3bux8981ux7528ux9014}{%
+\subparagraph{主要用途：}\label{ux4e3bux8981ux7528ux9014}}
+
+\begin{itemize}
+\tightlist
+\item
+  表示獨立隨機案時間發生的時間間隔；
+\item
+  在排隊輪中，一個顧客接受服務的時間段也可以用指數分佈來近似；
+\item
+  無記憶性的現象（連續時間）
+\end{itemize}
+
+    \hypertarget{ux6027ux8cea}{%
+\subparagraph{性質}\label{ux6027ux8cea}}
+
+指數分佈的一個顯著的特點就是具有無記憶性。例如如果排隊的顧客接受服務的時間長短服從指數分佈，那麼無論你已經排了多久的隊伍，在排\(t\)分鐘的概率始終是相同的。
+
+用公式表達則為：
+
+\(P(X \geq s + t | X \geq s) = P(X \geq t) \text{  for all  } s,t > 0\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+        
+        \PY{k}{def} \PY{n+nf}{exponential\PYZus{}dis}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    指数分布，exponential continuous random variable}
+        \PY{l+s+sd}{    按照定义，指数分布只有一个参数lambda，这里的scale = 1/lambda}
+        \PY{l+s+sd}{    :param loc: 定义域的左端点，相当于将整体分布沿x轴平移loc}
+        \PY{l+s+sd}{    :param scale: lambda的倒数，loc + scale表示该分布的均值，scale\PYZca{}2表示该分布的方差}
+        \PY{l+s+sd}{    :return:}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{exp\PYZus{}dis} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{expon}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{n}{loc}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{n}{scale}\PY{p}{)}
+            \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{exp\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.000001}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{exp\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.999999}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} 直接传入参数}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{stats}\PY{o}{.}\PY{n}{expon}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{n}{loc}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{n}{scale}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} 从冻结的均匀分布取值}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{exp\PYZus{}dis}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frozen pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} 计算ppf分别等于0.001, 0.5, 0.999时的x值}
+            \PY{n}{vals} \PY{o}{=} \PY{n}{exp\PYZus{}dis}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.999}\PY{p}{]}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{vals}\PY{p}{)}  
+        
+            \PY{c+c1}{\PYZsh{} Check accuracy of cdf and ppf}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{allclose}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.999}\PY{p}{]}\PY{p}{,} \PY{n}{exp\PYZus{}dis}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{vals}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{r} \PY{o}{=} \PY{n}{exp\PYZus{}dis}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stepfilled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF of Exp(0.5)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{exponential\PYZus{}dis}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[  2.00100067e-03   1.38629436e+00   1.38155106e+01]
+True
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _54_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    上圖是，\(Exp(0,5)\)的概率分佈函數圖
+
+下面是對不同參數的指數分佈的概率分佈函數圖的比較：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{diff\PYZus{}exp\PYZus{}dis}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    不同参数下的指数分布}
+        \PY{l+s+sd}{    :return:}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{exp\PYZus{}dis\PYZus{}0\PYZus{}5} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{expon}\PY{p}{(}\PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+            \PY{n}{exp\PYZus{}dis\PYZus{}1} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{expon}\PY{p}{(}\PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{exp\PYZus{}dis\PYZus{}2} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{expon}\PY{p}{(}\PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        
+            \PY{n}{x1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{exp\PYZus{}dis\PYZus{}0\PYZus{}5}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{p}{,} \PY{n}{exp\PYZus{}dis\PYZus{}0\PYZus{}5}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.9999}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+            \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{exp\PYZus{}dis\PYZus{}1}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{p}{,} \PY{n}{exp\PYZus{}dis\PYZus{}1}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.999}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+            \PY{n}{x3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{exp\PYZus{}dis\PYZus{}2}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{p}{,} \PY{n}{exp\PYZus{}dis\PYZus{}2}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.99}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{exp\PYZus{}dis\PYZus{}0\PYZus{}5}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lambda = 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{exp\PYZus{}dis\PYZus{}1}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x2}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lambda = 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x3}\PY{p}{,} \PY{n}{exp\PYZus{}dis\PYZus{}2}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x3}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lambda = 0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF of Exponential Distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{diff\PYZus{}exp\PYZus{}dis}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _56_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux6b63ux614bux5206ux4f48normal-distribution}{%
+\paragraph{正態分佈（Normal
+Distribution）}\label{ux6b63ux614bux5206ux4f48normal-distribution}}
+
+正態分佈，又名高斯分佈（Gaussian
+Distribution），是一種非常常見的連續概率分佈，經常用在自然和社會科學中表示一種不明的隨機變量。由於中心極限定理的存在，正太分佈也是所有分佈中應用最廣泛的分佈。
+
+\hypertarget{ux5b9aux7fa9}{%
+\subparagraph{定義：}\label{ux5b9aux7fa9}}
+
+若隨機變量\(X\)的概率密度符合以下形式，就稱\(X\)服從參數為\(\mu, \sigma\)的正態分佈，記做：\(X～N(\mu,\sigma^2)\).
+
+\(f_X (x) = \frac{1}{\sqrt{2 \pi } \sigma} \exp \left\{-\frac{(x - \mu)^2}{2 \sigma^2} \right\}, \hspace{20pt} \textrm{for all } x \in \mathbb{R}.\)
+
+如果上式公式中\(\mu = 0, \sigma = 1\)，就叫做標準正態分佈（Standard
+Normal Distribution），一般記做\(Z～N(0,1)\)
+
+由於標準正態分佈在統計學中的重要地位，它的累積分佈函數（CDF）有一個專門的表示符號：\(\Phi\)，一般在統計相關的書籍附錄中的``標準正太分佈函數值表''就是該值與隨機變量的取值之間的對應關係。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plot}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y1} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cdf of standard norm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdf of standard norm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Standard Normal Distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux6b63ux614bux5206ux4f48ux5169ux500bux53c3ux6578ux542bux7fa9}{%
+\subparagraph{正態分佈兩個參數含義：}\label{ux6b63ux614bux5206ux4f48ux5169ux500bux53c3ux6578ux542bux7fa9}}
+
+\begin{itemize}
+\tightlist
+\item
+  當固定\(\sigma\)，改變\(\mu\)時，\(f(x)\)圖形的形狀不變，只是沿著\(x\)軸做平移變換，因此\(\mu\)被稱為位置參數（決定了（對稱軸的位置）；
+  *當固定\(\mu\)，改變\(\sigma\)時，\(f(x)\)圖形的對稱軸不變，形狀改變，\(\sigma\)越小，圖形越高越瘦;\(\sigma\)越大，圖形越矮越胖，因此\(\sigma\)被稱為尺度參數（決定曲線的分散程度）
+\end{itemize}
+
+下面是示例：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plot}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y1} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdf of norm with mu = 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdf of norm with mu = 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{frameon}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normal Distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plot}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y1} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdf of norm with sigma = 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pdf of norm with sigma = 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{frameon}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normal Distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _61_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux6027ux8cea}{%
+\subparagraph{性質：}\label{ux6027ux8cea}}
+
+\begin{itemize}
+\tightlist
+\item
+  \(f(x)\)關於\(x = \mu\)對稱；
+\item
+  當\(x \leq \mu\)時，\(f(x)\) 時嚴格單調遞增函數；
+\item
+  \(f_max = f(\mu) = \frac{1}{\sqrt{2\pi}\sigma}\);
+\item
+  當\(X～N(\mu,\sigma^2)\)時，\(\frac{X - \mu}{\sigma} \sim N(0, 1)\) 
+\end{itemize}
+
+\emph{利用第四點，我們在計算一般的正態分佈時，可以轉化成標準正態分佈進行計算}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{k}{def} \PY{n+nf}{diff\PYZus{}normal\PYZus{}dis}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{norm\PYZus{}dis\PYZus{}0} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 标准正态分布}
+             \PY{n}{norm\PYZus{}dis\PYZus{}1} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+             \PY{n}{norm\PYZus{}dis\PYZus{}2} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{norm\PYZus{}dis\PYZus{}3} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         
+             \PY{n}{x0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{norm\PYZus{}dis\PYZus{}0}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}8}\PY{p}{)}\PY{p}{,} \PY{n}{norm\PYZus{}dis\PYZus{}0}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.99999999}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+             \PY{n}{x1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{norm\PYZus{}dis\PYZus{}1}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}10}\PY{p}{)}\PY{p}{,} \PY{n}{norm\PYZus{}dis\PYZus{}1}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.9999999999}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+             \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{norm\PYZus{}dis\PYZus{}2}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}\PY{p}{,} \PY{n}{norm\PYZus{}dis\PYZus{}2}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.999999}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+             \PY{n}{x3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{norm\PYZus{}dis\PYZus{}3}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}\PY{p}{,} \PY{n}{norm\PYZus{}dis\PYZus{}3}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{l+m+mf}{0.999999}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+             \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x0}\PY{p}{,} \PY{n}{norm\PYZus{}dis\PYZus{}0}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x0}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{miu=0, sigma=1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{norm\PYZus{}dis\PYZus{}1}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{miu=0, sigma=0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{norm\PYZus{}dis\PYZus{}2}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x2}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{miu=0, sigma=2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x3}\PY{p}{,} \PY{n}{norm\PYZus{}dis\PYZus{}3}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x3}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{miu=2, sigma=2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF of Normal Distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frameon}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{diff\PYZus{}normal\PYZus{}dis}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Use_PY_in_Advanced_Statistics _files/Use_PY_in_Advanced_Statistics _63_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ux96a8ux6a5fux8b8aux91cfux7684ux6578ux5b57ux7279ux5fb5numerical-characteristic}{%
+\subsubsection{隨機變量的數字特徵（Numerical
+Characteristic）}\label{ux96a8ux6a5fux8b8aux91cfux7684ux6578ux5b57ux7279ux5fb5numerical-characteristic}}
+
+如果說一個隨機變量的分佈函數（累積分佈函數或概率密度分佈）是對隨機變量最完整，最具體的描述，那麼隨機變量的數字特徵就是對該隨機變量特徵的描述。分佈函數就如同一個人的全身像，而數字特徵就像一個人的局部特寫。
+
+\hypertarget{ux5e38ux898bux7684ux6578ux5b57ux7279ux5fb5}{%
+\paragraph{常見的數字特徵：}\label{ux5e38ux898bux7684ux6578ux5b57ux7279ux5fb5}}
+
+\begin{itemize}
+\tightlist
+\item
+  數學期望（Expectation）
+\item
+  方差（Variance）
+\item
+  矩（Moments）
+\item
+  協方差和相關係數（Covariance and Correlative Coefficient ）
+\end{itemize}
+
+前面三個數字特徵都是耽擱隨機變量自身的特徵，第四個數字特徵則是表示兩個隨機變量之間的關係，其他數學特種還有中位數，眾數等等
+
+    \hypertarget{ux6578ux5b78ux671fux671bmatematical-expectation}{%
+\paragraph{數學期望（Matematical
+Expectation）}\label{ux6578ux5b78ux671fux671bmatematical-expectation}}
+
+一個隨機變量\(X\)的數學期望，簡稱期望，也叫做均值（Mean），記做E(X)。常見於隨機變量的定義中，都直接或間接包含了``期望''這個參數，該參數一般於分佈在座標軸上的位置有關。期望與我們平時說的平均值不多，體現的是隨機變量中的``大碩鼠''的取值情況或趨勢。
+
+在計算中，隨機變量\(X\)的平均值E(X)並不等於一個具體樣本集\(x\)的均值E(x)\(\Rightarrow\)計算一個具體樣本集的均值時，是將所有的值求和然後除以樣本個數，因為此時的\(x\)已經是一個具體的數列，而不再具有隨機性\(\Rightarrow\)隨機變量\(X\)的均值是加權平均數。
+
+例如，一個離散型隨機變量\(X\)的概率質量分佈列如下：
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+X & 0 & 1 & 2 & 3 & 4\tabularnewline
+\midrule
+\endhead
+P(X=x) & 0.15 & 0.30 & 0.25 & 0.20 & 0.10\tabularnewline
+\bottomrule
+\end{longtable}
+
+那麼，根據定義，我們可以算出：\(E(X) = \displaystyle \sum_{ i = 1 }^{ n } x_i p_i = 0 \times 0.15 + 1 \times 0.3 + 2 \times 0.25 + 3 \times 0.2 + 4 \times 0.1 = 1.8\)；如果我們從該隨機變量中取1個樣本集\(x_1 = 1，1，2，4，4\)，那麼\(E(x_1) = \frac{1 + 1 + 2 + 4 + 4}{5} = 2.4\)
+
+    此外，正是定義中對期望是否存在給出了明確的定義：在求離散型隨機變量的期望時，需要其和式構成的級數是收斂的；在連續型隨機變量時，也有類似的要求。一個典型的例子：連續型隨機變量「柯西分佈」因為不滿足此條件，所以不具有均值，具體解釋可以參考：\textless{}a
+href``http://web.ipac.caltech.edu/staff/fmasci/home/mystats/CauchyVsGaussian.pdf''\textgreater{}
+Comparing the Cauchy and Gaussian (Normal) density function 和 Why does
+the Cauchy distribution have no mean ? 
+
+    \hypertarget{ux671fux671bux7684ux6027ux8cea}{%
+\subparagraph{期望的性質：}\label{ux671fux671bux7684ux6027ux8cea}}
+
+\begin{itemize}
+\tightlist
+\item
+  設\(c\)為一個常數，則\(E(c) = c\);
+\item
+  設\(X\)是一個隨機變量，\(c\)是常數，則\(E(cX) = cE(X)\);
+\item
+  設\(X,Y\)是兩個隨機變量，則有\(E(X + Y) = E(X) + E(Y)\)；
+\end{itemize}
+
+將上面三個性質結合起來，則有：\(E(aX + bY + c) = aE(X) + bE(Y) + c\)，可以推廣到任意有限個隨機變量線性組合的情況；
+
+\begin{itemize}
+\tightlist
+\item
+  設\(X,Y\)是相互獨立的兩個隨機變量，則有\(E(XY) = E(X)E(Y)\)，可以推廣到任意有限個相互獨立的隨機變量之積的情況。
+\end{itemize}
+
+    \hypertarget{ux5e38ux898bux5206ux4f48ux7684ux671fux671b}{%
+\subparagraph{常見分佈的期望}\label{ux5e38ux898bux5206ux4f48ux7684ux671fux671b}}
+
+下面這些分佈的期望是指隨機變量的期望，而不是某個隨機變量抽樣得到的樣本集的期望。在離散隨機變量中，數學期望的物理意義是「一維離散質點系的重心坐標``，在連續型隨機變量中，數學期望的物理意義是「一維連續質點系的重心坐標''。
+
+\begin{itemize}
+\tightlist
+\item
+  0-1 分佈：\(X～B(1,p), E(X) = p\);
+\item
+  二項分佈：\(X～B(n,p), E(X) = np\);
+\item
+  泊松分佈：\(X～P(\lambda), E(X) = \lambda\);
+\item
+  幾何分佈：\(X～G(p), E(X) = \frac{1}{p}\);
+\item
+  均勻分佈：\(X～N(a, b), E(X) = \frac{a+b}{2}\);
+\item
+  正態分佈：\(X～N(\mu, \sigma^2), E(X) = \mu\);
+\item
+  指數分佈，\(X～E(\lambda), E(X) = \frac{1}{\lambda}\)
+\end{itemize}
+
+    \hypertarget{ux6a23ux672cux5747ux503cux7684ux8a08ux7b97}{%
+\subparagraph{樣本均值的計算}\label{ux6a23ux672cux5747ux503cux7684ux8a08ux7b97}}
+
+在實際的應用中，我們一般都是已知某個分佈的一組樣本，需要求這組樣本的均值。在計算時，定義中的平均值時算術平均值；還有一種是計算幾何平均值，及所有樣本值相乘後開\(N\)次方，\(N\)為樣本數。
+
+算術平均值和幾何平均值最大的區別在於：如果樣本中有\(0\)存在，幾何平均值就等於\(0\)；如果樣本中不包含\(0\)，通常算數平均值\(\geq\)幾何平均值。下面是
+\(Python\)的實現方法
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} 计算平均值}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [ 1  2  3  4  5  6  7  8  9 10]}
+        \PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{mean}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 5.5}
+        
+        \PY{c+c1}{\PYZsh{} 对空值的处理，nan stands for \PYZsq{}Not\PYZhy{}A\PYZhy{}Number\PYZsq{}}
+        \PY{n}{x\PYZus{}with\PYZus{}nan} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}with\PYZus{}nan}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [  1.   2.   3.   4.   5.   6.   7.   8.   9.  10.  nan]}
+        \PY{n}{mean2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{x\PYZus{}with\PYZus{}nan}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{mean2}\PY{p}{)}  \PY{c+c1}{\PYZsh{} nan，直接计算没有结果}
+        \PY{n}{mean3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nanmean}\PY{p}{(}\PY{n}{x\PYZus{}with\PYZus{}nan}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{mean3}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 5.5}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} 计算几何平均值}
+        \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{x2}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [ 1  2  3  4  5  6  7  8  9 10]}
+        \PY{n}{geometric\PYZus{}mean} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{gmean}\PY{p}{(}\PY{n}{x2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{geometric\PYZus{}mean}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 4.52872868812，几何平均值小于等于算数平均值}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 1  2  3  4  5  6  7  8  9 10]
+5.5
+[  1.   2.   3.   4.   5.   6.   7.   8.   9.  10.  nan]
+nan
+5.5
+[ 1  2  3  4  5  6  7  8  9 10]
+4.52872868812
+
+    \end{Verbatim}
+
+    \hypertarget{ux65b9ux5deevariance}{%
+\paragraph{方差（Variance）}\label{ux65b9ux5deevariance}}
+
+一個隨機變量\(X\)的方差，刻畫了\(X\)取值的波動性，是衡量該隨機變量取值分散程度的數字特徵。方差越大，就表示該隨機變量越分散；方差越小，表示該隨機變量越集中。在實際應用中，例如常見的「QC」問題，如果一個工廠的出場的合格評分方差大，說明了優質品和劣質品都比較多，\textbf{出品不穩定}；相反，如果方差比較小，說明了合格品比較多，優質品和劣質品較少，\textbf{出品穩定}
+
+    \hypertarget{ux6027ux8cea}{%
+\subparagraph{性質：}\label{ux6027ux8cea}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  設\(c\)為常數，則\(Var(c) = 0\)；
+\item
+  設\(X\)是一個隨機變量，\(c\)是常數，則\(Var(cX) = c^2 Var(X)\)；特例，\(D(-X) = D(X)\)；
+\item
+  設\(X, Y\)是兩個隨機變量，則有\(Var(X + Y) = Var(X) + Var(Y) + 2\cdot tail\)，其中，\(tail = E[X-E(X)][Y-E(Y)]\).
+  特別的，如果\(X, Y\)相互獨立，則\(tail = 0\)
+\item
+  \(Var(X) = 0 \Leftrightarrow P(X = c) =1,\) 且\(c = E(X)\) ;
+\item
+  當\(X, Y\)相互獨立時，\(Var(XY) = Var(X)Var(Y) + Var(X)[E(Y)]^2 +Var(Y)[E(X)]^2\)
+\end{enumerate}
+
+還有一個常用的計算方差的公式：\(D(X) = E(X^2) - [E(X)]^2\)
+
+    \hypertarget{ux5e38ux898bux5206ux4f48ux7684ux65b9ux5dee}{%
+\subparagraph{常見分佈的方差：}\label{ux5e38ux898bux5206ux4f48ux7684ux65b9ux5dee}}
+
+\begin{itemize}
+\tightlist
+\item
+  0-1 分佈：\(X～B(1,p), Var(X) = p(1-p)\);
+\item
+  二項分佈：\(X～B(n,p), Var(X) = np(1-p)\);
+\item
+  泊松分佈：\(X～P(\lambda), Var(X) = \lambda\);
+\item
+  幾何分佈：\(X～G(p), Var(X) = \frac{1-p}{p^2}\);
+\item
+  均勻分佈：\(X～N(a, b), Var(X) = \frac{(b-a)^2}{12}\);
+\item
+  正態分佈：\(X～N(\mu, \sigma^2), Var(X) = \sigma^2, (\sigma > 0)\);
+\item
+  指數分佈，\(X～E(\lambda), Var(X) = \frac{1}{\lambda^2}\)
+\end{itemize}
+
+    \hypertarget{ux6a23ux672cux65b9ux5deeux7684ux8a08ux7b97}{%
+\subparagraph{樣本方差的計算}\label{ux6a23ux672cux65b9ux5deeux7684ux8a08ux7b97}}
+
+就如同計算均值一樣，通常我們的計算都是從某個分佈中抽樣得到的一組樣本的方差，樣本方差一般使用\(S^2\)表示，按照方差的定義：
+
+\(Var(X) = E{[X - E(X)]^2} = \frac{1}{n} \displaystyle \sum_{i=1}^{n}(X_i - \bar{X})^2\)
+
+其中：\(\bar{X} = E(X)\)。如果直接用上面的公式計算\(S^2\)，等同於使用樣本的二階中心距。但是樣本的二階中心距並不是隨機變量\(X\)這個總體分佈的無偏估計，將上式中的\(n\)換成\(n-1\)就得到了樣本方差計算公式，這也是總體方差無偏估計。
+
+\(S^2 = \frac{1}{n - 1} \displaystyle \sum_{i=1}^{n}(X_i - \bar{X})^2\)
+
+從直觀來說，由於樣本方差中多了一個約束條件
+------樣本的均值時固定的，\(E(X) = \bar{X} \Rightarrrow\)如果已知\(n-1\)樣本，那麼根據均值可以直接計算出第\(n\)哥樣本的值，因此自由度比計算總體方差的時候減少了\(1\)個。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{c+c1}{\PYZsh{} 参考}
+        \PY{c+c1}{\PYZsh{} https://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html}
+        \PY{c+c1}{\PYZsh{} https://docs.scipy.org/doc/numpy/reference/generated/numpy.var.html}
+        
+        
+        \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [ 7  8  9 10 11 12 13]}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} 计算方差}
+        \PY{c+c1}{\PYZsh{} 直接使用样本二阶中心距计算方差，分母为n}
+        \PY{n}{var\PYZus{}n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{data}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 默认，ddof=0}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{var\PYZus{}n}\PY{p}{)} \PY{c+c1}{\PYZsh{} 4.0}
+        \PY{c+c1}{\PYZsh{} 使用总体方差的无偏估计计算方差，分母为n\PYZhy{}1}
+        \PY{n}{var\PYZus{}n\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{ddof}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 使用ddof设置自由度的偏移量}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{var\PYZus{}n\PYZus{}1}\PY{p}{)} \PY{c+c1}{\PYZsh{} 4.67}
+        
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} 计算标准差}
+        \PY{n}{std\PYZus{}n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{ddof}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{std\PYZus{}n\PYZus{}minus\PYZus{}1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{ddof}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 使用ddof设置自由度的偏移量}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{std\PYZus{}n}\PY{p}{,} \PY{n}{std\PYZus{}n\PYZus{}minus\PYZus{}1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 2.0, 2.16}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{std\PYZus{}n}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{std\PYZus{}n\PYZus{}minus\PYZus{}1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 4.0, 4.67}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 7  8  9 10 11 12 13]
+4.0
+4.66666666667
+2.0 2.16024689947
+4.0 4.66666666667
+
+    \end{Verbatim}
+
 
     % Add a bibliography block to the postdoc
     
