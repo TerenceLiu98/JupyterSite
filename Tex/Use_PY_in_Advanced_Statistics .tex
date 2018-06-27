@@ -1441,7 +1441,8 @@ nan
 \(S^2 = \frac{1}{n - 1} \displaystyle \sum_{i=1}^{n}(X_i - \bar{X})^2\)
 
 從直觀來說，由於樣本方差中多了一個約束條件
-------樣本的均值時固定的，\(E(X) = \bar{X} \Rightarrrow\)如果已知\(n-1\)樣本，那麼根據均值可以直接計算出第\(n\)哥樣本的值，因此自由度比計算總體方差的時候減少了\(1\)個。
+------樣本的均值時固定的，\$E(X) = \bar\{X\}
+\Rightarrow \(如果已知\)n-1\(樣本，那麼根據均值可以直接計算出第\)n\$哥樣本的值，因此自由度比計算總體方差的時候減少了\(1\)個。
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
@@ -1479,6 +1480,192 @@ nan
 4.0 4.66666666667
 
     \end{Verbatim}
+
+    \hypertarget{ux77e9}{%
+\paragraph{矩}\label{ux77e9}}
+
+矩是一個非常廣泛的概念，期望和方差都是矩的特例。
+
+\hypertarget{ux5b9aux7fa9}{%
+\subparagraph{定義：}\label{ux5b9aux7fa9}}
+
+\begin{itemize}
+\tightlist
+\item
+  若\$E(X\^{}k), k = 1, 2,
+  \dots \(存在，則稱\)E(X\^{}k)\(為\)X\(的\)k\(階原點矩，記做\)\alpha\_k
+  = E(X\^{}k)\$；
+\item
+  若\(E[X - E(X)]^k, k = 1, 2, \dots\)存在，則稱\(E[X-E(X)]^k\)為\(X\)的\(k\)階中心距，記做\(\beta_k = E[X-E(X)]^k\)
+\end{itemize}
+
+根據定義，期望\(E(X)\)
+是1階原點矩，方差\(D(X)\)是2階中心距。需要注意的是，就跟上面提到的一樣，樣本的2屆中心距並不是總體方差的無偏估計，樣本方差\(S^2\)的時機計算公式中分母為\(n-1\)，而不是樣本2階中心距中的\(n\)。
+
+\textbf{符號說明}：
+
+\begin{itemize}
+\tightlist
+\item
+  總體k阶原點矩：\(α_k\);
+\item
+  總體k阶中心矩：\(β_k\);
+\item
+  樣本k阶原點矩：\(A_k\);
+\item
+  樣本k阶中心矩：\(B_k\);
+\end{itemize}
+
+    \hypertarget{ux5354ux65b9ux5deecovariance}{%
+\paragraph{協方差（Covariance）}\label{ux5354ux65b9ux5deecovariance}}
+
+上面介紹了幾種隨機變量的數字特徵都是描述耽擱隨機變量拘捕性質的量，協方擦好和相關係數則是用來度量兩個不同的隨機變量之間的相關程度。
+
+\hypertarget{ux5354ux65b9ux5dee}{%
+\subparagraph{協方差}\label{ux5354ux65b9ux5dee}}
+
+如上面介紹方差的性質時，第(3)條提到的那樣：
+
+設\(X, Y\)是兩個隨機變量，則有\$ Var(X + Y) = Var(X) + Var(Y) +
+2\cdot tail\(，其中，\)tail = E{[}X - E(X){]}{[}Y - E(Y){]}.\$
+特別的，若\(X, Y\)相互獨立，那麼\(tial = 0\)，那麼\(tail\)不等於\(0\)，就代表了這兩個隨機變量不相互獨立。\(tail\)就是\(X\)與\(Y\)的協方差。
+
+\hypertarget{ux5b9aux7fa9}{%
+\subparagraph{定義：}\label{ux5b9aux7fa9}}
+
+數值\(E[X-E(Y)][Y-E(Y)]\)為隨機變量\(X\)與\(Y\)的協方差，記做\(Cov(X,Y)\)，即：
+
+\(Cov(X, Y) = E{[X - E(X)][Y - E(Y)]}\)
+
+此時，\(Var(X + Y) = Var(X) + Var(Y) + 2Cov(X,Y)\)，協方差\(Cov(X, Y)\)反映了隨機變量的\(X\)與\(Y\)的線性相關性：
+
+\begin{itemize}
+\tightlist
+\item
+  當\(Cov(X,Y0 > 0\)時，稱\(X\)與\(Y\)正相關；
+\item
+  當\(Cov(X,Y0 < 0\)時，稱\(X\)與\(Y\)負相關；
+\item
+  當\(Cov(X,Y0 = 0\)時，稱\(X\)與\(Y\)無關；
+\end{itemize}
+
+協方差的計算公式可以簡化成：\(Cov(X,Y) = E(XY) - E(X)E(Y)\)
+
+    \hypertarget{ux76f8ux95dcux4fc2ux6578}{%
+\subparagraph{相關係數}\label{ux76f8ux95dcux4fc2ux6578}}
+
+協方差時有量綱的數字特徵，為了消除其量綱的影響，引入了相關係數，在平時的數據分析中協方差很少出現，先港係數出現的頻率非常高。
+
+\(\rho_{XY} = \frac{Cov(X, Y)}{\sqrt{D(X)D(Y)}}\)\\
+
+稱為隨機變量\(X\)與\(Y\)的相關係數。
+
+\hypertarget{ux76f8ux95dcux4fc2ux6578ux7684ux6027ux8cea}{%
+\subparagraph{相關係數的性質}\label{ux76f8ux95dcux4fc2ux6578ux7684ux6027ux8cea}}
+
+\begin{itemize}
+\tightlist
+\item
+  \(|\rho XY|\leq 1\)（相關係數的值位於區間{[}-1,1{]}）；
+\item
+  \(|\rho XY| = 1 \Rightarrow\) 存在常數\(a,b\)使得\(P(Y = a+bX)=1\).
+  特別的，\(\rho XY = 1\)時，\(b > 0\)；\(\rho = 1\)時，\(b < 0\).
+  與協方差，相關係數也是用來表徵兩個隨機變量之間線性關係密切程度的特徵數，有時也稱為「線性相關係數」
+\end{itemize}
+
+    \hypertarget{ux6a23ux672cux5747ux503cux7684ux671fux671bux548cux65b9ux5dee}{%
+\paragraph{樣本均值的期望和方差}\label{ux6a23ux672cux5747ux503cux7684ux671fux671bux548cux65b9ux5dee}}
+
+設隨機變量\(X\)的一組樣本為\(x\)，則樣本的矩陣\(\bar{x} = \frac{1}{n} \displaystyle \sum_{i=1}^{n}x_i\)。此時的樣本\(x\)與樣本均值\(\bar{x}\)都是確定的數值，不具有隨機行。但是，如果我們卻了很多組樣本L：\(x^{(1)}, x^{(2)}, ...\)那麼這些樣本的均值\(\bar{x}^{(1)}, \bar{x}^{(2)}, ...\)就可以組成一個新的隨機變量，可以記做\(\bar{X}\)，每一個樣本均值也可以看作從該隨機變量中抽樣所得。
+
+樣本均值\(\bar{X}\)這個隨機變量時隨機變量\(X\)的函數。根據期望和方差的定義，我們可以求出樣本均值的期望和方差。
+假設隨機變量\(X\)的期望和方差分別是：\(\mu\)和\(\sigma^2\)
+
+\begin{itemize}
+\tightlist
+\item
+  E(\(\bar{X}\)) = \(\mu\)，樣本均值的期望與原隨機變量的期望相同；
+\item
+  Var(\(\bar{X}\)) =
+  \(\frac{\sigma^2}{n}\)，其中\(n\)為每次取樣的樣本量，
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        
+        \PY{k}{def} \PY{n+nf}{mean\PYZus{}and\PYZus{}std\PYZus{}of\PYZus{}sample\PYZus{}mean}\PY{p}{(}\PY{n}{ss}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{group\PYZus{}n}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    不同大小样本均值的均值以及标准差}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{norm\PYZus{}dis} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 定义一个均值为0，标准差为2的正态分布}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{ss}\PY{p}{:}
+                \PY{n}{sample\PYZus{}mean} \PY{o}{=} \PY{p}{[}\PY{p}{]}  \PY{c+c1}{\PYZsh{} 收集每次取样的样本均值}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{group\PYZus{}n}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{sample} \PY{o}{=} \PY{n}{norm\PYZus{}dis}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{n}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 取样本量为n的样本}
+                    \PY{n}{sample\PYZus{}mean}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{sample}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 计算该组样本的均值}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{sample\PYZus{}mean}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{sample\PYZus{}mean}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{sample\PYZus{}size} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}  \PY{c+c1}{\PYZsh{} 每组试验的样本量}
+        \PY{n}{group\PYZus{}num} \PY{o}{=} \PY{l+m+mi}{10000}
+        \PY{n}{mean\PYZus{}and\PYZus{}std\PYZus{}of\PYZus{}sample\PYZus{}mean}\PY{p}{(}\PY{n}{ss}\PY{o}{=}\PY{n}{sample\PYZus{}size}\PY{p}{,} \PY{n}{group\PYZus{}n}\PY{o}{=}\PY{n}{group\PYZus{}num}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.99008474793 -0.0208546895623
+1.00750814281 0.00347718092382
+0.672067720702 0.00687662521186
+0.503784014261 0.00284508641179
+0.20016653808 0.000791586359448
+
+    \end{Verbatim}
+
+    \hypertarget{ux6a23ux672cux5747ux503cux7684ux671fux671bux548cux65b9ux5dee}{%
+\paragraph{樣本均值的期望和方差}\label{ux6a23ux672cux5747ux503cux7684ux671fux671bux548cux65b9ux5dee}}
+
+設隨機變量\(X\)的一組樣本為\(x\)，則樣本的均值\(\bar{x} = \frac{1}{n} \displaystyle \sum_{i=1}^{n}x_i\)。此時的樣本\(x\)與樣本均值\(x\)都是確定的數值，不具有隨機行。但是，如果我們取了很多組樣本：\(x^{(1)}, x^{(2)}, ...\)那麼這些樣本的均值\(\bar{x}^{(1)}, \bar{x}^{(2)}, ...\)就可以組成一個新的隨機變量，可以記做\(\bar{X}\)，每一個樣本均值也可以看做是從該隨機變量中抽樣所得。
+
+樣本均值\(\bar{X}\)這個隨機變量\(X\)的函數。根據期望和方差的定義，我們可以求出樣本均值的期望和方差。假設隨機變量\(X\)的期望和方差分別為\(\mu\)和\(\sigma^2\)
+* \(\E(\bar{X}) = \mu\)，樣本均值的期望與原隨機變量的期望相同； *
+\(D(\bar{X}) = \frac{\sigma^2}{n}\)，其中\(n\)
+為每次取樣的樣本量，這裡的\(n\)不表示樣本組數，而是單組中的樣本量；樣本組數在這裡並沒有體現。這是因為**\(\bar{X}\)的随机性是在获取单组样本时体现出来的（即结果的不确定性），跟组数无关（当每组样本获得之后，数据就不在具有随机性了）。由此可见，每次采样的样本量越多，得到的样本均值的方差也越小，也就表示更加准确，但是取样所用的时间和成本也同时增加了。这就需要在准确型和成本之间做一个权衡。
+
+
+下面用程序做一個測試，測試的是樣本均值的標準差隨著樣本量的變化而發生的變化，如果方差縮小\(n\)倍，那麼理論上標準差會縮小\(\sqrt n\)倍。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        
+        \PY{k}{def} \PY{n+nf}{mean\PYZus{}and\PYZus{}std\PYZus{}of\PYZus{}sample\PYZus{}mean}\PY{p}{(}\PY{n}{ss}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{group\PYZus{}n}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    不同大小样本均值的均值以及标准差}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{norm\PYZus{}dis} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 定义一个均值为0，标准差为2的正态分布}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{ss}\PY{p}{:}
+                \PY{n}{sample\PYZus{}mean} \PY{o}{=} \PY{p}{[}\PY{p}{]}  \PY{c+c1}{\PYZsh{} 收集每次取样的样本均值}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{group\PYZus{}n}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{sample} \PY{o}{=} \PY{n}{norm\PYZus{}dis}\PY{o}{.}\PY{n}{rvs}\PY{p}{(}\PY{n}{n}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 取样本量为n的样本}
+                    \PY{n}{sample\PYZus{}mean}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{sample}\PY{p}{)}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 计算该组样本的均值}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{sample\PYZus{}mean}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{sample\PYZus{}mean}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{sample\PYZus{}size} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}  \PY{c+c1}{\PYZsh{} 每组试验的样本量}
+        \PY{n}{group\PYZus{}num} \PY{o}{=} \PY{l+m+mi}{10000}
+        \PY{n}{mean\PYZus{}and\PYZus{}std\PYZus{}of\PYZus{}sample\PYZus{}mean}\PY{p}{(}\PY{n}{ss}\PY{o}{=}\PY{n}{sample\PYZus{}size}\PY{p}{,} \PY{n}{group\PYZus{}n}\PY{o}{=}\PY{n}{group\PYZus{}num}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.99183803618 0.0461229296359
+1.00674682296 0.0177540329668
+0.668143024892 0.00299211910315
+0.498323040688 -0.00523627140067
+0.201260608929 0.00134588313727
+
+    \end{Verbatim}
+
+    具體的證明過程，可以參考Mean and Variance of Sample Mean
 
 
     % Add a bibliography block to the postdoc
