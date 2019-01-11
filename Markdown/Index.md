@@ -11,7 +11,7 @@ notebooks. Jupyter notebooks go in, html/markdown pages, PDFs, slideshows, and t
 
 Here is the link of the origin repo:
 
-**<center><a href="https://chrisrackauckas.github.io/JupyterSite">JupyterSite-by-Chrisackauckas</a></center>**
+**<a href="https://chrisrackauckas.github.io/JupyterSite">JupyterSite-by-Chrisackauckas</a>**
 
 ## My Files
 
