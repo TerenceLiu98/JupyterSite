@@ -1,17 +1,8 @@
 
+
 # TerenceLau's Jupyter files
 
-## Why I do this
 
-I usually write the files on Jupyter. However, the ipynb cannot show on the website, so, I use Jupytersite to convert .ipynb to HTML, Markdown, LaTeX and PDF. 
-
-JupyterSite allows you to easily build a suite of rendered documents from Jupyter
-notebooks. Jupyter notebooks go in, html/markdown pages, PDFs, slideshows, and tex comes out. If you use this in a Github repository, it will even build a Github pages site. This also shows how to make the notebooks easily accessible in Julia.
-<br>
-
-Here is the link of the origin repo:
-
-**<center><a href="https://chrisrackauckas.github.io/JupyterSite">JupyterSite-by-Chrisackauckas</a></center>**
 
 ## My Files
 
@@ -32,7 +23,13 @@ Here is the link of the origin repo:
 
 * https://terenceliu98.github.io/Jupytersite/
 
+## My Playground
 
-```c
+* <a href="https://rstudio.uicer.xyz"> Rstudio Server </a>
+* <a href="https://jupyter.uicer.xyz"> Jupyter Hub </a>
 
-```
+
+>This Website's Template is Powered by GitHub@ChrisRackauckas
+>
+>**<center><a href="https://chrisrackauckas.github.io/>JupyterSite">JupyterSite-by-Chrisackauckas</a></center>**
+
